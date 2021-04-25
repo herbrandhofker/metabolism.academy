@@ -1,0 +1,44 @@
+import h00 from './data/h00.json';
+import h01 from './data/h01.json';
+import h02 from './data/h02.json';
+import h03 from './data/h03.json';
+import h04 from './data/h04.json';
+import h05 from './data/h05.json';
+import h06 from './data/h06.json';
+import h07 from './data/h07.json';
+import h08 from './data/h08.json';
+import h09 from './data/h09.json';
+import h10 from './data/h10.json';
+import h11 from './data/h11.json';
+import h12 from './data/h12.json';
+import h13 from './data/h13.json';
+import h14 from './data/h14.json';
+import h15 from './data/h15.json';
+import h16 from './data/h16.json';
+import h17 from './data/h17.json';
+import h18 from './data/h18.json';
+import h19 from './data/h19.json';
+
+const content=[];
+content.push(h00);
+content.push(h01);
+content.push(h02);
+content.push(h03);
+content.push(h04);
+content.push(h05);
+content.push(h06);
+content.push(h07);
+content.push(h08);
+content.push(h09);
+content.push(h10);
+content.push(h11);
+content.push(h12);
+content.push(h13);
+content.push(h14);
+content.push(h15);
+content.push(h16);
+content.push(h17);
+content.push(h18);
+content.push(h19);
+
+export default function getContent(){return content}

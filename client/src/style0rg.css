@@ -1,0 +1,156 @@
+:root {
+    --blue: #1e90ff;
+    --white: #ffffff;
+    --grey: lightgrey;
+    --default-margin: 30px;
+    --menutext-size: 0.8em;
+}
+
+body {
+    font-family: sans-serif;
+    background-color: var(--blue);
+    color: var(--white);
+    font-size: 1.2em;
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.heading {
+    text-align: center;
+}
+
+p {
+    margin: var(--default-margin);
+}
+
+button {
+    margin: var(--default-margin);
+}
+
+.dropbtn {
+    color: black;
+    margin: var(--default-margin);
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: var(--white);
+}
+
+.navbar .menu-item {
+    float: left;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: var(--menutext-size);
+}
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.dropdown .dropbtn {
+    border: none;
+    outline: none;
+    font-size: var(--menutext-size);
+    padding: 14px 16px;
+    margin: 0;
+}
+
+.navbar .menu-item:hover, .dropdown:hover .dropbtn {
+    background-color: var(--grey);
+}
+
+.dropdown-content {
+    opacity: 0;
+    transform-origin: top center;
+    position: absolute;
+    background-color: var(--white);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-content .menu-item {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    text-align: left;
+}
+
+.dropdown:hover .dropdown-content {
+    animation: animate 450ms ease-in-out forwards;
+    animation-delay: 200ms;
+}
+
+@keyframes animate {
+    0% {
+        opacity: 0;
+        transform: rotateX(-90deg)
+    }
+    50% {
+        opacity: 0.5;
+        transform: rotateX(20deg)
+    }
+    100% {
+        opacity: 1;
+        transform: rotateX(0deg)
+    }
+}
+
+.buttonbox {
+    display: flex;
+    justify-content: center;
+}
+
+.buttonbox button {
+    padding: 10px;
+    color: var(--white);
+    background-color: var(--blue);
+    border-color: var(--white);
+    font-size: 1.2em;
+}
+
+.buttonbox button:hover {
+    background-color: var(--white);
+    color: black;
+    border-width: 0px;
+}
+
+.specialisations{
+    background-color: var(--white);
+}
+
+.specialisations-title{
+    color: purple;
+}
+
+.images {
+    display: flex;
+    max-width: 100%;
+    justify-content: space-around;
+   
+}
+
+.img-container {
+    display: flex;
+    flex-direction: column; 
+    margin: 10px;
+}
+
+.img-title {
+    align-self: center;
+    margin: 10px;
+    color: orange;
+}
+
+.img-item {
+    max-width: 400px;
+    flex-grow: 1;
+}
+

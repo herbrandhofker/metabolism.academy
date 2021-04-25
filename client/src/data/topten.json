@@ -1,0 +1,88 @@
+[
+   {
+      "problem": "Obesitas",
+      "advices": [
+         {
+            "advice0": "Eat less fat to avoid becoming fat.",
+            "reason0": "What you eat you become",
+            "advice": "Eet more fat to become less fat.",
+            "reason": "Your metabolism runs on fat, the burning fat process is working"
+         }
+      ]
+   },
+   {
+      "problem": "Heart problems",
+      "advices": [
+         {
+            "advice0": "Limit saturated fat.",
+            "reason0": "Saturated fat is bad for your blood vessels",
+            "advice": "Take only saturated fat.",
+            "reason": "Oxydation of unsaturated fat damages your organs."
+         },
+         {
+            "advice0": "Limit intake of eggs. ",
+            "reason0": " The cholesterol is bad for your blood vessels.",
+            "advice": "Take enough eggs.",
+            "reason": "  They contain lot of essential ingedients. The socalled 'bad' cholesterol has good influence.."
+         }
+      ]
+   },
+   {
+      "problem": "High blood pressure",
+      "advices": [
+         {
+            "advice0": "Limit salt intake ",
+            "reason0": "  salt leads to hign blood pressure",
+            "advice": "Take more than 10 gram salt. ",
+            "reason": " The insulin regulates the blood pressure. Excess of salt is easily disposed of."
+         }
+      ]
+   },
+   {
+      "problem": "Mental illness",
+      "advices": [
+         {
+            "advice0": "Mental illnesses (MS, Parkinson's, Alzheimer) are not curable.",
+            "reason0": "  The plack in the brain degrades it's function.",
+            "advice": "Mental illnesses can be avoided/reversed.",
+            "reason": "The mitochondia in the brain should be cared for to keep your brain functioning.The mitochondia is the metabolic engine in all cells, taking care of this engine (fat intake etc.) keeps your brain healthy"
+         }
+      ]
+   },
+   {
+      "problem": "Thyriod disfunction ",
+      "advices": [
+         {
+            "advice0": " with pills you can help your body to keep functioning",
+            "advice": "by taking care of your metabolic engine , your Thyriod repairs itself."
+         }
+      ]
+   },
+   {
+      "problem": "Bone mass reduction",
+      "advices": [
+         {
+            "advice0": "with aging your bone gradually diminishes",
+            "advice": "Bone mass can stay intact: by metabolism, protein and minrals, your bone mass can increase"
+         }
+      ]
+   },
+   {
+      "problem": "Diabetes 2",
+      "advices": [
+         {
+            "advice0": "By medicin you can keep your glucose under control",
+            "advice": "By avoidibg coolhydrate and seed oils, and taking in fat and protein , your glucose and insulinn levels are normal within few days/weeks"
+         }
+      ]
+   },
+   {
+      "problem": "Heart related problems:",
+      "advices": [
+         {
+            "advice0": "some statins maay prolong you life",
+            "advice": "by fighting insulin resistance, you can extend your life (see facts)"
+         }
+      ]
+   }
+]

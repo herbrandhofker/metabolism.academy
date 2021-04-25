@@ -1,0 +1,55 @@
+{
+    "h1": "Extra : some video's from Tim Noakes ",
+    "ol": [
+        {
+            "li":  "Introduction : Science on nutrition is very poor.",
+            "video":  { "id":1,"start":"0:09" , "end":"3:50"}
+        },
+        {
+            "li": "Section 1: the true cause (causa vera) of atherosclerosis/coronary heart disease is unknown",
+            "video":  { "id":1,"start":"3:50" , "end":"17:28"}
+        },
+        {
+            "li": "Section 2: John Gofman developes the Diet-Heart and Lipid Hypotheses. His ideas would be stolen by Ancel Keys",
+            "video":  { "id":1,"start":"17:28" , "end":"33:00"}
+        },
+        {
+            "li": "Section 3: Ancel Keys stole the idea of the Diet-Heart and Lipid Hypotheses from John Gofman.",
+            "video":  { "id":1,"start":"33:00" , "end":"51:00"}
+        },
+        {
+            "li": "Section 4: The essential but vague basis for Ancel Keys' hypothesis.",
+            "video":  { "id":1,"start":"51:00" , "end":"1:05:30"}
+        }
+        ,
+        {
+            "li": "Section 5: The Minnesota Coronary Experiment and other experiments: disapproval of Ancel Keys' hypothesis and the Diet Dictators decided to hide the data ",
+            "video":  { "id":1,"start":"1:05:33" , "end":"1:34:30"}
+        },
+        {
+            "li": "Section 6: No relation between diet and blood cholesterol concentrations: disapproval of the Diet-Heart Hypothesis. ",
+            "video":  { "id":1,"start":"1:34:30" , "end":"1:53:56"}
+        },
+        {
+            "li": "Section 7: MRFIT proves the reversal of all major coronary 'risk' factors, including 'low fat diet'",
+            "video":  { "id":1,"start":"1:53:56" , "end":"2:05:24"}
+        },
+        {
+            "li": "Section 8: The Big Harvard Bribe of 1965.",
+            "video":  { "id":1,"start":"2:05:24" , "end":"2:18:56"}
+        },
+        {
+            "li": "Section 9: The Big Coranary Artery Histology Fraud.",
+            "video":  { "id":1,"start":"2:18:56" , "end":"2:27:24"}
+        },
+        {
+            "li": "Section 10: The Kummerow Model of PUFA-induced.",
+            "video":  { "id":1,"start":"2:27:24" , "end":"2:35:25"}
+        }
+        ,
+        {
+            "li": "Summary and conclusions.",
+            "video":  { "id":1,"start":"2:35:30" , "end":"2:41:20"}
+        }
+    ]
+}

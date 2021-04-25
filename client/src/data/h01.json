@@ -1,0 +1,72 @@
+{
+    "h1": "Education of medical Students",
+    "ol": [
+        {
+            "li": "No knowledge of nutrition",
+            "video": {
+                "id":0,"start": "0:25",
+                "end": "1:07"
+            }
+        },
+        {
+            "li": "Bias is 'eminence based'",
+            "video": {
+                "id":0,"start": "1:07",
+                "end": "2:59"
+            }
+        },
+        {
+            "li": "Situation : doctors cannot give good advice"
+        }
+    ],
+    "details": {
+        "title": "Medical expertise: eminence vs evidence based medicine",
+        "paragraphs": [
+            {
+                "text": "Doctors handling patients based on their professional bias. <a href='https://en.wikipedia.org/wiki/Bias'>Bias is a disproportionate weight in favor of or against an idea or thing</a> "
+            },
+            {
+                "text": "But population has become sick, only 12% healthy on 5 markers"
+            },
+            {
+                "text": "Doctors do not get nutrition in their education. Their advices are based on <b>eminence</b>, they take the information from a person or institute they trust."
+            },
+            {
+                "text": "And this person or institute has take it from another person or institute."
+            },
+            {
+                "text": "And so ignorance on the subject 'Nutrition' is everywhere "
+            },
+            {
+                "text": "Also do not take me for granted: look at the scientific papers we base this on!!"
+            },
+            {
+                "text": "Direct signs of metabolic disfunction: <ul><li>obesity</li><li>skin tags</li><li>skin pegmentation</li><li>erectile function</li><li> funcal (schimmel)</li><li>kouseband afdruk</li></ul>"
+            },
+            {
+                "text": "So a big part (88%) of our population is metabolic unwell. <h4><i>diet may cause this</i></h4>"
+            },
+            {
+                "text": "<h4>strictly following guidelines</h4><p>no or even reverse effects</p>"
+            },
+            {
+                "text": "even litterally starving did not help => even eaten disorder started"
+            },
+            {
+                "text": "And patients shame themselves of failing with guidelines of doctor"
+            },
+            {
+                "text": "Some secretly, against doctor's advice, start keto"
+            },
+            {
+                "text": "10. after recovering  felt how sick she was before"
+            },
+            {
+                "text": "11. science overwhelmingly in favor of low carb"
+            },
+            {
+                "text": "Doctors: stop be blinded by your biases, have an open eye to what evidence is telling"
+            }
+        ]
+    }
+}
