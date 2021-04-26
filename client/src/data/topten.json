@@ -19,7 +19,9 @@
       "advices": [
          {
             "advice0": "By medicin you can keep your glucose under control",
-            "advice": "By avoiding coolhydrate and seed oils, and taking in fat and protein , your glucose and insulinn levels are normal within few days/weeks"
+            "reason0": "you should try to get glucose under 6 mmol/l",
+            "advice": "By avoiding carbohydrate and seed oils, and taking in fat and protein , your glucose and insulinn levels are normal within few days/weeks",
+            "reason": "your insuline resistance is the underlying problem and should be broken down."
          }
       ]
    },
@@ -28,16 +30,20 @@
       "advices": [
          {
             "advice0": "chemo therapy etc. to kill cancer cells",
-            "advice": "Restrict glucose, and cancer cells will die and not multiply"
-         }
+            "reason0": "it is a fight with the mutation of cells to cancer",
+            "advice": "Restrict glucose, and cancer cells will die and not multiply",
+            "reason": "not the mutations of cells is the problem, it is the dysfunctional mytochondria that causes cancer"
+          }
       ]
    },
    {
       "problem": "Arthritis",
       "advices": [
          {
-            "advice0": "xxx",
-            "advice": "yyy"
+            "advice0": "nyi",
+            "reason0": "nyi",
+            "advice": "nyi",
+            "reason": "nyi"          
          }
       ]
    },
@@ -45,7 +51,7 @@
       "problem": "Heart and blood vessel disorders",
       "advices": [
          {
-            "advice0": "Limit saturated fat.",
+            "advice0": "Limit saturated fat, and take statin's.",
             "reason0": "Saturated fat is bad for your blood vessels",
             "advice": "Take only saturated fat.",
             "reason": "Oxydation of unsaturated fat damages your organs."
@@ -74,7 +80,7 @@
       "advices": [
          {
             "advice0": "Mental illnesses (MS, Parkinson's, Alzheimer) are not curable.",
-            "reason0": "  The plack in the brain degrades it's function.",
+            "reason0": "The plaque in the brain degrades it's function.",
             "advice": "Mental illnesses can be avoided/reversed.",
             "reason": "The mitochondia in the brain should be cared for to keep your brain functioning.The mitochondia is the metabolic engine in all cells, taking care of this engine (fat intake etc.) keeps your brain healthy"
          }
@@ -84,8 +90,10 @@
       "problem": "Thyroid disorders",
       "advices": [
          {
-            "advice0": " with pills you can help your body to keep functioning",
-            "advice": "by taking care of your metabolic engine , your Thyriod repairs itself."
+            "advice0": "with pills you can help your body to keep functioning",
+            "reason0": "nyi",
+            "advice": "by taking care of your metabolic engine , your Thyriod repairs itself.",
+            "reason": "nyi"
          }
       ]
    },
@@ -103,7 +111,7 @@
       "problem": "Heart related problems:",
       "advices": [
          {
-            "advice0": "some statins maay prolong you life",
+            "advice0": "some statins may prolong you life",
             "advice": "by fighting insulin resistance, you can extend your life (see facts)"
          }
       ]

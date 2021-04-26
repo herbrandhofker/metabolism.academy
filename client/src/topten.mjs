@@ -18,7 +18,7 @@ const ILLNESSES = [
 ];
 
 const FOODS = [
-    "Carbs",
+    "Carbohydrates (carbs)",
     "Fat",
     "Fat Saturated",
     "Omega 3/Omega 6",
@@ -119,6 +119,7 @@ class TopTen extends LitElement {
                     ${ILLNESSES.map(illness => html`<tr @mouseenter=${e => this.insert(e,illness)} @mouseleave=${e => this.delete(e)}><td>${illness}</td><td><button>Show Video</button></td></tr>`)}
                 </tbody>
             </table>
+            <br/><br/>
             <table class="summary">
                 <caption class="header"><h2>Nutrition to be discussed</h2></caption>
                 <thead class="header">
