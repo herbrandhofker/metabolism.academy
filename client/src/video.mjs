@@ -16,6 +16,8 @@ videos.set(0, "Dr. Paul Mason - -Are you smarter than a Doctor What your doctor 
 videos.set(1, "Prof. Tim Noakes - -The Cholesterol Hypothesis 10 Key Ideas that the Diet Dictators Have Hidden...-");
 videos.set(2, "Dr. Paul Mason - 'Treating and preventing dementia - how diet can work when drugs fail'");
 videos.set(3, "Minding your mitochondria Dr. Terry Wahls TEDxIowaCity");
+videos.set(4, "Treat cancer with Diet Professor Thomas Seyfried makes a compelling case");
+videos.set(5, "How low carbohydrate diets can help you avoid surgery for arthritis");
 const configs = new Map();
 
 /*

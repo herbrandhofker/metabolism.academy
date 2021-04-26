@@ -33,17 +33,24 @@
             "reason0": "it is a fight with the mutation of cells to cancer",
             "advice": "Restrict glucose, and cancer cells will die and not multiply",
             "reason": "not the mutations of cells is the problem, it is the dysfunctional mytochondria that causes cancer"
-          }
+           , "video": {
+               "id":4,"start": "3:00",
+               "end": "3:49"
+           }}
       ]
    },
    {
       "problem": "Arthritis",
       "advices": [
          {
-            "advice0": "nyi",
+            "advice0": "Surgery...nyi",
             "reason0": "nyi",
-            "advice": "nyi",
-            "reason": "nyi"          
+            "advice": "low carb diet to avoid surgery",
+            "reason": "nyi" ,
+              "video": {
+               "id":5,"start": "3:00",
+               "end": "3:49"
+           }        
          }
       ]
    },
@@ -54,7 +61,11 @@
             "advice0": "Limit saturated fat, and take statin's.",
             "reason0": "Saturated fat is bad for your blood vessels",
             "advice": "Take only saturated fat.",
-            "reason": "Oxydation of unsaturated fat damages your organs."
+            "reason": "Oxydation of unsaturated fat damages your organs.",
+            "video": {
+               "id":1,"start": "3:00",
+               "end": "3:49"
+           }
          },
          {
             "advice0": "Limit intake of eggs. ",
@@ -83,7 +94,10 @@
             "reason0": "The plaque in the brain degrades it's function.",
             "advice": "Mental illnesses can be avoided/reversed.",
             "reason": "The mitochondia in the brain should be cared for to keep your brain functioning.The mitochondia is the metabolic engine in all cells, taking care of this engine (fat intake etc.) keeps your brain healthy"
-         }
+           , "video": {
+               "id":2,"start": "3:00",
+               "end": "3:49"
+           }       }
       ]
    },
    {
