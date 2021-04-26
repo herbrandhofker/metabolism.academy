@@ -19,12 +19,30 @@
       "advices": [
          {
             "advice0": "By medicin you can keep your glucose under control",
-            "advice": "By avoidibg coolhydrate and seed oils, and taking in fat and protein , your glucose and insulinn levels are normal within few days/weeks"
+            "advice": "By avoiding coolhydrate and seed oils, and taking in fat and protein , your glucose and insulinn levels are normal within few days/weeks"
          }
       ]
    },
    {
-      "problem": "Heart problems",
+      "problem": "Cancer",
+      "advices": [
+         {
+            "advice0": "chemo therapy etc. to kill cancer cells",
+            "advice": "Restrict glucose, and cancer cells will die and not multiply"
+         }
+      ]
+   },
+   {
+      "problem": "Arthritis",
+      "advices": [
+         {
+            "advice0": "xxx",
+            "advice": "yyy"
+         }
+      ]
+   },
+   {
+      "problem": "Heart and blood vessel disorders",
       "advices": [
          {
             "advice0": "Limit saturated fat.",
@@ -52,7 +70,7 @@
       ]
    },
    {
-      "problem": "Mental illness",
+      "problem": "Dementia",
       "advices": [
          {
             "advice0": "Mental illnesses (MS, Parkinson's, Alzheimer) are not curable.",
@@ -63,7 +81,7 @@
       ]
    },
    {
-      "problem": "Thyriod disfunction ",
+      "problem": "Thyroid disorders",
       "advices": [
          {
             "advice0": " with pills you can help your body to keep functioning",

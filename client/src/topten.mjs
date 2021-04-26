@@ -43,7 +43,6 @@ class TopTen extends LitElement {
         } 
 
         table {
-            width: 90%;         
             border-collapse: collapse;
         }
 
@@ -54,35 +53,7 @@ class TopTen extends LitElement {
 
         th, td {
             padding: 10px;
-        }
-       
-        .detailtable thead th:nth-child(1) {
-            width: 8%;
-        }
-          
-        .detailtable thead th:nth-child(2) {
-            width: 23%;
-        }
-          
-        .detailtable thead th:nth-child(3) {
-            width: 23%;
-        }
-          
-        .detailtable thead th:nth-child(4) {
-            width: 23%;
-        }
-        
-        .detailtable thead th:nth-child(5) {
-            width: 23%;
-        }
-
-        .detailtable .even{
-            background-color: grey;
-        }
-       .datailtable .uneven{
-            background-color: lightgrey;
-            color: black;
-        }
+        }              
 
         .header{
             background-color: white;
@@ -90,21 +61,42 @@ class TopTen extends LitElement {
         }  
   
         .summary{
-            width: 60%;
-            background-color: red;           
-        }
+            width: 80%;
+         }
 
         .summary thead th:nth-child(1) {
-            width: 20%;
+            width: 50%;
         }
 
         .summary thead th:nth-child(2) {
-            width: 40%;
+            width: 50%;
         }
         .summary th {background: var(--primary);}
-       .summary  tr:nth-child(even) {background: #CCC}
+        .summary  tr:nth-child(even) {background: #CCC}
         .summary tr:nth-child(odd) {background: #FFF}
-         
+        .temporary td {background: lightblue;}
+
+        .inner-table {
+            width: 100%;
+        }
+        .inner-table thead th:nth-child(1) {
+            width: 25%;
+        }
+        .inner-table thead th:nth-child(2) {
+            width: 25%;
+        }
+        .inner-table thead th:nth-child(3) {
+            width: 25%;
+        }
+        .inner-table thead th:nth-child(4) {
+            width: 25%;
+        }
+        .inner-table td{
+            background: ligthgrey
+        }
+        .inner-table th{
+            background: yellow
+        }
    `]
     }
 
@@ -124,7 +116,7 @@ class TopTen extends LitElement {
                     </tr>
                 </thead>
                 <tbody>
-                    ${ILLNESSES.map(illness => html`<tr><td>${illness}</td><td><button>Show more</button></td></tr>`)}
+                    ${ILLNESSES.map(illness => html`<tr @mouseenter=${e => this.insert(e,illness)} @mouseleave=${e => this.delete(e)}><td>${illness}</td><td><button>Show Video</button></td></tr>`)}
                 </tbody>
             </table>
             <table class="summary">
@@ -133,21 +125,61 @@ class TopTen extends LitElement {
                     <tr><th>Food</th><th>What science tells us today</th></tr>
                 </thead>
                 <tbody>               
-                    ${FOODS.map(food => html`<tr><td>${food}</td><td><button>Show More</button></tr>`)}
+                    ${FOODS.map(food => html`<tr><td>${food}</td><td><button>Show Video</button></tr>`)}
                 </tbody>
             </table>
             
-            <table class="detailtable">
-                <caption class="header"><h2>A summary of medical problems related to nutrition<br>the current usual advice<br>and the advice according to science</h2></caption>
-                <thead class="header">
-                    <tr><th>Medical\nproblem</th><th>Current advice</th><th>Current given reason</th><th>Advice based on science</th><th>Logic</th><th>Video</th></tr>
-                </thead>
-                <tbody>            
-                    ${topten.map(item => html`${this.showProblem(item, teller++)}`)}
-                </tbody>
-            </table>        
+                   
         </div>
     `;
+    }
+
+    delete(event){
+        let cell=event.target;
+       const tr= cell.parentElement;
+       const tbody= tr.parentElement;
+        const xx= this.shadowRoot.getElementById("xxxx");
+
+        xx.remove()
+     }
+    insert(event, item){
+       let tr=event.target;
+      const tbody= tr.parentElement;
+       const row= tbody.insertRow(tr.rowIndex);
+       row.id="xxxx";
+       row.classList.add("temporary")
+        topten.map(rec => {
+            if(rec.problem==item) {
+                let cell0=row.insertCell(0);                
+                cell0.setAttribute("colspan", "2");
+                const table=cell0.appendChild(document.createElement("table"));
+                table.classList.add("inner-table")
+                const thead=table.appendChild(document.createElement("thead"));
+                let row2=thead.insertRow(0);
+                
+                let cell=row2.appendChild(document.createElement("th"));
+                cell.innerText="today's advice"
+                cell=row2.appendChild(document.createElement("th"));
+                cell.innerText="today's reason"
+                cell=row2.appendChild(document.createElement("th"));
+                cell.innerText="advice based on science"
+                cell=row2.appendChild(document.createElement("th"));
+                cell.innerText="reason based on science"
+               // const button=cell.appendChild(document.createElement("button"));
+              //  button.innerText="show video"
+                const tbody=table.appendChild(document.createElement("tbody"));
+                row2=tbody.insertRow(0);
+                cell= row2.insertCell(0);
+                cell.innerText=rec.advices[0].advice0;
+                cell= row2.insertCell(1);
+                cell.innerText=rec.advices[0].reason0;
+                cell= row2.insertCell(2);
+                cell.innerText=rec.advices[0].advice;
+                cell= row2.insertCell(3);
+                cell.innerText=rec.advices[0].reason;
+               //rec.advices[0].advice0;  
+             //  alert(row)
+              }})
     }
 
     addImg() {
