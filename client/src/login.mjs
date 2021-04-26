@@ -1,7 +1,8 @@
 import { LitElement, html, css } from 'lit-element';
 import {menu} from './menu.mjs'
 
-const socket = new WebSocket("wss://localhost:3001");
+/*
+const socket = new WebSocket("wss://localhost:3000");
 
 socket.onopen = () => {
     console.log("connection")
@@ -11,7 +12,7 @@ socket.onmessage = (event) => {
     console.log('Message from server ', event.data);
     const rec = JSON.parse(event.data);
     console.log('Message type from server ', rec.type);
-};
+};*/
 
 class Login extends LitElement {
 
@@ -53,10 +54,19 @@ class Login extends LitElement {
         .button-box button:hover {
             border-width: 0px;
         }
+
+        .warning{
+            color: red;
+            text-align: center; 
+    
+        }
    `}
     render() {
         return html`
         <section>
+            <div class="warning">
+                <h1>Site is under construction, facts presented has to be checked, and redesign has to be done</h1>
+            </div>
            <div class="heading">
                 <h1>Metabolism in the light of science</h1>
                 <h2>As taught by Dr Paul Mason</h2>
@@ -82,15 +92,15 @@ class Login extends LitElement {
     }
 
     login() {
-        const rec = { "type": "login", "payload": { "email": "pietje.puk@gmail.com" } }
-        socket.send(JSON.stringify(rec));
+     //   const rec = { "type": "login", "payload": { "email": "pietje.puk@gmail.com" } }
+      //  socket.send(JSON.stringify(rec));
         menu.style.display="block";
         login.style.display="none";
+        menu.activate('topten')
     }
 }
 
 customElements.define("my-login", Login);
-
 
 const body = document.getElementsByTagName("body")[0];
 const login=body.appendChild(document.createElement("my-login"))

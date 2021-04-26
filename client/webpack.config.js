@@ -4,12 +4,11 @@ const CopyPlugin = require('copy-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 module.exports = {
   mode: "development",
- // devServer: {
+  // devServer: {
   //  https: true,
- //   port: 3000
-//},
-devtool: 'inline-source-map',
-
+  //   port: 3000
+  //},
+  devtool: 'inline-source-map',
   devtool: 'inline-source-map',
   entry: './src/index.mjs',
   plugins: [
@@ -20,7 +19,7 @@ devtool: 'inline-source-map',
         { from: './src/videos', to: './videos' }
       ],
     }),
-    new FaviconsWebpackPlugin('./favicon.ico') 
+    new FaviconsWebpackPlugin('./favicon.ico')
   ], output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),

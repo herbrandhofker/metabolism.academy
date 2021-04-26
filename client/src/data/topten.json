@@ -6,7 +6,20 @@
             "advice0": "Eat less fat to avoid becoming fat.",
             "reason0": "What you eat you become",
             "advice": "Eet more fat to become less fat.",
-            "reason": "Your metabolism runs on fat, the burning fat process is working"
+            "reason": "Your metabolism runs on fat, the burning fat process is working",
+            "video": {
+               "id":0,"start": "3:00",
+               "end": "3:49"
+           }
+         }
+      ]
+   },
+   {
+      "problem": "Diabetes 2",
+      "advices": [
+         {
+            "advice0": "By medicin you can keep your glucose under control",
+            "advice": "By avoidibg coolhydrate and seed oils, and taking in fat and protein , your glucose and insulinn levels are normal within few days/weeks"
          }
       ]
    },
@@ -67,15 +80,7 @@
          }
       ]
    },
-   {
-      "problem": "Diabetes 2",
-      "advices": [
-         {
-            "advice0": "By medicin you can keep your glucose under control",
-            "advice": "By avoidibg coolhydrate and seed oils, and taking in fat and protein , your glucose and insulinn levels are normal within few days/weeks"
-         }
-      ]
-   },
+  
    {
       "problem": "Heart related problems:",
       "advices": [
