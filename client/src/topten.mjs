@@ -104,7 +104,7 @@ class TopTen extends LitElement {
     render() {
         let teller = 0;
         return html`
-        <div class="container">
+        <section class="container">
             <h1>Common Health Issues, nutrition and what science tells us today</h1>
               
             <table class="summary">
@@ -128,10 +128,8 @@ class TopTen extends LitElement {
                 <tbody>               
                     ${FOODS.map(food => html`<tr><td>${food}</td><td><button>Show Video</button></tr>`)}
                 </tbody>
-            </table>
-            
-                   
-        </div>
+            </table>           
+        </section>
     `;
     }
 

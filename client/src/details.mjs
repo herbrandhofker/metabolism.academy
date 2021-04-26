@@ -5,6 +5,12 @@ import doVideoButton  from './video.mjs';
 const content = getContent();
 
 const stylesCss=css`
+.container {
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+}  
+
 .video-container {
     display: flex;
     flex-direction: column;
@@ -73,9 +79,11 @@ class Details extends LitElement {
 
     render() {
         let teller = 0;
-        return html`     
+        return html`
+        <section class="container">     
             <h1>Nutricion: the underestimated driving force for health</h1>
-            <div>${content.map(chapter => this.doChapter(chapter, teller++))}</div)
+            <div>${content.map(chapter => this.doChapter(chapter, teller++))}</div>
+        </section>
          `;
     }
 
