@@ -103,7 +103,7 @@ class TopTen extends LitElement {
 
     render() {
         let teller = 0;
-        return html`
+        return html` 
         <section class="container">
             <h1>Common Health Issues, nutrition and what science tells us today</h1>
               
@@ -116,7 +116,7 @@ class TopTen extends LitElement {
                     </tr>
                 </thead>
                 <tbody>
-                    ${ILLNESSES.map(illness => html`<tr @mouseenter=${e => this.insert(e,illness)} @mouseleave=${e => this.delete(e)}><td>${illness}</td><td><button>Show Video</button></td></tr>`)}
+                    ${ILLNESSES.map(illness => html`<tr @mouseenter=${e => this.insert(e, illness)} @mouseleave=${e => this.delete(e)}><td>${illness}</td><td><button>Show Video</button></td></tr>`)}
                 </tbody>
             </table>
             <br/><br/>
@@ -126,59 +126,60 @@ class TopTen extends LitElement {
                     <tr><th>Food</th><th>What science tells us today</th></tr>
                 </thead>
                 <tbody>               
-                    ${FOODS.map(food => html`<tr><td>${food}</td><td><button>Show Video</button></tr>`)}
+                    ${FOODS.map(food => html`<tr><td>${food}</td><td><a href="#${food}">Show Video${food}</a></tr>`)}
                 </tbody>
-            </table>           
-        </section>
+            </table>          
+           </section>
     `;
     }
 
-    delete(event){
-        let cell=event.target;
-       const tr= cell.parentElement;
-       const tbody= tr.parentElement;
-        const xx= this.shadowRoot.getElementById("xxxx");
+    delete(event) {
+        let cell = event.target;
+        const tr = cell.parentElement;
+        const tbody = tr.parentElement;
+        const xx = this.shadowRoot.getElementById("xxxx");
 
         xx.remove()
-     }
-    insert(event, item){
-       let tr=event.target;
-      const tbody= tr.parentElement;
-       const row= tbody.insertRow(tr.rowIndex);
-       row.id="xxxx";
-       row.classList.add("temporary")
+    }
+    insert(event, item) {
+        let tr = event.target;
+        const tbody = tr.parentElement;
+        const row = tbody.insertRow(tr.rowIndex);
+        row.id = "xxxx";
+        row.classList.add("temporary")
         topten.map(rec => {
-            if(rec.problem==item) {
-                let cell0=row.insertCell(0);                
+            if (rec.problem == item) {
+                let cell0 = row.insertCell(0);
                 cell0.setAttribute("colspan", "2");
-                const table=cell0.appendChild(document.createElement("table"));
+                const table = cell0.appendChild(document.createElement("table"));
                 table.classList.add("inner-table")
-                const thead=table.appendChild(document.createElement("thead"));
-                let row2=thead.insertRow(0);
-                
-                let cell=row2.appendChild(document.createElement("th"));
-                cell.innerText="today's advice"
-                cell=row2.appendChild(document.createElement("th"));
-                cell.innerText="today's reason"
-                cell=row2.appendChild(document.createElement("th"));
-                cell.innerText="advice based on science"
-                cell=row2.appendChild(document.createElement("th"));
-                cell.innerText="reason based on science"
-               // const button=cell.appendChild(document.createElement("button"));
-              //  button.innerText="show video"
-                const tbody=table.appendChild(document.createElement("tbody"));
-                row2=tbody.insertRow(0);
-                cell= row2.insertCell(0);
-                cell.innerText=rec.advices[0].advice0;
-                cell= row2.insertCell(1);
-                cell.innerText=rec.advices[0].reason0;
-                cell= row2.insertCell(2);
-                cell.innerText=rec.advices[0].advice;
-                cell= row2.insertCell(3);
-                cell.innerText=rec.advices[0].reason;
-               //rec.advices[0].advice0;  
-             //  alert(row)
-              }})
+                const thead = table.appendChild(document.createElement("thead"));
+                let row2 = thead.insertRow(0);
+
+                let cell = row2.appendChild(document.createElement("th"));
+                cell.innerText = "today's advice"
+                cell = row2.appendChild(document.createElement("th"));
+                cell.innerText = "today's reason"
+                cell = row2.appendChild(document.createElement("th"));
+                cell.innerText = "advice based on science"
+                cell = row2.appendChild(document.createElement("th"));
+                cell.innerText = "reason based on science"
+                // const button=cell.appendChild(document.createElement("button"));
+                //  button.innerText="show video"
+                const tbody = table.appendChild(document.createElement("tbody"));
+                row2 = tbody.insertRow(0);
+                cell = row2.insertCell(0);
+                cell.innerText = rec.advices[0].advice0;
+                cell = row2.insertCell(1);
+                cell.innerText = rec.advices[0].reason0;
+                cell = row2.insertCell(2);
+                cell.innerText = rec.advices[0].advice;
+                cell = row2.insertCell(3);
+                cell.innerText = rec.advices[0].reason;
+                //rec.advices[0].advice0;  
+                //  alert(row)
+            }
+        })
     }
 
     addImg() {

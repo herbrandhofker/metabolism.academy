@@ -90,10 +90,17 @@ class Details extends LitElement {
     doChapter(chapter, teller) {
         return html`
         <div id=${teller + "_"}>
-            <h1>${teller + ". " + chapter.h1}</h1>
+            <h1 ${this.getId(chapter.id)}>${teller + ". " + chapter.h1}</h1>
             ${chapter.video ? doVideoButton(this.shadowRoot,teller + "_", chapter.video, chapter.h1) : null}         
             ${this.doOl(chapter.ol, teller)}
         </div>`;
+    }
+
+    getId(id){
+        if (id){
+            return html`id=${id}`;
+        }
+        return null;
     }
 
     doOl(ol, teller) {
