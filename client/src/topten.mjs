@@ -116,7 +116,7 @@ class TopTen extends LitElement {
                     </tr>
                 </thead>
                 <tbody>
-                    ${ILLNESSES.map(illness => html`<tr @mouseenter=${e => this.insert(e, illness)} @mouseleave=${e => this.delete(e)}><td>${illness}</td><td><button>Show Video</button></td></tr>`)}
+                    ${ILLNESSES.map(illness => html`<tr @mouseenter=${e => this.insert(e, illness)} @mouseleave=${e => this.delete(e)}><td>${illness}</td><td>xxx</td></tr>`)}
                 </tbody>
             </table>
             <br/><br/>
@@ -133,6 +133,7 @@ class TopTen extends LitElement {
     `;
     }
 
+
     delete(event) {
         let cell = event.target;
         const tr = cell.parentElement;
@@ -141,6 +142,7 @@ class TopTen extends LitElement {
 
         xx.remove()
     }
+    
     insert(event, item) {
         let tr = event.target;
         const tbody = tr.parentElement;
@@ -148,10 +150,13 @@ class TopTen extends LitElement {
         row.id = "xxxx";
         row.classList.add("temporary")
         topten.map(rec => {
-            if (rec.problem == item) {
+            if (rec.problem == item) {               
                 let cell0 = row.insertCell(0);
                 cell0.setAttribute("colspan", "2");
-                const table = cell0.appendChild(document.createElement("table"));
+                const div = cell0.appendChild(document.createElement("div"));
+                const span = div.appendChild(document.createElement("span"));
+                span.id=rec.problem;
+                const table = div.appendChild(document.createElement("table"));
                 table.classList.add("inner-table")
                 const thead = table.appendChild(document.createElement("thead"));
                 let row2 = thead.insertRow(0);
