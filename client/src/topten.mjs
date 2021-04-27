@@ -138,14 +138,14 @@ class TopTen extends LitElement {
             detailRow.remove()}
         let tr = event.target;
         const tbody = tr.parentElement;
-        const row = tbody.insertRow(tr.rowIndex);
-        row.id = "detailRow";
-        row.classList.add("temporary")
+        detailRow = tbody.insertRow(tr.rowIndex);
+        detailRow.id = "detailRow";
+        detailRow.classList.add("temporary")
         topten.map(rec => {
             if (rec.problem == item) {
-                let cell0 = row.insertCell(0);
-                cell0.setAttribute("colspan", "2");
-                const div = cell0.appendChild(document.createElement("div"));
+                let cell = detailRow.insertCell(0);
+                cell.setAttribute("colspan", "2");
+                const div = cell.appendChild(document.createElement("div"));
                 if (rec.advices[0].video) {
                     const span = div.appendChild(document.createElement("span"));
                     span.id = rec.problem;
@@ -157,27 +157,27 @@ class TopTen extends LitElement {
                 const table = div.appendChild(document.createElement("table"));
                 table.classList.add("inner-table")
                 const thead = table.appendChild(document.createElement("thead"));
-                let row2 = thead.insertRow(0);
+                let row = thead.insertRow(0);
 
-                let cell = row2.appendChild(document.createElement("th"));
+                cell = row.appendChild(document.createElement("th"));
                 cell.innerText = "today's advice"
-                cell = row2.appendChild(document.createElement("th"));
+                cell = row.appendChild(document.createElement("th"));
                 cell.innerText = "today's reason"
-                cell = row2.appendChild(document.createElement("th"));
+                cell = row.appendChild(document.createElement("th"));
                 cell.innerText = "advice based on science"
-                cell = row2.appendChild(document.createElement("th"));
+                cell = row.appendChild(document.createElement("th"));
                 cell.innerText = "reason based on science"
                 // const button=cell.appendChild(document.createElement("button"));
                 //  button.innerText="show video"
                 const tbody = table.appendChild(document.createElement("tbody"));
-                row2 = tbody.insertRow(0);
-                cell = row2.insertCell(0);
+                row = tbody.insertRow(0);
+                cell = row.insertCell(0);
                 cell.innerText = rec.advices[0].advice0;
-                cell = row2.insertCell(1);
+                cell = row.insertCell(1);
                 cell.innerText = rec.advices[0].reason0;
-                cell = row2.insertCell(2);
+                cell = row.insertCell(2);
                 cell.innerText = rec.advices[0].advice;
-                cell = row2.insertCell(3);
+                cell = row.insertCell(3);
                 cell.innerText = rec.advices[0].reason;
                 //rec.advices[0].advice0;  
                 //  alert(row)
