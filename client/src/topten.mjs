@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit-element';
-import doVideoButton from './video.mjs';
+import  './video.mjs';
 
 import stylesCss from './details.mjs'
 import topten from './data/topten.json';

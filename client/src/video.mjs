@@ -20,240 +20,228 @@ videos.set(4, "Treat cancer with Diet Professor Thomas Seyfried makes a compelli
 videos.set(5, "How low carbohydrate diets can help you avoid surgery for arthritis");
 const configs = new Map();
 
-/*
+
 class Video extends LitElement {
 
-    constructor(){
+    constructor() {
         super();
+        this.videoData=null;
+        this.title="dummy title"
     }
 
     static get styles() {
-        return css` ` ;
+        return css` `;
     }
 
     static get properties() {
-        return { 
-            parentId: String,
+        return {
             videoData: Object,
             title: String
         };
-      }
+    }
 
     render() {
-        return doVideoButton(this.shadowRoot, parentId, videoData, title)
+        return html`<button @click=${e => { this.xx(e) }}>Details</button>`;
+        //       return doVideoButton(this.shadowRoot, parentId, videoData, title)
+    }
+
+    xx(e) {
+        let vc = document.createElement("div");
+        vc.innerText = "dummy video"
+        console.log(this.videoData);
+        vc=createVideo(this.videoData,this.title);
+        e.target.parentNode.appendChild(vc);
+       //.style.display = "none";
     }
 }
-
 
 customElements.define("my-video", Video);
-*/
 
+function createVideo( videoData, title) {
+    const vc = getStaticVideo(videoData.id);
+    if (vc.parentNode) {
+        vc.remove();
+    }
+    const start = getSeconds(videoData.start);
+    const end = getSeconds(videoData.end);
+    const config = configs.get(videoData.id);
+    config.video.currentTime = start;
+    config.data.current = start;
+    config.data.start = start;
+    config.data.end = end;
+    config.data.titleEl.innerText = title;
+    config.vc.style.display = "block";
+    config.video.play();
+    return vc;
 
+    function getMp4(videoId) {
+        return videos.get(videoId);
+    }
 
-function doVideoButton(shadowRoot, parentId, videoData, title) {
-    if (videoData == null)
-        return null;
-    return html`
-    <button @click=${e => { showVideo(parentId, videoData, title) }}>Details</button>
-   `
+    function getStaticVideo(videoId) {
+        if (configs.has(videoId))
+            return configs.get(videoId).vc;
 
-    function showVideo(parentId, videoData, title) {
-        const parent = shadowRoot.getElementById(parentId);
-        if (!parent) { console.error("parent of video with id " + parentId + " is null"); return; }
-        createVideo(parent, videoData, title);
+        const videoContainer = document.createElement("div");
+        videoContainer.classList.add("video-container")
+        const video = videoContainer.appendChild(document.createElement("video"));
+        const config = { data: {} };
+        config.vc = videoContainer;
+        config.video = video;
+        const bottomSection = videoContainer.appendChild(document.createElement("div"));
+        bottomSection.classList.add("video-bottom-section")
+        const btnBox = bottomSection.appendChild(document.createElement("div"));
+        btnBox.classList.add("button-box");
+        const titleEl = bottomSection.appendChild(document.createElement("label"));
+        titleEl.classList.add("video-title");
 
+        config.data.titleEl = titleEl;
 
-        function createVideo(parent, videoData, title) {
-            const vc = getStaticVideo(videoData.id);
-            if (vc.parentNode) {
-                vc.remove();
-            }
-            parent.appendChild(vc);
-            const start = getSeconds(videoData.start);
-            const end = getSeconds(videoData.end);
-            const config = configs.get(videoData.id);
-            config.video.currentTime = start;
-            config.data.current = start;
-            config.data.start = start;
-            config.data.end = end;
-            config.data.titleEl.innerText = title;
-            config.vc.style.display = "block";
-            config.video.play();
+        const source = config.video.appendChild(document.createElement("source"));
+        console.log(videoId + " " + getMp4(videoId))
+        source.src = "../videos/" + getMp4(videoId) + ".mp4";
+        source.type = "video/mp4";
+        let promise = config.video.play();
+        if (promise !== undefined) {
+            promise.then(_ => {
+                console.log("Autoplay started!");
+                playButton.innerHTML = pauseSvg;
 
-            function getMp4(videoId) {
-                return videos.get(videoId);
-            }
-
-            function getStaticVideo(videoId) {
-                if (configs.has(videoId))
-                    return configs.get(videoId).vc;
-
-                const videoContainer = document.createElement("div");
-                videoContainer.classList.add("video-container")
-                const video = videoContainer.appendChild(document.createElement("video"));
-                const config = { data: {} };
-                config.vc = videoContainer;
-                config.video = video;
-                const bottomSection = videoContainer.appendChild(document.createElement("div"));
-                bottomSection.classList.add("video-bottom-section")
-                const btnBox = bottomSection.appendChild(document.createElement("div"));
-                btnBox.classList.add("button-box");
-                const titleEl = bottomSection.appendChild(document.createElement("label"));
-                titleEl.classList.add("video-title");
-
-                config.data.titleEl = titleEl;
-
-                const source = config.video.appendChild(document.createElement("source"));
-                console.log(videoId + " " + getMp4(videoId))
-                source.src = "../videos/" + getMp4(videoId) + ".mp4";
-                source.type = "video/mp4";
-                let promise = config.video.play();
-                if (promise !== undefined) {
-                    promise.then(_ => {
-                        console.log("Autoplay started!");
-                        playButton.innerHTML = pauseSvg;
-
-                    }).catch(error => {
-                        console.log("Autoplay was prevented!");
-                    });
-                }
-
-                config.video.addEventListener("timeupdate", (event) => {
-                    config.data.current = config.video.currentTime;
-                    if (config.video.currentTime >= config.data.end) {
-                        config.video.pause();
-                    }
-                    event.stopPropagation();
-                });
-
-                const playButton = btnBox.appendChild(document.createElement("button"));
-                playButton.classList.add('item', 'opaque-button')
-                playButton.innerHTML = playSvg;
-
-                const seekBar = btnBox.appendChild(document.createElement("input"));
-                seekBar.classList.add('item')
-                seekBar.type = "range"
-                seekBar.value = "0";
-
-                const volume_span = btnBox.appendChild(document.createElement("span"));
-                volume_span.classList.add('volume-span', 'item')
-                const volume_low = volume_span.appendChild(document.createElement("i"));
-                volume_low.innerHTML = volumeDownSvg;
-
-                const volumeBar = volume_span.appendChild(document.createElement("input"));
-                volumeBar.type = "range"
-                volumeBar.min = 0;
-                volumeBar.max = 1;
-                volumeBar.step = 0.1;
-                volumeBar.value = 0.5;
-                const volume_high = volume_span.appendChild(document.createElement("i"));
-                volume_high.innerHTML = volumeOnSvg;
-
-                const fullScreenButton = btnBox.appendChild(document.createElement("button"));
-                fullScreenButton.classList.add('opaque-button', 'item');
-                fullScreenButton.innerHTML = expandSvg;
-
-                const muteButton = btnBox.appendChild(document.createElement("button"));
-                muteButton.classList.add('opaque-button', 'item');
-                muteButton.innerHTML = volumeOffSvg;
-
-                const closeButton = btnBox.appendChild(document.createElement("button"));
-                closeButton.classList.add('opaque-button', 'item', 'close-button');
-                closeButton.innerHTML = closeSvg;
-
-                closeButton.addEventListener("click", () => {
-                    console.log("close");
-                    videoContainer.style.display = "none";
-                    video.pause();
-
-                });
-
-                video.addEventListener('loadedmetadata', (event) => {
-                    video.addEventListener("timeupdate", (event) => {
-                        const value = (100 / (config.data.end - config.data.start)) * (video.currentTime - config.data.start);
-                        seekBar.value = value;
-                        if (video.currentTime >= config.end) {
-                            video.pause();
-                        }
-                        event.stopPropagation();
-                    });
-
-                    playButton.addEventListener("click", () => {
-                        if (video.paused == true) {
-                            video.play();
-                            playButton.innerHTML = pauseSvg;
-
-                        } else {
-                            video.pause();
-                            playButton.innerHTML = playSvg;
-
-
-
-                        }
-                    });
-
-                    seekBar.addEventListener("change", () => {
-                        const time = (config.data.end - config.data.start) * (seekBar.value / 100);
-                        video.currentTime = (time + config.data.start);
-                    });
-                    seekBar.addEventListener("mousedown", () => {
-                        video.pause();
-                    });
-
-                    seekBar.addEventListener("mouseup", () => {
-                        video.play();
-                    });
-
-                    muteButton.addEventListener("click", () => {
-                        if (video.muted == false) {
-                            muteButton.innerHTML = volumeOnSvg;
-
-                        } else {
-                            muteButton.innerHTML = volumeOffSvg;
-
-                        }
-                        video.muted = !video.muted;
-
-
-                    });
-                    volumeBar.addEventListener("change", () => {
-                        video.volume = volumeBar.value;
-                    });
-                    fullScreenButton.addEventListener("click", () => {
-                        if (video.requestFullscreen) {
-                            video.requestFullscreen();
-                        } else if (video.mozRequestFullScreen) {
-                            video.mozRequestFullScreen(); // Firefox
-                        } else if (video.webkitRequestFullscreen) {
-                            video.webkitRequestFullscreen(); // Chrome and Safari
-                        }
-                    });
-                });
-
-                configs.set(videoId, config);
-
-                return config.vc;
-            }
-
-            function getSeconds(str) {
-                const s = str.split(":");
-                let total = 0;
-                if (s.length > 2) {
-                    total += 60 * 60 * parseInt(s[0]);
-                    total += 60 * parseInt(s[1]);
-                    total += parseInt(s[2]);
-                    return total
-                }
-                if (s.length > 1) {
-                    total += 60 * parseInt(s[0]);
-                    total += parseInt(s[1]);
-                    return total
-                }
-                total += parseInt(s[0])
-                return total;
-            }
+            }).catch(error => {
+                console.log("Autoplay was prevented!");
+            });
         }
+
+        config.video.addEventListener("timeupdate", (event) => {
+            config.data.current = config.video.currentTime;
+            if (config.video.currentTime >= config.data.end) {
+                config.video.pause();
+            }
+            event.stopPropagation();
+        });
+
+        const playButton = btnBox.appendChild(document.createElement("button"));
+        playButton.classList.add('item', 'opaque-button')
+        playButton.innerHTML = playSvg;
+
+        const seekBar = btnBox.appendChild(document.createElement("input"));
+        seekBar.classList.add('item')
+        seekBar.type = "range"
+        seekBar.value = "0";
+
+        const volume_span = btnBox.appendChild(document.createElement("span"));
+        volume_span.classList.add('volume-span', 'item')
+        const volume_low = volume_span.appendChild(document.createElement("i"));
+        volume_low.innerHTML = volumeDownSvg;
+
+        const volumeBar = volume_span.appendChild(document.createElement("input"));
+        volumeBar.type = "range"
+        volumeBar.min = 0;
+        volumeBar.max = 1;
+        volumeBar.step = 0.1;
+        volumeBar.value = 0.5;
+        const volume_high = volume_span.appendChild(document.createElement("i"));
+        volume_high.innerHTML = volumeOnSvg;
+
+        const fullScreenButton = btnBox.appendChild(document.createElement("button"));
+        fullScreenButton.classList.add('opaque-button', 'item');
+        fullScreenButton.innerHTML = expandSvg;
+
+        const muteButton = btnBox.appendChild(document.createElement("button"));
+        muteButton.classList.add('opaque-button', 'item');
+        muteButton.innerHTML = volumeOffSvg;
+
+        const closeButton = btnBox.appendChild(document.createElement("button"));
+        closeButton.classList.add('opaque-button', 'item', 'close-button');
+        closeButton.innerHTML = closeSvg;
+
+        closeButton.addEventListener("click", () => {
+            videoContainer.style.display = "none";
+            video.pause();
+        });
+
+        video.addEventListener('loadedmetadata', (event) => {
+            video.addEventListener("timeupdate", (event) => {
+                const value = (100 / (config.data.end - config.data.start)) * (video.currentTime - config.data.start);
+                seekBar.value = value;
+                if (video.currentTime >= config.end) {
+                    video.pause();
+                }
+                event.stopPropagation();
+            });
+
+            playButton.addEventListener("click", () => {
+                if (video.paused == true) {
+                    video.play();
+                    playButton.innerHTML = pauseSvg;
+
+                } else {
+                    video.pause();
+                    playButton.innerHTML = playSvg;
+
+
+
+                }
+            });
+
+            seekBar.addEventListener("change", () => {
+                const time = (config.data.end - config.data.start) * (seekBar.value / 100);
+                video.currentTime = (time + config.data.start);
+            });
+            seekBar.addEventListener("mousedown", () => {
+                video.pause();
+            });
+
+            seekBar.addEventListener("mouseup", () => {
+                video.play();
+            });
+
+            muteButton.addEventListener("click", () => {
+                if (video.muted == false) {
+                    muteButton.innerHTML = volumeOnSvg;
+
+                } else {
+                    muteButton.innerHTML = volumeOffSvg;
+
+                }
+                video.muted = !video.muted;
+
+
+            });
+            volumeBar.addEventListener("change", () => {
+                video.volume = volumeBar.value;
+            });
+            fullScreenButton.addEventListener("click", () => {
+                if (video.requestFullscreen) {
+                    video.requestFullscreen();
+                } else if (video.mozRequestFullScreen) {
+                    video.mozRequestFullScreen(); // Firefox
+                } else if (video.webkitRequestFullscreen) {
+                    video.webkitRequestFullscreen(); // Chrome and Safari
+                }
+            });
+        });
+
+        configs.set(videoId, config);
+
+        return config.vc;
+    }
+
+    function getSeconds(str) {
+        const s = str.split(":");
+        let total = 0;
+        if (s.length > 2) {
+            total += 60 * 60 * parseInt(s[0]);
+            total += 60 * parseInt(s[1]);
+            total += parseInt(s[2]);
+            return total
+        }
+        if (s.length > 1) {
+            total += 60 * parseInt(s[0]);
+            total += parseInt(s[1]);
+            return total
+        }
+        total += parseInt(s[0])
+        return total;
     }
 }
-
-export default doVideoButton

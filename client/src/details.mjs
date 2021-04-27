@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 import getContent from './content.mjs'
-import doVideoButton  from './video.mjs';
+import  './video.mjs';
 
 const content = getContent();
 
@@ -91,18 +91,16 @@ class Details extends LitElement {
         return html`
         <div id=${teller + "_"}>
             <h1>${teller + ". " + chapter.h1}</h1>
-            ${chapter.video ? doVideoButton(this.shadowRoot,teller + "_", chapter.video, chapter.h1) : null}         
+            ${chapter.video ? html`<my-video .videoData=${chapter.video} title="${chapter.h1}"></my-video>` : null}         
             ${this.doOl(chapter.ol, teller)}
         </div>`;
     }
-
-    
 
     doOl(ol, teller) {
         if (ol)
             return html`
             <ol>
-                ${ol.map((item, index) => (item.video) ? html`<li id = ${teller + "_" + index} >${item.li} ${doVideoButton(this.shadowRoot,teller + "_" + index, item.video, item.li)}</li>` : null)}
+                ${ol.map((item, index) => (item.video) ? html`<li id = ${teller + "_" + index} >${item.li} <my-video .videoData=${item.video} title=${item.li}></my-video></li>` : null)}
             </ol>`;
         return null;
     }  
