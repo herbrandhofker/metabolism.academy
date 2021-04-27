@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit-element';
-import  './video.mjs';
+import './video.mjs';
 
 import topten from './data/topten.json';
 
@@ -115,7 +115,7 @@ class TopTen extends LitElement {
                     </tr>
                 </thead>
                 <tbody>
-                    ${ILLNESSES.map(illness => html`<tr @mouseenter=${e => this.insert(e, illness)} @mouseleave=${e => this.delete(e)}><td>${illness}</td><td>xxx</td></tr>`)}
+                    ${ILLNESSES.map(illness => html`<tr @mouseenter=${e => this.insert(e, illness)} ><td>${illness}</td><td>xxx</td></tr>`)}
                 </tbody>
             </table>
             <br/><br/>
@@ -131,30 +131,29 @@ class TopTen extends LitElement {
            </section>
     `;
     }
-
-
-    delete(event) {
-        let cell = event.target;
-        const tr = cell.parentElement;
-        const tbody = tr.parentElement;
-        const xx = this.shadowRoot.getElementById("xxxx");
-
-        xx.remove()
-    }
-
+    
     insert(event, item) {
+        let detailRow = this.shadowRoot.getElementById("detailRow");
+        if(detailRow){
+            detailRow.remove()}
         let tr = event.target;
         const tbody = tr.parentElement;
         const row = tbody.insertRow(tr.rowIndex);
-        row.id = "xxxx";
+        row.id = "detailRow";
         row.classList.add("temporary")
         topten.map(rec => {
-            if (rec.problem == item) {               
+            if (rec.problem == item) {
                 let cell0 = row.insertCell(0);
                 cell0.setAttribute("colspan", "2");
                 const div = cell0.appendChild(document.createElement("div"));
-                const span = div.appendChild(document.createElement("span"));
-                span.id=rec.problem;
+                if (rec.advices[0].video) {
+                    const span = div.appendChild(document.createElement("span"));
+                    span.id = rec.problem;
+                    const video = span.appendChild(document.createElement("my-video"));
+                    video.id="video";
+                    video.videoData = rec.advices[0].video;
+                    video.title = rec.problem;                   
+                }
                 const table = div.appendChild(document.createElement("table"));
                 table.classList.add("inner-table")
                 const thead = table.appendChild(document.createElement("thead"));
