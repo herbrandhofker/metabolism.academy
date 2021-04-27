@@ -114,12 +114,11 @@ class TopTen extends LitElement {
             <caption class="header"><h2>Health Issues and it's relation to nutrition</h2></caption>
                 <thead class="header">
                     <tr>
-                        <th>Mediacal Issue</th>
-                        <th>What science tells us today</th>
+                        <th>Mediacal issue and what science tells us today</th>
                     </tr>
                 </thead>
                 <tbody>
-                    ${ILLNESSES.map(illness => html`<tr @mouseenter=${e => this.insert(e, illness)} ><td>${illness}</td><td>xxx</td></tr>`)}
+                    ${ILLNESSES.map(illness => html`<tr @mouseenter=${e => this.insert(e, illness)} ><td>${illness}</td></tr>`)}
                 </tbody>
             </table>
             <br/><br/>
@@ -129,7 +128,7 @@ class TopTen extends LitElement {
                     <tr><th>Food</th><th>What science tells us today</th></tr>
                 </thead>
                 <tbody>               
-                    ${FOODS.map(food => html`<tr><td>${food}</td><td><a href="#${food}">Show Video${food}</a></tr>`)}
+                    ${FOODS.map(food => html`<tr><td>${food}</td><td><a href="#${food}">nyi</a></tr>`)}
                 </tbody>
             </table>          
            </section>

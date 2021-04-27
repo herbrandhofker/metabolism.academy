@@ -17,7 +17,7 @@ class Details extends LitElement {
             width: 50%;
             border: 3px solid green;
             padding: 10px;
-            --font-size-video-button: 1rem
+            --font-size-video-button: 1rem;
         }
         `;   
     }
