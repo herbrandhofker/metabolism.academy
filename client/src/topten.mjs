@@ -99,6 +99,11 @@ class TopTen extends LitElement {
    `
     }
 
+    constructor() {
+        super();
+        this.videoActive = false;
+    }
+
 
     render() {
         let teller = 0;
@@ -131,11 +136,14 @@ class TopTen extends LitElement {
            </section>
     `;
     }
-    
+
     insert(event, item) {
+        if (this.videoActive)
+            return;
         let detailRow = this.shadowRoot.getElementById("detailRow");
-        if(detailRow){
-            detailRow.remove()}
+        if (detailRow) {
+            detailRow.remove()
+        }
         let tr = event.target;
         const tbody = tr.parentElement;
         detailRow = tbody.insertRow(tr.rowIndex);
@@ -149,10 +157,12 @@ class TopTen extends LitElement {
                 if (rec.advices[0].video) {
                     const span = div.appendChild(document.createElement("span"));
                     span.id = rec.problem;
-                    const video = span.appendChild(document.createElement("my-video"));
-                    video.id="video";
-                    video.videoData = rec.advices[0].video;
-                    video.title = rec.problem;                   
+                    const myVideo = span.appendChild(document.createElement("my-video"));
+                    myVideo.id = "myVideo";
+                    myVideo.videoData = rec.advices[0].video;
+                    myVideo.title = rec.problem;
+                  //  this.videoActive=true;
+                    span.addEventListener("videoActive", e => this.videoActive=e.detail.active)
                 }
                 const table = div.appendChild(document.createElement("table"));
                 table.classList.add("inner-table")
@@ -167,8 +177,6 @@ class TopTen extends LitElement {
                 cell.innerText = "advice based on science"
                 cell = row.appendChild(document.createElement("th"));
                 cell.innerText = "reason based on science"
-                // const button=cell.appendChild(document.createElement("button"));
-                //  button.innerText="show video"
                 const tbody = table.appendChild(document.createElement("tbody"));
                 row = tbody.insertRow(0);
                 cell = row.insertCell(0);
@@ -179,8 +187,6 @@ class TopTen extends LitElement {
                 cell.innerText = rec.advices[0].advice;
                 cell = row.insertCell(3);
                 cell.innerText = rec.advices[0].reason;
-                //rec.advices[0].advice0;  
-                //  alert(row)
             }
         })
     }

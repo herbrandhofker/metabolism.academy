@@ -104,7 +104,7 @@ class Video extends LitElement {
     }
 
     render() {
-        return html`<button @click=${e => { this.createVideo(e) }}>Details</button>`;
+        return html`<button @click=${e => { this.createVideo(e)}}>Details</button>`;
         //       return doVideoButton(this.shadowRoot, parentId, videoData, title)
     }
 
@@ -113,8 +113,13 @@ class Video extends LitElement {
         if (vc.parentNode) {
             vc.remove();
         }
+       
         const button=e.target;
         button.style.display="none";
+        button.dispatchEvent( new CustomEvent('videoActive', { 
+            detail: {active: true },
+            bubbles: true, composed: true }));
+
         e.target.parentNode.appendChild(vc);
       
         const start = getSeconds(this.videoData.start);
@@ -213,7 +218,10 @@ class Video extends LitElement {
                 videoContainer.style.display = "none";
                 video.pause();
                 button.style.display="block";
-     
+                button.dispatchEvent( new CustomEvent('videoActive', { 
+                    detail: {active: false },
+                    bubbles: true, composed: true }));
+ 
             });
     
             video.addEventListener('loadedmetadata', (event) => {
