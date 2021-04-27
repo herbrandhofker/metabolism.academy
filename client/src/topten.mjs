@@ -25,8 +25,6 @@ const FOODS = [
     "Salt"
 ];
 
-
-
 class TopTen extends LitElement {
 
     static get styles() {
@@ -70,6 +68,7 @@ class TopTen extends LitElement {
         .summary thead th:nth-child(2) {
             width: 50%;
         }
+
         .summary th {background: var(--primary);}
         .summary  tr:nth-child(even) {background: #CCC}
         .summary tr:nth-child(odd) {background: #FFF}
