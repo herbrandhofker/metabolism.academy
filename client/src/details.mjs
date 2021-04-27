@@ -4,77 +4,10 @@ import  './video.mjs';
 
 const content = getContent();
 
-const stylesCss=css`
-.container {
-    display: flex; 
-    flex-direction: column;
-    align-items: center;
-}  
-
-.video-container {
-    display: flex;
-    flex-direction: column;
-    background-color:  lightgrey;
-    width: 100%;
-}
-
-.video-bottom-section {
-    display: flex;
-    flex-direction: column;
-    margin: 1rem;
-}
-
-.video-bottom-section>.button-box {
-    display: flex;
-    width: 100%;
-}
-
-.video-bottom-section>.button-box>.item {
-    margin-left: 1.2rem;
-    font-size: 1.2rem;
-}
-
-.volume-span {
-    display: flex;
-    background-color:  grey;
-    white-space: pre;
-    align-items: center;
-}
-
-.opaque-button {
-    border: none;
-    background-color: transparent;
-    outline: none;
-}
-
-.video-container>.video-bottom-section>.button-box>.close-button {
-    margin-left: auto;
-    font-size: 2rem;
-}
-
-.video-container>.video-bottom-section>.video-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-left: 1.2rem;
-    margin-top: .5rem;
-    text-decoration: none;
-    color: black;
-}
-
-.video-container>video {
-    width: 100%;
-}
-
-.video-container>video::-webkit-media-controls {
-    display: none;
-}
-`;
-
 class Details extends LitElement {
 
     static get styles() {
-        return  stylesCss;
-   
+        return  css``;   
     }
 
     render() {
@@ -108,4 +41,3 @@ class Details extends LitElement {
 
 customElements.define("my-details", Details);
 
-export default stylesCss;

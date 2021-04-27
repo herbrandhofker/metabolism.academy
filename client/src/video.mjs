@@ -20,7 +20,6 @@ videos.set(4, "Treat cancer with Diet Professor Thomas Seyfried makes a compelli
 videos.set(5, "How low carbohydrate diets can help you avoid surgery for arthritis");
 const configs = new Map();
 
-
 class Video extends LitElement {
 
     constructor() {
@@ -30,7 +29,71 @@ class Video extends LitElement {
      }
 
     static get styles() {
-        return css` `;
+                return css`
+        .container {
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+        }  
+
+        .video-container {
+            display: flex;
+            flex-direction: column;
+            background-color:  lightgrey;
+            width: 100%;
+        }
+
+        .video-bottom-section {
+            display: flex;
+            flex-direction: column;
+            margin: 1rem;
+        }
+
+        .video-bottom-section>.button-box {
+            display: flex;
+            width: 100%;
+        }
+
+        .video-bottom-section>.button-box>.item {
+            margin-left: 1.2rem;
+            font-size: 1.2rem;
+        }
+
+        .volume-span {
+            display: flex;
+            background-color:  grey;
+            white-space: pre;
+            align-items: center;
+        }
+
+        .opaque-button {
+            border: none;
+            background-color: transparent;
+            outline: none;
+        }
+
+        .video-container>.video-bottom-section>.button-box>.close-button {
+            margin-left: auto;
+            font-size: 2rem;
+        }
+
+        .video-container>.video-bottom-section>.video-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-left: 1.2rem;
+            margin-top: .5rem;
+            text-decoration: none;
+            color: black;
+        }
+
+        .video-container>video {
+            width: 100%;
+        }
+
+        .video-container>video::-webkit-media-controls {
+            display: none;
+        }       
+        `;
     }
 
     static get properties() {

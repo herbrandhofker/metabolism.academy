@@ -1,7 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 import  './video.mjs';
 
-import stylesCss from './details.mjs'
 import topten from './data/topten.json';
 
 const illnesses = ["Obesitas", "Diabetes 2",
@@ -31,7 +30,7 @@ const FOODS = [
 class TopTen extends LitElement {
 
     static get styles() {
-        return [stylesCss, css` 
+        return css` 
         .container {
             display: flex; 
             flex-direction: column;
@@ -97,7 +96,7 @@ class TopTen extends LitElement {
         .inner-table th{
             background: yellow
         }
-   `]
+   `
     }
 
 
