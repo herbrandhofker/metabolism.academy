@@ -7,7 +7,19 @@ const content = getContent();
 class Details extends LitElement {
 
     static get styles() {
-        return  css``;   
+        return  css`
+       
+        section {
+            display: flex;
+            flex-direction: column; 
+            background-color: var(--tertiar); 
+            margin: auto;
+            width: 50%;
+            border: 3px solid green;
+            padding: 10px;
+            --font-size-video-button: 1rem
+        }
+        `;   
     }
 
     render() {

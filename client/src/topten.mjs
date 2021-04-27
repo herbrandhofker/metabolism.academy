@@ -53,8 +53,8 @@ class TopTen extends LitElement {
         }              
 
         .header{
-            background-color: white;
-            color: black;
+            background-color: var(--primary);
+            color: var(--secundary);
         }  
   
         .summary{

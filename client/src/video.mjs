@@ -36,6 +36,12 @@ class Video extends LitElement {
             align-items: center;
         }  
 
+        button{
+            background: var(--primary);
+            color: var(--secundary);
+            font-size:var(--font-size-video-button);
+        }
+
         .video-container {
             display: flex;
             flex-direction: column;
@@ -104,8 +110,7 @@ class Video extends LitElement {
     }
 
     render() {
-        return html`<button @click=${e => { this.createVideo(e)}}>Details</button>`;
-        //       return doVideoButton(this.shadowRoot, parentId, videoData, title)
+        return html`<button @click=${e => { this.createVideo(e)}}>Show Video</button>`;
     }
 
     createVideo(e ) {

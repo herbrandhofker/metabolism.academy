@@ -6,7 +6,7 @@ class About extends LitElement {
 
     static get styles() {
         return css`
-        .container {
+        section {
             display: flex; 
         }
         
@@ -22,7 +22,7 @@ class About extends LitElement {
 
     render() {
         return html`
-          <div class="container">
+          <section>
             <div>
                 ${this.addImg()}               
             </div>
@@ -54,7 +54,7 @@ class About extends LitElement {
                     <li>Was diagnosed with Diabetes 2, at the moment he wanted to retire from his business</li>
                 </ul>
             </div>            
-        </div>
+        </section>
        `;
     }
 
