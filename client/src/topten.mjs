@@ -114,11 +114,11 @@ class TopTen extends LitElement {
             <caption class="header"><h2>Health Issues and it's relation to nutrition</h2></caption>
                 <thead class="header">
                     <tr>
-                        <th>Mediacal issue and what science tells us today</th>
+                        <th>Mediacal issue and what science tells us today</th><th>Description</th>
                     </tr>
                 </thead>
                 <tbody>
-                    ${ILLNESSES.map(illness => html`<tr @mouseenter=${e => this.insert(e, illness)} ><td>${illness}</td></tr>`)}
+                    ${ILLNESSES.map(illness => html`<tr @mouseenter=${e => this.insert(e, illness)} ><td>${illness}</td><td>${this.getDescription(illness)}</td></tr>`)}
                 </tbody>
             </table>
             <br/><br/>
@@ -133,6 +133,16 @@ class TopTen extends LitElement {
             </table>          
            </section>
     `;
+    }
+
+    getDescription(illness){
+        let result="Not yet implemented, comes later."
+        topten.map(rec => {
+            if (rec.problem == illness){ 
+                result= rec.description;
+            }
+        });
+        return result;
     }
 
     insert(event, item) {

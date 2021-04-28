@@ -22,12 +22,7 @@ const configs = new Map();
 
 class Video extends LitElement {
 
-    constructor() {
-        super();
-        this.videoData=null;
-        this.title="dummy title";
-     }
-
+  
     static get styles() {
                 return css`
         .container {
@@ -101,6 +96,13 @@ class Video extends LitElement {
         }       
         `;
     }
+
+    constructor() {
+        super();
+        this.videoData=null;
+        this.title="dummy title";
+     }
+
 
     static get properties() {
         return {

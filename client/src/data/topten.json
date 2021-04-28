@@ -1,6 +1,7 @@
 [
    {
       "problem": "Obesitas",
+      "description":"You become what you eat? Science : NO, you become how your body reacts on what you eat.",
       "advices": [
          {
             "advice0": "Eat less fat to avoid becoming fat.",
@@ -16,6 +17,7 @@
    },
    {
       "problem": "Diabetes 2",
+      "description":"Lowering sugar is the general practice. Science : The real cause is insulin resistance. Reverse insulin resistance!",
       "advices": [
          {
             "advice0": "By medicin you can keep your glucose under control",
@@ -30,6 +32,7 @@
    },
    {
       "problem": "Cancer",
+      "description":"The cause of cancer is seen as cell mutations. Science: NO: the real cause is dysfunctional mytochondria",
       "advices": [
          {
             "advice0": "chemo therapy etc. to kill cancer cells",
@@ -44,6 +47,7 @@
    },
    {
       "problem": "Arthritis",
+      "description":"see Video (comes later)",
       "advices": [
          {
             "advice0": "Surgery...nyi",
@@ -59,6 +63,7 @@
    },
    {
       "problem": "Heart and blood vessel disorders",
+      "description":"(Bad) cholesterol and saturated fat is seen as the cause. Science : NO, see this video what is the real cause.",
       "advices": [
          {
             "advice0": "Limit saturated fat, and take statin's.",
@@ -80,6 +85,7 @@
    },
    {
       "problem": "High blood pressure",
+      "description":"See video (comes later)",
       "advices": [
          {
             "advice0": "Limit salt intake ",
@@ -91,6 +97,7 @@
    },
    {
       "problem": "Dementia",
+      "description":"Plaque in the brain is seen as the cause.Np real solution. Science : There is a real soloution is taking care of the mytochondria (in the brain).",
       "advices": [
          {
             "advice0": "Mental illnesses (MS, Parkinson's, Alzheimer) are not curable.",
@@ -105,6 +112,7 @@
    },
    {
       "problem": "Thyroid disorders",
+      "description":"See video.(comes later)",
       "advices": [
          {
             "advice0": "with pills you can help your body to keep functioning",
@@ -116,6 +124,7 @@
    },
    {
       "problem": "Bone mass reduction",
+      "description":"See video (comes later)",
       "advices": [
          {
             "advice0": "with aging your bone gradually diminishes",
@@ -126,6 +135,7 @@
   
    {
       "problem": "Heart related problems:",
+      "description":"See video (comes later)",
       "advices": [
          {
             "advice0": "some statins may prolong you life",
