@@ -1,8 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
-import getContent from './content.mjs'
-import  './chapter.mjs';
+import  {content} from './chapter.mjs';
 
-const content = getContent();
 
 class Details extends LitElement {
 

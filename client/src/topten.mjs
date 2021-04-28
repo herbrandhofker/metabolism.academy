@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit-element';
 import './video.mjs';
 
+import { content } from './chapter.mjs';
 import topten from './data/topten.json';
 
 const illnesses = ["Obesitas", "Diabetes 2",
@@ -17,7 +18,7 @@ const ILLNESSES = [
 ];
 
 const FOODS = [
-    "Carbohydrates (carbs)",
+    "Carbohydrates",
     "Fat",
     "Fat Saturated",
     "Omega 3/Omega 6",
@@ -128,18 +129,18 @@ class TopTen extends LitElement {
                     <tr><th>Food</th><th>What science tells us today</th></tr>
                 </thead>
                 <tbody>               
-                    ${FOODS.map(food => html`<tr><td>${food}</td><td><a href="#${food}">nyi</a></tr>`)}
+                    ${FOODS.map(food => html`<tr @mouseenter=${e => this.insertFood(e, food)}><td>${food}</td><td><a href="#${food}">nyi</a></tr>`)}
                 </tbody>
             </table>          
            </section>
     `;
     }
 
-    getIllnessDescription(illness){
-        let result="Not yet implemented, comes later."
+    getIllnessDescription(illness) {
+        let result = "Not yet implemented, comes later."
         topten.map(rec => {
-            if (rec.problem == illness){ 
-                result= rec.description;
+            if (rec.problem == illness) {
+                result = rec.description;
             }
         });
         return result;
@@ -148,14 +149,14 @@ class TopTen extends LitElement {
     insertIllness(event, item) {
         if (this.videoActive)
             return;
-        let detailRow = this.shadowRoot.getElementById("detailRow");
+        let detailRow = this.shadowRoot.getElementById("detailIllnessRow");
         if (detailRow) {
             detailRow.remove()
         }
         let tr = event.target;
         const tbody = tr.parentElement;
         detailRow = tbody.insertRow(tr.rowIndex);
-        detailRow.id = "detailRow";
+        detailRow.id = "detailIllnessRow";
         detailRow.classList.add("temporary")
         topten.map(rec => {
             if (rec.problem == item) {
@@ -169,8 +170,8 @@ class TopTen extends LitElement {
                     myVideo.id = "myVideo";
                     myVideo.videoData = rec.advices[0].video;
                     myVideo.title = rec.problem;
-                  //  this.videoActive=true;
-                    span.addEventListener("videoActive", e => this.videoActive=e.detail.active)
+                    //  this.videoActive=true;
+                    span.addEventListener("videoActive", e => this.videoActive = e.detail.active)
                 }
                 const table = div.appendChild(document.createElement("table"));
                 table.classList.add("inner-table")
@@ -197,6 +198,33 @@ class TopTen extends LitElement {
                 cell.innerText = rec.advices[0].reason;
             }
         })
+    }
+
+    insertFood(event, food) {
+        if (this.videoActive)
+            return;
+        let detailRow = this.shadowRoot.getElementById("detailFoodRow");
+        if (detailRow) {
+            detailRow.remove()
+        }
+        let tr = event.target;
+        const tbody = tr.parentElement;
+        detailRow = tbody.insertRow(tr.rowIndex);
+        detailRow.id = "detailFoodRow";
+        detailRow.classList.add("temporary")
+        const cell = detailRow.insertCell();
+        cell.setAttribute("colspan", "2");
+
+        cell.innerText = food;
+        let ch = null;
+        content.map(chapter => { if (chapter.food == food) ch = chapter; })
+        if (ch) {
+            const chapterEl = cell.appendChild(document.createElement("my-chapter"));
+            chapterEl.chapter = ch;
+            chapterEl.chapterNr = 1;
+
+        }
+
     }
 }
 customElements.define("my-topten", TopTen);

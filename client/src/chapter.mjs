@@ -1,6 +1,9 @@
 import { LitElement, html, css } from 'lit-element';
 import  './video.mjs';
+import getContent from './content.mjs'
 
+
+export const content = getContent();
 
 class Chapter extends LitElement {
 
