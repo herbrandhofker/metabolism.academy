@@ -31,19 +31,17 @@ class Chapter extends LitElement {
         <div>
         <h1>${this.chapterNr + ". " + this.chapter.h1}</h1>
         ${this.chapter.video ? html`<my-video .videoData=${this.chapter.video} title="${this.chapter.h1}"></my-video>` : null}         
-        ${this.doOl()}
+        ${ (this.chapter.ol)?
+            html`
+           <ol>
+               ${this.chapter.ol.map((item, index) => (item.video) ? html`<li id = ${this.chapterNr + "_" + index} >${item.li} <my-video .videoData=${item.video} title=${item.li}></my-video></li>` : null)}
+           </ol>`
+       : null}
     </div>`;
          
     }
 
-    doOl() {
-        if (this.chapter.ol)
-            return html`
-            <ol>
-                ${this.chapter.ol.map((item, index) => (item.video) ? html`<li id = ${this.chapterNr + "_" + index} >${item.li} <my-video .videoData=${item.video} title=${item.li}></my-video></li>` : null)}
-            </ol>`;
-        return null;
-    }  
+    
 }
 
 customElements.define("my-chapter", Chapter);
