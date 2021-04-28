@@ -118,7 +118,7 @@ class TopTen extends LitElement {
                     </tr>
                 </thead>
                 <tbody>
-                    ${ILLNESSES.map(illness => html`<tr @mouseenter=${e => this.insert(e, illness)} ><td>${illness}</td><td>${this.getDescription(illness)}</td></tr>`)}
+                    ${ILLNESSES.map(illness => html`<tr @mouseenter=${e => this.insertIllness(e, illness)} ><td>${illness}</td><td>${this.getIllnessDescription(illness)}</td></tr>`)}
                 </tbody>
             </table>
             <br/><br/>
@@ -135,7 +135,7 @@ class TopTen extends LitElement {
     `;
     }
 
-    getDescription(illness){
+    getIllnessDescription(illness){
         let result="Not yet implemented, comes later."
         topten.map(rec => {
             if (rec.problem == illness){ 
@@ -145,7 +145,7 @@ class TopTen extends LitElement {
         return result;
     }
 
-    insert(event, item) {
+    insertIllness(event, item) {
         if (this.videoActive)
             return;
         let detailRow = this.shadowRoot.getElementById("detailRow");
@@ -198,30 +198,5 @@ class TopTen extends LitElement {
             }
         })
     }
-
-    addImg() {
-        const div = document.createElement("div");
-        div.classList.add("img-container")
-        const imgEl = new Image();
-        imgEl.src = paulmason;
-        imgEl.classList.add("img-item")
-        div.appendChild(imgEl);
-        return div;
-    }
-
-    addImg(img, title) {
-        const div = document.createElement("div");
-        div.classList.add("img-container")
-        const titleEl = document.createElement("div");
-        titleEl.classList.add("img-title")
-        titleEl.innerText = title;
-        const imgEl = new Image();
-        imgEl.src = img;
-        imgEl.classList.add("img-item")
-        div.appendChild(imgEl);
-        div.appendChild(titleEl);
-        return div;
-    }
-
 }
 customElements.define("my-topten", TopTen);
