@@ -131,23 +131,20 @@ class Video extends LitElement {
 
         const button = e.target;
         button.style.display = "none";
-        button.dispatchEvent(new CustomEvent('videoActive', {
-            detail: { active: true },
-            bubbles: true, composed: true
-        }));
+       
 
         e.target.parentNode.appendChild(vc);
-
+        vc.showModal();
         const start = getSeconds(this.videoData.start);
         const end = getSeconds(this.videoData.end);
-        const config = configs.get(this.videoData.id);
-        config.video.currentTime = start;
+       const config = configs.get(this.videoData.id);
+      //  config.video.currentTime = start;
         config.data.current = start;
         config.data.start = start;
         config.data.end = end;
-        config.data.titleEl.innerText = this.title;
-        config.vc.style.display = "block";
-        config.video.play();
+     //   config.data.titleEl.innerText = this.title;
+       /* config.vc.style.display = "block";
+        config.video.play();*/
         return vc;
 
         function getMp4(videoId) {
@@ -155,8 +152,15 @@ class Video extends LitElement {
         }
 
         function getStaticVideo(videoId) {
+
             if (configs.has(videoId))
                 return configs.get(videoId).vc;
+                const videoContainer = document.createElement("dialog");
+                videoContainer.innerHTML= '<form method="dialog"><menu><button value="cancel">Cancel</button></menu></form>';
+                const config = { data: {} };
+                config.vc = videoContainer;
+          
+            /*
             const videoContainer = document.createElement("div");
             videoContainer.classList.add("video-container")
             const video = videoContainer.appendChild(document.createElement("video"));
@@ -236,11 +240,7 @@ class Video extends LitElement {
             closeButton.addEventListener("click", () => {
                 videoContainer.style.display = "none";
                 video.pause();
-                button.style.display = "block";
-                button.dispatchEvent(new CustomEvent('videoActive', {
-                    detail: { active: false },
-                    bubbles: true, composed: true
-                }));
+                button.style.display = "block";              
 
             });
 
@@ -300,7 +300,7 @@ class Video extends LitElement {
                     }
                 });
             });
-
+*/
             configs.set(videoId, config);
             return config.vc;
         }

@@ -101,8 +101,7 @@ class TopTen extends LitElement {
 
     constructor() {
         super();
-        this.videoActive = false;
-    }
+      }
 
 
     render() {
@@ -147,8 +146,6 @@ class TopTen extends LitElement {
     }
 
     insertIllness(event, item) {
-        if (this.videoActive)
-            return;
         let detailRow = this.shadowRoot.getElementById("detailIllnessRow");
         if (detailRow) {
             detailRow.remove()
@@ -170,9 +167,7 @@ class TopTen extends LitElement {
                     myVideo.id = "myVideo";
                     myVideo.videoData = rec.advices[0].video;
                     myVideo.title = rec.problem;
-                    //  this.videoActive=true;
-                    span.addEventListener("videoActive", e => this.videoActive = e.detail.active)
-                }
+                 }
                 const table = div.appendChild(document.createElement("table"));
                 table.classList.add("inner-table")
                 const thead = table.appendChild(document.createElement("thead"));
@@ -201,8 +196,6 @@ class TopTen extends LitElement {
     }
 
     insertFood(event, food) {
-        if (this.videoActive)
-            return;
         let detailRow = this.shadowRoot.getElementById("detailFoodRow");
         if (detailRow) {
             detailRow.remove()
