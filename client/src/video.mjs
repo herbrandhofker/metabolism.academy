@@ -125,15 +125,15 @@ class Video extends LitElement {
 
     createVideo(e) {
 
-        const vc = getStaticVideo(this.videoData.id);
-        if (vc.parentNode) {
-           vc.remove();
+        const videoDialog = getStaticVideo(this.videoData.id);
+        if (videoDialog.parentNode) {
+           videoDialog.remove();
         }
-console.log(vc)
+console.log(videoDialog)
         const button = e.target;
 
-        button.parentNode.appendChild(vc);
-        vc.showModal();
+        button.parentNode.appendChild(videoDialog);
+        videoDialog.showModal();
         const start = getSeconds(this.videoData.start);
         const end = getSeconds(this.videoData.end);
         const config = configs.get(this.videoData.id);
@@ -143,7 +143,7 @@ console.log(vc)
         config.data.end = end;
         config.data.titleEl.innerText = this.title;
         // config.video.play();
-        return vc;
+        return videoDialog;
 
         function getMp4(videoId) {
             return videos.get(videoId);
