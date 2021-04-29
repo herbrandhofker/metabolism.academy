@@ -166,11 +166,9 @@ class Video extends LitElement {
             config.videoDialog = videoDialog;
 
             
-            /*const video = videoContainer.appendChild(document.createElement("video"));
-            const config = { data: {} };
-            config.vc = videoContainer;
+            const video = videoContainer.appendChild(document.createElement("video"));
             config.video = video;
-            */
+            
 
             const bottomSection = videoContainer.appendChild(document.createElement("div"));
             bottomSection.classList.add("video-bottom-section")
@@ -181,9 +179,9 @@ class Video extends LitElement {
             titleEl.classList.add("video-title");
             titleEl.innerText="title?"
             config.data.titleEl = titleEl;
-/*
+
             const source = config.video.appendChild(document.createElement("source"));
-            console.log(videoId + " " + getMp4(videoId))
+/*            console.log(videoId + " " + getMp4(videoId))
             source.src = "../videos/" + getMp4(videoId) + ".mp4";
             source.type = "video/mp4";
             let promise = config.video.play();
