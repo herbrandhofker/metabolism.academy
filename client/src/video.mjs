@@ -155,14 +155,18 @@ class Video extends LitElement {
             const videoDialog = document.createElement("dialog");
             const videoDialogForm = videoDialog.appendChild(document.createElement("form"));
             videoDialogForm.method = "dialog";
-            videoDialogForm.innerHTML = '<menu><button value="cancel">Cancel</button></menu>';
+            const menu=videoDialogForm.appendChild(document.createElement('menu'));
+            const cancelBtn=menu.appendChild(document.createElement('button'));
+            cancelBtn.value="cancel";
+            cancelBtn.innerText="cancel";
+            // = '<menu><button value="cancel">Cancel</button></menu>';
             const config = { data: {} };
             config.videoDialog = videoDialog;
 
-            /*
-            const videoContainer = document.createElement("div");
-            videoContainer.classList.add("video-container")
-            const video = videoContainer.appendChild(document.createElement("video"));
+            
+           // const videoContainer = document.createElement("div");
+           // videoContainer.classList.add("video-container")
+            /*const video = videoContainer.appendChild(document.createElement("video"));
             const config = { data: {} };
             config.vc = videoContainer;
             config.video = video;
