@@ -98,7 +98,6 @@ class Video extends LitElement {
         .length{
             margin-left: 0.2em;
             margin-left: 1em;
-            width: 6em;
             padding: 0.6em 0;
             white-space: nowrap;
  
@@ -207,8 +206,7 @@ class Video extends LitElement {
 
             const lengthEl = btnBox.appendChild(document.createElement("label"));
             lengthEl.classList.add('length');
-            lengthEl.innerText = 123
-
+          
             const volume_span = btnBox.appendChild(document.createElement("span"));
             volume_span.classList.add('volume-span', 'item')
             const volume_low = volume_span.appendChild(document.createElement("i"));
@@ -247,10 +245,10 @@ class Video extends LitElement {
             });
 
             video.addEventListener('loadedmetadata', (event) => {
-                const length = (config.data.end - config.data.start);
-                lengthEl.innerText = showTime(length);
                 video.addEventListener("timeupdate", (event) => {
-
+                    const length = (config.data.end - config.data.start);
+                    lengthEl.innerText = showTime(length);
+                 
                     const value = (100 / (length)) * (video.currentTime - config.data.start);
                     seekBar.value = value;
                     if (video.currentTime >= config.end) {
