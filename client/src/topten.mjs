@@ -105,7 +105,6 @@ class TopTen extends LitElement {
 
 
     render() {
-        let teller = 0;
         return html` 
         <section class="container">
             <h1>Common Health Issues, nutrition and what science tells us today</h1>
