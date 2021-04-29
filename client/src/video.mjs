@@ -135,7 +135,7 @@ class Video extends LitElement {
         vc.showModal();
         const start = getSeconds(this.videoData.start);
         const end = getSeconds(this.videoData.end);
-       const config = configs.get(this.videoData.id);
+        const config = configs.get(this.videoData.id);
       //  config.video.currentTime = start;
         config.data.current = start;
         config.data.start = start;
@@ -153,10 +153,10 @@ class Video extends LitElement {
 
             if (configs.has(videoId))
                 return configs.get(videoId).vc;
-                const videoContainer = document.createElement("dialog");
-                videoContainer.innerHTML= '<form method="dialog"><menu><button value="cancel">Cancel</button></menu></form>';
+                const videoDialog = document.createElement("dialog");
+                videoDialog.innerHTML= '<form method="dialog"><menu><button value="cancel">Cancel</button></menu></form>';
                 const config = { data: {} };
-                config.vc = videoContainer;
+                config.vc = videoDialog;
           
             /*
             const videoContainer = document.createElement("div");
