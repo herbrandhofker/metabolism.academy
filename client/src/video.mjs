@@ -223,12 +223,12 @@ class Video extends LitElement {
 
             const lengthEl = btnBox.appendChild(document.createElement("label"));
             lengthEl.classList.add('length');
-/*          
+       
             const volume_span = btnBox.appendChild(document.createElement("span"));
             volume_span.classList.add('volume-span', 'item')
             const volume_low = volume_span.appendChild(document.createElement("i"));
             volume_low.innerHTML = volumeDownSvg;
-
+/*
             const volumeBar = volume_span.appendChild(document.createElement("input"));
             volumeBar.type = "range"
             volumeBar.min = 0;
