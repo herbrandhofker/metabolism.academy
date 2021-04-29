@@ -100,6 +100,7 @@ class Video extends LitElement {
             margin-left: 1em;
             width: 6em;
             padding: 0.6em 0;
+            white-space: nowrap;
  
         }
         `;
