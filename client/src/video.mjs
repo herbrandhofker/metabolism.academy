@@ -140,7 +140,7 @@ class Video extends LitElement {
         config.data.current = start;
         config.data.start = start;
         config.data.end = end;
-        //config.data.titleEl.innerText = this.title;
+        config.data.titleEl.innerText = this.title;
         // config.video.play();
         return vc;
 
