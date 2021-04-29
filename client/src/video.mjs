@@ -140,7 +140,7 @@ class Video extends LitElement {
         config.data.current = start;
         config.data.start = start;
         config.data.end = end;
-        //   config.data.titleEl.innerText = this.title;
+        //config.data.titleEl.innerText = this.title;
         // config.video.play();
         return vc;
 
@@ -175,13 +175,13 @@ class Video extends LitElement {
             const bottomSection = videoContainer.appendChild(document.createElement("div"));
             bottomSection.classList.add("video-bottom-section")
             bottomSection.innerText='bottom'
-           /* const btnBox = bottomSection.appendChild(document.createElement("div"));
+           const btnBox = bottomSection.appendChild(document.createElement("div"));
             btnBox.classList.add("button-box");
             const titleEl = bottomSection.appendChild(document.createElement("label"));
             titleEl.classList.add("video-title");
-
+            titleEl.innerText="title?"
             config.data.titleEl = titleEl;
-
+/*
             const source = config.video.appendChild(document.createElement("source"));
             console.log(videoId + " " + getMp4(videoId))
             source.src = "../videos/" + getMp4(videoId) + ".mp4";
