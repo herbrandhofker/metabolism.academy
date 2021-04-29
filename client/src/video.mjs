@@ -67,6 +67,9 @@ class Video extends LitElement {
             align-items: center;
         }
 
+        .button{
+            background: yellow;
+        }
         .opaque-button {
             border: none;
             background-color: transparent;
@@ -162,8 +165,8 @@ console.log(videoDialog)
             videoContainer.classList.add("video-container")
             const menu=videoDialogForm.appendChild(document.createElement('menu'));
             const cancelBtn=menu.appendChild(document.createElement('button'));
-            cancelBtn.value="cancel";
-            cancelBtn.innerText="cancel";
+            cancelBtn.value="close";
+            cancelBtn.innerText="close";
             const config = { data: {} };
             config.videoDialog = videoDialog;
 
@@ -182,8 +185,10 @@ console.log(videoDialog)
             titleEl.innerText="title?"
             config.data.titleEl = titleEl;
 
-            const test = bottomSection.appendChild(document.createElement("button"));
+            const test = menu.appendChild(document.createElement("a"));
             test.innerText="test?"
+            test.classList.add("button")
+            test.addEventListener("click", (e)=>alert(1));
            
             const source = config.video.appendChild(document.createElement("source"));
         //    source.src = "../videos/" + getMp4(videoId) + ".mp4";
