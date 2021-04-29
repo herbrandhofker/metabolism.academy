@@ -153,7 +153,9 @@ class Video extends LitElement {
             if (configs.has(videoId))
                 return configs.get(videoId).vc;
             const videoDialog = document.createElement("dialog");
-            videoDialog.innerHTML = '<form method="dialog"><menu><button value="cancel">Cancel</button></menu></form>';
+            const videoDialogForm = videoDialog.appendChild(document.createElement("form"));
+            videoDialogForm.method = "dialog";
+            videoDialogForm.innerHTML = '<menu><button value="cancel">Cancel</button></menu>';
             const config = { data: {} };
             config.videoDialog = videoDialog;
 
