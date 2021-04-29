@@ -124,11 +124,12 @@ class Video extends LitElement {
     }
 
     createVideo(e) {
+
         const vc = getStaticVideo(this.videoData.id);
         if (vc.parentNode) {
-            vc.remove();
+           vc.remove();
         }
-
+console.log(vc)
         const button = e.target;
 
         button.parentNode.appendChild(vc);
@@ -150,8 +151,9 @@ class Video extends LitElement {
 
         function getStaticVideo(videoId) {
 
-            if (configs.has(videoId))
-                return configs.get(videoId).vc;
+            if (configs.has(videoId)){
+                return configs.get(videoId).videoDialog;
+            }
             const videoDialog = document.createElement("dialog");
             const videoDialogForm = videoDialog.appendChild(document.createElement("form"));
             videoDialogForm.method = "dialog";
@@ -180,11 +182,13 @@ class Video extends LitElement {
             titleEl.innerText="title?"
             config.data.titleEl = titleEl;
 
+            const test = bottomSection.appendChild(document.createElement("button"));
+            test.innerText="test?"
+           
             const source = config.video.appendChild(document.createElement("source"));
-/*            console.log(videoId + " " + getMp4(videoId))
-            source.src = "../videos/" + getMp4(videoId) + ".mp4";
-            source.type = "video/mp4";
-            let promise = config.video.play();
+        //    source.src = "../videos/" + getMp4(videoId) + ".mp4";
+         //   source.type = "video/mp4";
+  /*          let promise = config.video.play();
             if (promise !== undefined) {
                 promise.then(_ => {
                     console.log("Autoplay started!");
