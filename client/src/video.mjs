@@ -132,7 +132,7 @@ class Video extends LitElement {
         if (videoDialog.parentNode) {
            videoDialog.remove();
         }
-console.log(videoDialog)
+
         const button = e.target;
 
         button.parentNode.appendChild(videoDialog);
@@ -188,12 +188,12 @@ console.log(videoDialog)
             const test = menu.appendChild(document.createElement("a"));
             test.innerText="test?"
             test.classList.add("button")
-            test.addEventListener("click", (e)=>alert(1));
+            test.addEventListener("click", (e)=>{config.video.pause();config.videoDialog.close();});
            
             const source = config.video.appendChild(document.createElement("source"));
-        //    source.src = "../videos/" + getMp4(videoId) + ".mp4";
-         //   source.type = "video/mp4";
-  /*          let promise = config.video.play();
+            source.src = "../videos/" + getMp4(videoId) + ".mp4";
+            source.type = "video/mp4";
+           let promise = config.video.play();
             if (promise !== undefined) {
                 promise.then(_ => {
                     console.log("Autoplay started!");
@@ -212,7 +212,7 @@ console.log(videoDialog)
                 event.stopPropagation();
             });
 
-            const playButton = btnBox.appendChild(document.createElement("button"));
+            const playButton = btnBox.appendChild(document.createElement("a"));
             playButton.classList.add('item', 'opaque-button')
             playButton.innerHTML = playSvg;
 
@@ -223,7 +223,7 @@ console.log(videoDialog)
 
             const lengthEl = btnBox.appendChild(document.createElement("label"));
             lengthEl.classList.add('length');
-          
+/*          
             const volume_span = btnBox.appendChild(document.createElement("span"));
             volume_span.classList.add('volume-span', 'item')
             const volume_low = volume_span.appendChild(document.createElement("i"));
