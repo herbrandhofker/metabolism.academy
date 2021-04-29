@@ -130,19 +130,19 @@ class Video extends LitElement {
         }
 
         const button = e.target;
-       
+
         button.parentNode.appendChild(vc);
         vc.showModal();
         const start = getSeconds(this.videoData.start);
         const end = getSeconds(this.videoData.end);
         const config = configs.get(this.videoData.id);
-      //  config.video.currentTime = start;
+        //  config.video.currentTime = start;
         config.data.current = start;
         config.data.start = start;
         config.data.end = end;
-     //   config.data.titleEl.innerText = this.title;
-       /* config.vc.style.display = "block";
-        config.video.play();*/
+        //   config.data.titleEl.innerText = this.title;
+        /* config.vc.style.display = "block";
+         config.video.play();*/
         return vc;
 
         function getMp4(videoId) {
@@ -153,11 +153,11 @@ class Video extends LitElement {
 
             if (configs.has(videoId))
                 return configs.get(videoId).vc;
-                const videoDialog = document.createElement("dialog");
-                videoDialog.innerHTML= '<form method="dialog"><menu><button value="cancel">Cancel</button></menu></form>';
-                const config = { data: {} };
-                config.vc = videoDialog;
-          
+            const videoDialog = document.createElement("dialog");
+            videoDialog.innerHTML = '<form method="dialog"><menu><button value="cancel">Cancel</button></menu></form>';
+            const config = { data: {} };
+            config.vc = videoDialog;
+
             /*
             const videoContainer = document.createElement("div");
             videoContainer.classList.add("video-container")
