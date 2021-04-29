@@ -22,9 +22,9 @@ const configs = new Map();
 
 class Video extends LitElement {
 
-  
+
     static get styles() {
-                return css`
+        return css`
         .container {
             display: flex; 
             flex-direction: column;
@@ -99,9 +99,9 @@ class Video extends LitElement {
 
     constructor() {
         super();
-        this.videoData=null;
-        this.title="dummy title";
-     }
+        this.videoData = null;
+        this.title = "dummy title";
+    }
 
 
     static get properties() {
@@ -112,23 +112,24 @@ class Video extends LitElement {
     }
 
     render() {
-        return html`<button @click=${e => { this.createVideo(e)}}>Show Video</button>`;
+        return html`<button @click=${e => { this.createVideo(e) }}>Show Video</button>`;
     }
 
-    createVideo(e ) {
+    createVideo(e) {
         const vc = getStaticVideo(this.videoData.id);
         if (vc.parentNode) {
             vc.remove();
         }
-       
-        const button=e.target;
-        button.style.display="none";
-        button.dispatchEvent( new CustomEvent('videoActive', { 
-            detail: {active: true },
-            bubbles: true, composed: true }));
+
+        const button = e.target;
+        button.style.display = "none";
+        button.dispatchEvent(new CustomEvent('videoActive', {
+            detail: { active: true },
+            bubbles: true, composed: true
+        }));
 
         e.target.parentNode.appendChild(vc);
-      
+
         const start = getSeconds(this.videoData.start);
         const end = getSeconds(this.videoData.end);
         const config = configs.get(this.videoData.id);
@@ -140,14 +141,14 @@ class Video extends LitElement {
         config.vc.style.display = "block";
         config.video.play();
         return vc;
-    
+
         function getMp4(videoId) {
             return videos.get(videoId);
         }
-    
+
         function getStaticVideo(videoId) {
             if (configs.has(videoId))
-                return configs.get(videoId).vc;    
+                return configs.get(videoId).vc;
             const videoContainer = document.createElement("div");
             videoContainer.classList.add("video-container")
             const video = videoContainer.appendChild(document.createElement("video"));
@@ -160,9 +161,9 @@ class Video extends LitElement {
             btnBox.classList.add("button-box");
             const titleEl = bottomSection.appendChild(document.createElement("label"));
             titleEl.classList.add("video-title");
-    
+
             config.data.titleEl = titleEl;
-    
+
             const source = config.video.appendChild(document.createElement("source"));
             console.log(videoId + " " + getMp4(videoId))
             source.src = "../videos/" + getMp4(videoId) + ".mp4";
@@ -172,12 +173,12 @@ class Video extends LitElement {
                 promise.then(_ => {
                     console.log("Autoplay started!");
                     playButton.innerHTML = pauseSvg;
-    
+
                 }).catch(error => {
                     console.log("Autoplay was prevented!");
                 });
             }
-    
+
             config.video.addEventListener("timeupdate", (event) => {
                 config.data.current = config.video.currentTime;
                 if (config.video.currentTime >= config.data.end) {
@@ -185,21 +186,25 @@ class Video extends LitElement {
                 }
                 event.stopPropagation();
             });
-    
+
             const playButton = btnBox.appendChild(document.createElement("button"));
             playButton.classList.add('item', 'opaque-button')
             playButton.innerHTML = playSvg;
-    
+
             const seekBar = btnBox.appendChild(document.createElement("input"));
             seekBar.classList.add('item')
             seekBar.type = "range"
             seekBar.value = "0";
-    
+
+            const lengthEl = btnBox.appendChild(document.createElement("div"));
+            lengthEl.classList.add('item');
+            lengthEl.innerText = 123
+
             const volume_span = btnBox.appendChild(document.createElement("span"));
             volume_span.classList.add('volume-span', 'item')
             const volume_low = volume_span.appendChild(document.createElement("i"));
             volume_low.innerHTML = volumeDownSvg;
-    
+
             const volumeBar = volume_span.appendChild(document.createElement("input"));
             volumeBar.type = "range"
             volumeBar.min = 0;
@@ -208,39 +213,43 @@ class Video extends LitElement {
             volumeBar.value = 0.5;
             const volume_high = volume_span.appendChild(document.createElement("i"));
             volume_high.innerHTML = volumeOnSvg;
-    
+
             const fullScreenButton = btnBox.appendChild(document.createElement("button"));
             fullScreenButton.classList.add('opaque-button', 'item');
             fullScreenButton.innerHTML = expandSvg;
-    
+
             const muteButton = btnBox.appendChild(document.createElement("button"));
             muteButton.classList.add('opaque-button', 'item');
             muteButton.innerHTML = volumeOffSvg;
-    
+
             const closeButton = btnBox.appendChild(document.createElement("button"));
             closeButton.classList.add('opaque-button', 'item', 'close-button');
             closeButton.innerHTML = closeSvg;
-    
+
             closeButton.addEventListener("click", () => {
                 videoContainer.style.display = "none";
                 video.pause();
-                button.style.display="block";
-                button.dispatchEvent( new CustomEvent('videoActive', { 
-                    detail: {active: false },
-                    bubbles: true, composed: true }));
- 
+                button.style.display = "block";
+                button.dispatchEvent(new CustomEvent('videoActive', {
+                    detail: { active: false },
+                    bubbles: true, composed: true
+                }));
+
             });
-    
+
             video.addEventListener('loadedmetadata', (event) => {
+                const length = (config.data.end - config.data.start);
+                lengthEl.innerText = showTime(length);
                 video.addEventListener("timeupdate", (event) => {
-                    const value = (100 / (config.data.end - config.data.start)) * (video.currentTime - config.data.start);
+
+                    const value = (100 / (length)) * (video.currentTime - config.data.start);
                     seekBar.value = value;
                     if (video.currentTime >= config.end) {
                         video.pause();
                     }
                     event.stopPropagation();
                 });
-    
+
                 playButton.addEventListener("click", () => {
                     if (video.paused == true) {
                         video.play();
@@ -250,7 +259,7 @@ class Video extends LitElement {
                         playButton.innerHTML = playSvg;
                     }
                 });
-    
+
                 seekBar.addEventListener("change", () => {
                     const time = (config.data.end - config.data.start) * (seekBar.value / 100);
                     video.currentTime = (time + config.data.start);
@@ -258,18 +267,18 @@ class Video extends LitElement {
                 seekBar.addEventListener("mousedown", () => {
                     video.pause();
                 });
-    
+
                 seekBar.addEventListener("mouseup", () => {
                     video.play();
                 });
-    
+
                 muteButton.addEventListener("click", () => {
                     if (video.muted == false) {
-                        muteButton.innerHTML = volumeOnSvg;    
+                        muteButton.innerHTML = volumeOnSvg;
                     } else {
-                        muteButton.innerHTML = volumeOffSvg;    
+                        muteButton.innerHTML = volumeOffSvg;
                     }
-                    video.muted = !video.muted;   
+                    video.muted = !video.muted;
                 });
                 volumeBar.addEventListener("change", () => {
                     video.volume = volumeBar.value;
@@ -284,11 +293,37 @@ class Video extends LitElement {
                     }
                 });
             });
-    
-            configs.set(videoId, config);    
+
+            configs.set(videoId, config);
             return config.vc;
         }
-    
+
+        function showTime(seconds) {
+            let result = "";
+            let unit = "seconds";
+            const hours = Math.floor(seconds / 3600);
+            if (hours > 1) {
+                unit = "hours"
+                result = hours + ":";
+            }
+
+            seconds = seconds - (hours * 3600);
+            const minutes = Math.floor(seconds / 60);
+            if (minutes > 0 || hours > 0) {
+                unit = "minutes";
+                let tmp = minutes;
+                if (minutes < 10 && result != "")
+                    tmp = "0" + tmp;
+                result += tmp + ":";
+            }
+
+            seconds = seconds - (minutes * 60);
+            let tmp = seconds;
+            if (seconds < 10 && result != "")
+                tmp = "0" + seconds;
+            return result + tmp + " " + unit;
+        }
+
         function getSeconds(str) {
             const s = str.split(":");
             let total = 0;
