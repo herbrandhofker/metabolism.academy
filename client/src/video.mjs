@@ -130,10 +130,8 @@ class Video extends LitElement {
         }
 
         const button = e.target;
-        button.style.display = "none";
        
-
-        e.target.parentNode.appendChild(vc);
+        button.parentNode.appendChild(vc);
         vc.showModal();
         const start = getSeconds(this.videoData.start);
         const end = getSeconds(this.videoData.end);
