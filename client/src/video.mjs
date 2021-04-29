@@ -93,7 +93,15 @@ class Video extends LitElement {
 
         .video-container>video::-webkit-media-controls {
             display: none;
-        }       
+        }   
+        
+        .length{
+            margin-left: 0.2em;
+            margin-left: 1em;
+            width: 6em;
+            padding: 0.6em 0;
+ 
+        }
         `;
     }
 
@@ -196,8 +204,8 @@ class Video extends LitElement {
             seekBar.type = "range"
             seekBar.value = "0";
 
-            const lengthEl = btnBox.appendChild(document.createElement("div"));
-            lengthEl.classList.add('item');
+            const lengthEl = btnBox.appendChild(document.createElement("label"));
+            lengthEl.classList.add('length');
             lengthEl.innerText = 123
 
             const volume_span = btnBox.appendChild(document.createElement("span"));
