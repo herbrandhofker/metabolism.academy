@@ -228,7 +228,7 @@ class Video extends LitElement {
             volume_span.classList.add('volume-span', 'item')
             const volume_low = volume_span.appendChild(document.createElement("i"));
             volume_low.innerHTML = volumeDownSvg;
-/*
+
             const volumeBar = volume_span.appendChild(document.createElement("input"));
             volumeBar.type = "range"
             volumeBar.min = 0;
@@ -238,11 +238,11 @@ class Video extends LitElement {
             const volume_high = volume_span.appendChild(document.createElement("i"));
             volume_high.innerHTML = volumeOnSvg;
 
-            const fullScreenButton = btnBox.appendChild(document.createElement("button"));
+            const fullScreenButton = btnBox.appendChild(document.createElement("a"));
             fullScreenButton.classList.add('opaque-button', 'item');
             fullScreenButton.innerHTML = expandSvg;
 
-            const muteButton = btnBox.appendChild(document.createElement("button"));
+            const muteButton = btnBox.appendChild(document.createElement("a"));
             muteButton.classList.add('opaque-button', 'item');
             muteButton.innerHTML = volumeOffSvg;
 
@@ -313,7 +313,7 @@ class Video extends LitElement {
                     }
                 });
             });
-*/
+
             configs.set(videoId, config);
             return config.videoDialog;
         }
