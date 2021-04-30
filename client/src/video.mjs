@@ -130,7 +130,7 @@ class Video extends LitElement {
 
         const videoDialog = getStaticVideo(this.videoData.id);
         if (videoDialog.parentNode) {
-           videoDialog.remove();
+            videoDialog.remove();
         }
 
         const button = e.target;
@@ -154,46 +154,41 @@ class Video extends LitElement {
 
         function getStaticVideo(videoId) {
 
-            if (configs.has(videoId)){
+            if (configs.has(videoId)) {
                 return configs.get(videoId).videoDialog;
             }
             const videoDialog = document.createElement("dialog");
             const videoDialogForm = videoDialog.appendChild(document.createElement("form"));
             videoDialogForm.method = "dialog";
-            
-            const videoContainer =videoDialogForm.appendChild(document.createElement("div"));
+
+            const videoContainer = videoDialogForm.appendChild(document.createElement("div"));
             videoContainer.classList.add("video-container")
-            const menu=videoDialogForm.appendChild(document.createElement('menu'));
-            const cancelBtn=menu.appendChild(document.createElement('button'));
-            cancelBtn.value="close";
-            cancelBtn.innerText="close";
+            const menu = videoDialogForm.appendChild(document.createElement('menu'));
+            const cancelBtn = menu.appendChild(document.createElement('button'));
+            cancelBtn.value = "close";
+            cancelBtn.innerText = "close";
             const config = { data: {} };
             config.videoDialog = videoDialog;
 
-            
+
             const video = videoContainer.appendChild(document.createElement("video"));
             config.video = video;
-            
+
 
             const bottomSection = videoContainer.appendChild(document.createElement("div"));
             bottomSection.classList.add("video-bottom-section")
-            bottomSection.innerText='bottom'
-           const btnBox = bottomSection.appendChild(document.createElement("div"));
+            bottomSection.innerText = 'bottom'
+            const btnBox = bottomSection.appendChild(document.createElement("div"));
             btnBox.classList.add("button-box");
             const titleEl = bottomSection.appendChild(document.createElement("label"));
             titleEl.classList.add("video-title");
-            titleEl.innerText="title?"
+            titleEl.innerText = "title?"
             config.data.titleEl = titleEl;
 
-            const test = menu.appendChild(document.createElement("a"));
-            test.innerText="test?"
-            test.classList.add("button")
-            test.addEventListener("click", (e)=>{config.video.pause();config.videoDialog.close();});
-           
             const source = config.video.appendChild(document.createElement("source"));
             source.src = "../videos/" + getMp4(videoId) + ".mp4";
             source.type = "video/mp4";
-           let promise = config.video.play();
+            let promise = config.video.play();
             if (promise !== undefined) {
                 promise.then(_ => {
                     console.log("Autoplay started!");
@@ -204,13 +199,6 @@ class Video extends LitElement {
                 });
             }
 
-            config.video.addEventListener("timeupdate", (event) => {
-                config.data.current = config.video.currentTime;
-                if (config.video.currentTime >= config.data.end) {
-                    config.video.pause();
-                }
-                event.stopPropagation();
-            });
 
             const playButton = btnBox.appendChild(document.createElement("a"));
             playButton.classList.add('item', 'opaque-button')
@@ -223,7 +211,7 @@ class Video extends LitElement {
 
             const lengthEl = btnBox.appendChild(document.createElement("label"));
             lengthEl.classList.add('length');
-       
+
             const volume_span = btnBox.appendChild(document.createElement("span"));
             volume_span.classList.add('volume-span', 'item')
             const volume_low = volume_span.appendChild(document.createElement("i"));
@@ -253,15 +241,15 @@ class Video extends LitElement {
             closeButton.addEventListener("click", () => {
                 videoContainer.style.display = "none";
                 video.pause();
-                button.style.display = "block";              
+                button.style.display = "block";
 
             });
 
             video.addEventListener('loadedmetadata', (event) => {
                 video.addEventListener("timeupdate", (event) => {
                     const length = (config.data.end - config.data.start);
-                    lengthEl.innerText = showTime(length);
-                 
+                    lengthEl.innerText = showProgress(video.currentTime,length);
+                    console.log("bbb")
                     const value = (100 / (length)) * (video.currentTime - config.data.start);
                     seekBar.value = value;
                     if (video.currentTime >= config.end) {
@@ -318,30 +306,35 @@ class Video extends LitElement {
             return config.videoDialog;
         }
 
+        function showProgress(t, seconds) {
+            return showTime(t)+" / "+showTime(seconds);
+        }
+
         function showTime(seconds) {
+            seconds=Math.round(seconds)
             let result = "";
-            let unit = "seconds";
-            const hours = Math.floor(seconds / 3600);
+           const hours = Math.floor(seconds / 3600);
             if (hours > 1) {
-                unit = "hours"
-                result = hours + ":";
+                 result = hours + ":";
             }
 
             seconds = seconds - (hours * 3600);
             const minutes = Math.floor(seconds / 60);
             if (minutes > 0 || hours > 0) {
-                unit = "minutes";
-                let tmp = minutes;
+               let tmp = minutes;
                 if (minutes < 10 && result != "")
                     tmp = "0" + tmp;
                 result += tmp + ":";
+            }else
+            if (minutes==0){
+                result="0:"
             }
 
             seconds = seconds - (minutes * 60);
             let tmp = seconds;
-            if (seconds < 10 && result != "")
+            if (seconds < 10 )
                 tmp = "0" + seconds;
-            return result + tmp + " " + unit;
+            return result + tmp;
         }
 
         function getSeconds(str) {
