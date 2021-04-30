@@ -4,7 +4,7 @@
 the video's have to be downloaded separately
 and placed in the folder ./client/src/videos
 
-Get it running
+To get it running
 Go to subdir clients
 
 
