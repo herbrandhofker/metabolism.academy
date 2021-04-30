@@ -141,7 +141,7 @@ class Video extends LitElement {
         config.data.current = start;
         config.data.start = start;
         config.data.end = end;
-        config.data.titleEl.innerHTML = "<p>"+this.title+"</p><p><a href="+videos.get(this.videoData.id).youtube+"'>See youtube</a></p>";
+        config.data.titleEl.innerHTML = "<p>"+this.title+"</p>";
         config.video.play();
         return videoDialog;
 
@@ -224,6 +224,10 @@ class Video extends LitElement {
             muteButton.classList.add('opaque-button', 'btnbox-item');
             muteButton.innerHTML = volumeOffSvg;
 
+            const youtubeButton = btnBox.appendChild(document.createElement("a"));
+            youtubeButton.classList.add('btnbox-item');
+            youtubeButton.innerHTML = "<a href="+videos.get(videoId).youtube+"'>See all on youtube</a>";
+      
             const closeButton = btnBox.appendChild(document.createElement("button"));
             closeButton.classList.add('opaque-button', 'btnbox-item', 'close-button');
             closeButton.innerHTML = closeSvg;
