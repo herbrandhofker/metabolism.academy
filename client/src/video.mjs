@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 
-const svgWidth = 20;
+const svgWidth = 30;
 const svgHeight = svgWidth;
 const closeSvg = `<svg width="` + svgWidth + `" height="` + svgHeight + `" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1490 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z"/></svg>`;
 const playSvg = `<svg width="` + svgWidth + `" height="` + svgHeight + `" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1576 927l-1328 738q-23 13-39.5 3t-16.5-36v-1472q0-26 16.5-36t39.5 3l1328 738q23 13 23 31t-23 31z"/></svg>`;
@@ -12,13 +12,13 @@ const expandSvg = `<svg width="` + svgWidth + `" height="` + svgHeight + `" view
 
 
 const videos = new Map();
-videos.set(0, "Dr. Paul Mason - -Are you smarter than a Doctor What your doctor doesn-t know about nutrition-");
-videos.set(1, "Prof. Tim Noakes - -The Cholesterol Hypothesis 10 Key Ideas that the Diet Dictators Have Hidden...-");
-videos.set(2, "Dr. Paul Mason - 'Treating and preventing dementia - how diet can work when drugs fail'");
-videos.set(3, "Minding your mitochondria Dr. Terry Wahls TEDxIowaCity");
-videos.set(4, "Treat cancer with Diet Professor Thomas Seyfried makes a compelling case");
-videos.set(5, "How low carbohydrate diets can help you avoid surgery for arthritis");
-videos.set(6, "Dr. Paul Mason - -Saturated fat is not dangerous-");
+videos.set(0,{ name: "Dr. Paul Mason - -Are you smarter than a Doctor What your doctor doesn-t know about nutrition-", youtube : "https://www.youtube.com/watch?v=sNz2gWqL0Ng"});
+videos.set(1,{ name: "Prof. Tim Noakes - -The Cholesterol Hypothesis 10 Key Ideas that the Diet Dictators Have Hidden...-", youtube: "https://www.youtube.com/watch?v=jyzkv5uFGt8"});
+videos.set(2,{ name: "Dr. Paul Mason - 'Treating and preventing dementia - how diet can work when drugs fail'", youtube: "https://www.youtube.com/watch?v=O36CNNdgDGQ"});
+videos.set(3,{ name: "Minding your mitochondria Dr. Terry Wahls TEDxIowaCity", youtube : "https://www.youtube.com/watch?v=KLjgBLwH3Wc"});
+videos.set(4,{ name: "Treat cancer with Diet Professor Thomas Seyfried makes a compelling case", yputube: "https://www.youtube.com/watch?v=RyB3VI0vwKA"});
+videos.set(5, { name:"How low carbohydrate diets can help you avoid surgery for arthritis", youtube : "https://www.youtube.com/watch?v=zJ-6EawQfM4"});
+videos.set(6,{ name: "Dr. Paul Mason - -Saturated fat is not dangerous-", youtube: "https://www.youtube.com/watch?v=NUY_SDhxf4k"});
 const configs = new Map();
 
 class Video extends LitElement {
@@ -50,15 +50,21 @@ class Video extends LitElement {
             flex-direction: column;
             margin: 1rem;
         }
-
-        .video-bottom-section>.button-box {
+        
+        .button-box {
             display: flex;
             width: 100%;
+            align-items: center;
+            justify-content: center;
         }
 
         .btnbox-item {
             margin-left: 1.2rem;
             font-size: 1.6rem;
+         }
+         
+        .length{
+             white-space: nowrap; 
         }
 
         .volume-span {
@@ -95,21 +101,14 @@ class Video extends LitElement {
         .video-container>video::-webkit-media-controls {
             display: none;
         }   
-        
-        .length{
-            margin-left: 0.2em;
-            margin-left: 1em;
-            padding: 0.6em 0;
-            white-space: nowrap;
- 
-        }
+       
         `;
     }
 
     constructor() {
         super();
         this.videoData = null;
-        this.title = "dummy title";
+        this.title = "";
     }
 
 
@@ -142,12 +141,12 @@ class Video extends LitElement {
         config.data.current = start;
         config.data.start = start;
         config.data.end = end;
-        config.data.titleEl.innerText = this.title;
+        config.data.titleEl.innerHTML = "<p>"+this.title+"</p><p><a href="+videos.get(this.videoData.id).youtube+"'>See youtube</a></p>";
         config.video.play();
         return videoDialog;
 
         function getMp4(videoId) {
-            return videos.get(videoId);
+            return videos.get(videoId).name;
         }
 
         function getStaticVideo(videoId) {
