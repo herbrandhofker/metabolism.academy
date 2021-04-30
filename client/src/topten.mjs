@@ -18,12 +18,13 @@ const ILLNESSES = [
 ];
 
 const FOODS = [
-    "Carbohydrates",
-    "Fat",
-    "Fat Saturated",
-    "Omega 3/Omega 6",
-    "Proteins",
-    "Salt"
+    { name: "Carbohydrates", description: "Carbs: sugar, fructose, bread, pasta's, even apples, oranges..., Science: They can cause Insuline Resistance" },
+    { name: "Fat", description: "Eating fat causes obesitas? Science : NO, the reaction of your body on what you eat is important, see video's" },
+    { name: "Fat Unsaturated", description: "like seed oils, etc. Are they healthy> Science: NO, seed oils are harmfull!!. see video's " },
+    { name: "Fat Saturated", description: "Is saturated fat harmfull? Science : NO, see video's" },
+    { name: "Omega 3/Omega 6", description: "See video's." },
+    { name: "Proteins", description: "See video's" },
+    { name: "Salt", description: "Is too much harmfull? Science: NO, your insulin resistance causes high bloodpressure" }
 ];
 
 class TopTen extends LitElement {
@@ -101,7 +102,7 @@ class TopTen extends LitElement {
 
     constructor() {
         super();
-      }
+    }
 
 
     render() {
@@ -127,7 +128,7 @@ class TopTen extends LitElement {
                     <tr><th>Food</th><th>What science tells us today</th></tr>
                 </thead>
                 <tbody>               
-                    ${FOODS.map(food => html`<tr @mouseenter=${e => this.insertFood(e, food)}><td>${food}</td><td><a href="#${food}">nyi</a></tr>`)}
+                    ${FOODS.map(food => html`<tr @mouseenter=${e => this.insertFood(e, food.name)}><td>${food.name}</td><td>${food.description}</tr>`)}
                 </tbody>
             </table>          
            </section>
@@ -166,7 +167,7 @@ class TopTen extends LitElement {
                     myVideo.id = "myVideo";
                     myVideo.videoData = rec.advices[0].video;
                     myVideo.title = rec.problem;
-                 }
+                }
                 const table = div.appendChild(document.createElement("table"));
                 table.classList.add("inner-table")
                 const thead = table.appendChild(document.createElement("thead"));

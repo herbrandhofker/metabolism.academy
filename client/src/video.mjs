@@ -244,7 +244,7 @@ class Video extends LitElement {
             video.addEventListener('loadedmetadata', (event) => {
                 video.addEventListener("timeupdate", (event) => {
                     const length = (config.data.end - config.data.start);
-                    lengthEl.innerText = showProgress(video.currentTime,length);
+                    lengthEl.innerText = showProgress(video.currentTime  - config.data.start,length);
                     const value = (100 / (length)) * (video.currentTime - config.data.start);
                     seekBar.value = value;
                     if (video.currentTime >= config.end) {
