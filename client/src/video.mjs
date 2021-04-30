@@ -164,10 +164,10 @@ class Video extends LitElement {
             const videoContainer = videoDialogForm.appendChild(document.createElement("div"));
             videoContainer.classList.add("video-container")
             const menu = videoDialogForm.appendChild(document.createElement('menu'));
-            const cancelBtn = menu.appendChild(document.createElement('button'));
-            cancelBtn.value = "close";
-            cancelBtn.innerText = "close";
-            const config = { data: {} };
+          /*  const closeBtn = menu.appendChild(document.createElement('button'));
+            closeBtn.value = "close";
+            closeBtn.innerText = "close";
+           */ const config = { data: {} };
             config.videoDialog = videoDialog;
 
 
@@ -198,7 +198,6 @@ class Video extends LitElement {
                     console.log("Autoplay was prevented!");
                 });
             }
-
 
             const playButton = btnBox.appendChild(document.createElement("a"));
             playButton.classList.add('item', 'opaque-button')
@@ -239,10 +238,7 @@ class Video extends LitElement {
             closeButton.innerHTML = closeSvg;
 
             closeButton.addEventListener("click", () => {
-                videoContainer.style.display = "none";
                 video.pause();
-                button.style.display = "block";
-
             });
 
             video.addEventListener('loadedmetadata', (event) => {

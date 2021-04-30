@@ -12,7 +12,7 @@ class Details extends LitElement {
             flex-direction: column; 
             background-color: var(--tertiar); 
             margin: auto;
-            width: 50%;
+            width: 80%;
             border: 3px solid green;
             padding: 10px;
             --font-size-video-button: 1rem;
