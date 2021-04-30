@@ -140,12 +140,12 @@ class Video extends LitElement {
         const start = getSeconds(this.videoData.start);
         const end = getSeconds(this.videoData.end);
         const config = configs.get(this.videoData.id);
-        //  config.video.currentTime = start;
+        config.video.currentTime = start;
         config.data.current = start;
         config.data.start = start;
         config.data.end = end;
         config.data.titleEl.innerText = this.title;
-        // config.video.play();
+        config.video.play();
         return videoDialog;
 
         function getMp4(videoId) {
@@ -249,7 +249,6 @@ class Video extends LitElement {
                 video.addEventListener("timeupdate", (event) => {
                     const length = (config.data.end - config.data.start);
                     lengthEl.innerText = showProgress(video.currentTime,length);
-                    console.log("bbb")
                     const value = (100 / (length)) * (video.currentTime - config.data.start);
                     seekBar.value = value;
                     if (video.currentTime >= config.end) {
