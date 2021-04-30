@@ -71,8 +71,8 @@
             "advice": "Take only saturated fat.",
             "reason": "Oxydation of unsaturated fat damages your organs.",
             "video": {
-               "id":1,"start": "0:00",
-               "end": "3:00:18"
+               "id":6,"start": "0:00",
+               "end": "28:34"
            }
          },
          {
@@ -89,7 +89,7 @@
       "advices": [
          {
             "advice0": "Limit salt intake ",
-            "reason0": "  salt leads to hign blood pressure",
+            "reason0": "Salt leads to hign blood pressure",
             "advice": "Take more than 10 gram salt. ",
             "reason": " The insulin regulates the blood pressure. Excess of salt is easily disposed of."
          }

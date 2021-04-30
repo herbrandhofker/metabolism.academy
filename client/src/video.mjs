@@ -18,6 +18,7 @@ videos.set(2, "Dr. Paul Mason - 'Treating and preventing dementia - how diet can
 videos.set(3, "Minding your mitochondria Dr. Terry Wahls TEDxIowaCity");
 videos.set(4, "Treat cancer with Diet Professor Thomas Seyfried makes a compelling case");
 videos.set(5, "How low carbohydrate diets can help you avoid surgery for arthritis");
+videos.set(6, "Dr. Paul Mason - -Saturated fat is not dangerous-");
 const configs = new Map();
 
 class Video extends LitElement {
@@ -55,9 +56,9 @@ class Video extends LitElement {
             width: 100%;
         }
 
-        .video-bottom-section>.button-box>.item {
+        .btnbox-item {
             margin-left: 1.2rem;
-            font-size: 1.2rem;
+            font-size: 1.6rem;
         }
 
         .volume-span {
@@ -67,9 +68,6 @@ class Video extends LitElement {
             align-items: center;
         }
 
-        .button{
-            background: yellow;
-        }
         .opaque-button {
             border: none;
             background-color: transparent;
@@ -164,25 +162,19 @@ class Video extends LitElement {
             const videoContainer = videoDialogForm.appendChild(document.createElement("div"));
             videoContainer.classList.add("video-container")
             const menu = videoDialogForm.appendChild(document.createElement('menu'));
-          /*  const closeBtn = menu.appendChild(document.createElement('button'));
-            closeBtn.value = "close";
-            closeBtn.innerText = "close";
-           */ const config = { data: {} };
+        
+            const config = { data: {} };
             config.videoDialog = videoDialog;
-
 
             const video = videoContainer.appendChild(document.createElement("video"));
             config.video = video;
 
-
             const bottomSection = videoContainer.appendChild(document.createElement("div"));
             bottomSection.classList.add("video-bottom-section")
-            bottomSection.innerText = 'bottom'
             const btnBox = bottomSection.appendChild(document.createElement("div"));
             btnBox.classList.add("button-box");
             const titleEl = bottomSection.appendChild(document.createElement("label"));
             titleEl.classList.add("video-title");
-            titleEl.innerText = "title?"
             config.data.titleEl = titleEl;
 
             const source = config.video.appendChild(document.createElement("source"));
@@ -200,19 +192,19 @@ class Video extends LitElement {
             }
 
             const playButton = btnBox.appendChild(document.createElement("a"));
-            playButton.classList.add('item', 'opaque-button')
+            playButton.classList.add('btnbox-item', 'opaque-button')
             playButton.innerHTML = playSvg;
 
             const seekBar = btnBox.appendChild(document.createElement("input"));
-            seekBar.classList.add('item')
+            seekBar.classList.add('btnbox-item')
             seekBar.type = "range"
             seekBar.value = "0";
 
             const lengthEl = btnBox.appendChild(document.createElement("label"));
-            lengthEl.classList.add('length');
+            lengthEl.classList.add('btnbox-item','length');
 
             const volume_span = btnBox.appendChild(document.createElement("span"));
-            volume_span.classList.add('volume-span', 'item')
+            volume_span.classList.add('volume-span', 'btnbox-item')
             const volume_low = volume_span.appendChild(document.createElement("i"));
             volume_low.innerHTML = volumeDownSvg;
 
@@ -226,15 +218,15 @@ class Video extends LitElement {
             volume_high.innerHTML = volumeOnSvg;
 
             const fullScreenButton = btnBox.appendChild(document.createElement("a"));
-            fullScreenButton.classList.add('opaque-button', 'item');
+            fullScreenButton.classList.add('opaque-button', 'btnbox-item');
             fullScreenButton.innerHTML = expandSvg;
 
             const muteButton = btnBox.appendChild(document.createElement("a"));
-            muteButton.classList.add('opaque-button', 'item');
+            muteButton.classList.add('opaque-button', 'btnbox-item');
             muteButton.innerHTML = volumeOffSvg;
 
             const closeButton = btnBox.appendChild(document.createElement("button"));
-            closeButton.classList.add('opaque-button', 'item', 'close-button');
+            closeButton.classList.add('opaque-button', 'btnbox-item', 'close-button');
             closeButton.innerHTML = closeSvg;
 
             closeButton.addEventListener("click", () => {
