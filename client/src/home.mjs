@@ -8,20 +8,24 @@ class Home extends LitElement {
 
     static get styles() {
         return css`
-        
+        * {
+            font-family: var(--font-family);        
+        }
+
         section {
             margin: auto;
             width: 50%;
             border: 3px solid green;
-            padding: 10px;
+            padding: var(--padding)
         }
 
         h1{
-            text-align: center;
+            text-align: center;        
         }
         
         p{
-            font-size: 1.5rem;
+            font-size: var(--font-size);
+            font-family: var(--font-family);        
         }
          
    `}

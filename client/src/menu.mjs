@@ -33,17 +33,17 @@ class Menu extends LitElement {
         }
      
         .button-box button {
-            padding: 15px;
+            padding: var(--padding);
             margin: var(--margin-big);
             background-color: var(--primary);
             border-color: var(--secundary);
             color: var(--secundary);
             border-width: 3px;
-         }        
+         }  
+
         .button-box button:hover {
             border-width: 0px;
-        }
-        
+        }        
     `;
     }
 

@@ -28,6 +28,12 @@ class Login extends LitElement {
             background-color: var(--tertiar);                    
             color:  var(--quartair)        
         }
+
+        .warning{
+            color: var(--color-warning);
+            text-align: center; 
+    
+        }
         .heading {
             display: flex;
             flex-direction: column;
@@ -37,7 +43,7 @@ class Login extends LitElement {
             margin: auto;
             width: 50%;
             border: 3px solid green;
-            padding: 10px;
+            padding: var(--padding)
         }
         .button-box {
             display: flex;
@@ -55,11 +61,7 @@ class Login extends LitElement {
             border-width: 0px;
         }
 
-        .warning{
-            color: red;
-            text-align: center; 
-    
-        }
+      
    `}
     render() {
         return html`

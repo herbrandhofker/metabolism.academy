@@ -72,7 +72,7 @@ class TopTen extends LitElement {
         }
 
         .summary th {background: var(--primary);}
-        .summary  tr:nth-child(even) {background: #CCC}
+        .summary tr:nth-child(even) {background: #CCC}
         .summary tr:nth-child(odd) {background: #FFF}
         .temporary td {background: lightblue;}
 
