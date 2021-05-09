@@ -1,7 +1,6 @@
 {
   "name": "interactive-server",
   "scripts": {
-    "topics": "nodemon ./createTopics.mjs",
     "start": "nodemon ./server.mjs"
   },
   "dependencies": {

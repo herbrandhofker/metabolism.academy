@@ -1,18 +1,13 @@
-import { LitElement, html, css } from 'lit-element';
-import {menu} from './menu.mjs'
+import { LitElement, html, css} from 'lit-element';
+import {menu, loginButtonPlaceHolder} from './menu.mjs'
 
-/*
-const socket = new WebSocket("wss://localhost:3000");
+import dialogPolyfill from 'dialog-polyfill'
+import { } from './auth0-spa-login.mjs';
 
-socket.onopen = () => {
-    console.log("connection")
-};
+export const registrations = new Map();
 
-socket.onmessage = (event) => {
-    console.log('Message from server ', event.data);
-    const rec = JSON.parse(event.data);
-    console.log('Message type from server ', rec.type);
-};*/
+export let profile = null;
+const URL = "wss://ws.metabolism.academy";
 
 class Login extends LitElement {
 
@@ -49,15 +44,16 @@ class Login extends LitElement {
             display: flex;
             justify-content: center;
         }        
-        .button-box button {
+        .button-box .button,login {
             padding: 50px;
             margin: var(--margin-big);
             background-color: var(--primary);
             border-color: var(--secundary);
             color: var(--secundary);
             border-width: 3px;
-         }        
-        .button-box button:hover {
+         }  
+               
+        .button-box .button:hover {
             border-width: 0px;
         }
 
@@ -86,23 +82,108 @@ class Login extends LitElement {
                     </ul>
                 </div>
             </div>
-            <div class='button-box'>
-                <button @click=${e => this.login()}>Login as health professional</button>
-                <button @click=${e => this.login()}>Login as visitor</button>
+            <div class='button-box'>${loginButton}
             </div>
         </section>`;
     }
 
-    login() {
-     //   const rec = { "type": "login", "payload": { "email": "pietje.puk@gmail.com" } }
-      //  socket.send(JSON.stringify(rec));
-        menu.style.display="block";
-        login.style.display="none";
-        menu.activate('topten')
-    }
 }
 
 customElements.define("my-login", Login);
 
 const body = document.getElementsByTagName("body")[0];
 const login=body.appendChild(document.createElement("my-login"))
+
+const loginButton= createLoginButton();
+  function createLoginButton(){
+    const loginButton = document.createElement("auth0-button");
+    loginButton.domain = "dev-7yubhb2t.eu.auth0.com";
+    loginButton.client_id = "4hLCadSsHhoaBSbaFjBp1cWx0W6zoIIj";
+    loginButton.textLogin = "LOGIN AS VISITOR";
+    loginButton.textLogout = "LOGOUT";
+  
+    loginButton.addEventListener("user-logged-in", (e) => {
+       
+        loginButtonPlaceHolder.appendChild(loginButton);
+        
+        afterAuth0Login(e.detail, "visitor");
+
+    });
+
+    return loginButton;
+
+    function afterAuth0Login(detail, role) {
+        menu.style.display="block";
+        login.style.display="none";
+        menu.activate('home')
+        const socket = new WebSocket(URL);
+        socket.onopen = () => {
+            const json = { type: "login" };
+            json.payload = JSON.parse(detail);
+            json.payload.role = role;
+            profile = json.payload;
+            menu.setProfile(profile)
+            socket.send(JSON.stringify(json))
+
+            const json2 = { type: "registrations" };
+            socket.send(JSON.stringify(json2))
+        };
+
+        socket.onmessage = (event) => {
+            const rec = JSON.parse(event.data)
+            const type = rec.type;
+            const payload = rec.payload;
+            if (type == "registrations") {
+                const regs = payload.registrations;
+                for (let reg of regs) {
+                     registrations.set(reg.email, reg);
+                }
+            }
+        }
+    }
+}
+
+
+
+export function createShowRegisteredusersButton(parent) {
+
+    const button = parent.appendChild(document.createElement("button"));
+    button.innerText = "show all registrations";
+    button.addEventListener("click", e => {
+
+        const dialog = button.appendChild(document.createElement("dialog"));
+        const form = dialog.appendChild(document.createElement("form"));
+        const tbl = form.appendChild(document.createElement("table"));
+        const caption = tbl.appendChild(document.createElement("caption"));
+        caption.innerHTML = "<h2>Registered Users</h2>";
+        const tblHead = tbl.appendChild(document.createElement("thead"));
+        const row = tblHead.insertRow();
+        let th = row.appendChild(document.createElement("th"));
+        th.innerText = "Name";
+        th = row.appendChild(document.createElement("th"));
+        th.innerText = "Email";
+
+        const tblBody = tbl.appendChild(document.createElement("tbody"));
+        tblBody.id = "registrationsTable";
+        for (let reg of registrations.values()) {
+            const row = tblBody.insertRow();
+            let cell = row.insertCell();
+            cell.innerText = reg.name;
+            cell = row.insertCell();
+            cell.innerText = reg.email;
+            if (reg.picture) {
+                cell = row.insertCell();
+                const img = cell.appendChild(document.createElement("img"));
+                img.src = reg.picture;
+            }
+        };
+
+        const menu = form.appendChild(document.createElement("menu"));
+        const cancelBtn = menu.appendChild(document.createElement("button"));
+        cancelBtn.innerText = "OK";
+        cancelBtn.value = "cancel";
+        dialogPolyfill.registerDialog(dialog);
+    
+        dialog.showModal();
+    });
+}

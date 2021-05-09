@@ -1,0 +1,17 @@
+
+:root {
+      --blue: #1e90ff;
+      --white: #ffffff;
+    }
+    
+body {
+      --auth0-login-background: #EB5424;
+      --auth0-login-color: #FFFFFF;
+      --auth0-login-font-family: sans-serif;
+      --auth0-login-font-size: after 18px;
+      --auth0-login-line-height: 32px;
+      --auth0-login-border-radius: 5px;
+      --auth0-login-border: 1px solid #EB5424;
+      --auth0-login-margin: 5px 16px;
+      --auth0-login-padding: 10px 30px;
+}

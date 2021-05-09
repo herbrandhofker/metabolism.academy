@@ -1,17 +1,17 @@
-import kafka from 'kafka-node';
+import kafka  from 'kafka-node';
 
-const client = new kafka.KafkaClient({ kafkaHost: 'localhost:9092' });
+
+const client = new kafka.KafkaClient({ kafkaHost: '192.168.178.80:9092' });
 var topicsToCreate = [{
-    topic: 'test', 
-    partitions: 1 ,
+    topic: 'login',
+    partitions: 1,
     replicationFactor: 1
   },{
-    topic: 'login', 
+    topic: 'test',
     partitions: 1,
     replicationFactor: 1
   }];
-
-client.createTopics(topicsToCreate, (error, result) => {
-    if (error) console.log(error)
-    else console.log(result)
-});
+  
+  client.createTopics(topicsToCreate, (error, result) => {
+   console.log(result);
+  });

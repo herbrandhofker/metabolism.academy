@@ -7,6 +7,7 @@ services:
       - '2181:2181'
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
+    restart: always
 
   kafka_broker_1:
     image: 'bitnami/kafka:latest'
@@ -19,8 +20,7 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_LISTENERS=PLAINTEXT://:9092
       - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092  
-    volumes:
-        - c:\tmp\kafka
+    restart: always
     depends_on:
       - zookeeper
  
