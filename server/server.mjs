@@ -1,8 +1,13 @@
 import WebSocketServer from 'ws';
 import kafka from 'kafka-node';
-const port = 3000;
+const port = 3010;
 
 const connections = new Map();
+
+const mapOfRooms = new Map();
+const socketRoom = new Map();
+const sockets = new Map();
+
 const client = new kafka.KafkaClient({ kafkaHost: '192.168.178.80:9092' });
 const producer = new kafka.HighLevelProducer(client);
 const consumer = new kafka.Consumer(client, [{ topic: 'login' }, { topic: 'test' }]);
@@ -30,15 +35,18 @@ producer.on('ready', function () {
         console.log("connection with client:" + ws.id)
         ws.on('message', data => {
             console.log("message from client received")
-            const rec = JSON.parse(data);
-            switch (rec.type) {
+            let msg = "";
+            try { msg = JSON.parse(data); }
+            catch (err) { console.error(err + " with data:" + data); return; }
+           
+            switch (msg.type) {
                 case 'login': {
-                    connections.set(ws.id, rec.payload)
-                    rec.payload.timestamp = new Date();
-                    ws.send(JSON.stringify(rec));
-                    producer.send([{ topic: rec.type, messages: new kafka.KeyedMessage(rec.payload.email, JSON.stringify(rec)) }], (err, data) => { console.log(data); });
-
-
+                    connections.set(ws.id, msg.payload)
+                    msg.payload.websocketId =ws.id;
+                    msg.payload.timestamp = new Date();
+                    msg.payload.test = "from mitochondria";
+                    ws.send(JSON.stringify(msg));
+                    producer.send([{ topic: msg.type, messages: new kafka.KeyedMessage(msg.payload.email, JSON.stringify(msg)) }], (err, data) => { console.log(data); });
                     break;
                 }
                 case 'registrations': {
@@ -53,14 +61,133 @@ producer.on('ready', function () {
                     ws.send(JSON.stringify(rec));                 
                     break;
                 }
-                default: console.error("unknown type: " + rec.type);
+                case "registerMe":
+                    registerMe(msg.payload);
+                    break;
+                case "chatMessage":
+                    chatMessage(msg.payload);
+                    break;
+                case "offer":
+                    offer(msg.payload);
+                    break;
+                case "ice-candidate":
+                    iceCandidate(msg.payload);
+                    break;
+                case "answer":
+                    answer(msg.payload);
+                    break;
+                case "requestOneOnOne":
+                    requestOneOnOne(msg);
+                    break;
+    
+                default: console.error("unknown type: " + msg.type);
             }
         }); 
 
         ws.on('close', () => {
             console.log("close");
             connections.delete(ws.id);
+            const roomId = socketRoom.get(ws.id);
+            const rec = { "type": "leaveRoom", "payload": { "userId": ws.id } }
+            wsServer.clients.forEach(client => {
+                if (client.readyState === WebSocketServer.OPEN) {
+                    client.send(JSON.stringify(rec));
+                }
+            })
+            let myRoomUsers = [];
+            let myRoomSockets = [];
+            let myRoom = mapOfRooms.get(roomId);
+            if (myRoom) {
+                myRoomUsers = myRoom.userInfoArray;
+                myRoomSockets = myRoom.socketArray;
+                myRoomSockets = myRoomSockets.filter(id => id !== ws.id);
+                myRoomUsers = myRoomUsers.filter(info => info.userId !== ws.id);
+                myRoom.userInfoArray = myRoomUsers;
+                myRoom.socketArray = myRoomSockets
+                mapOfRooms.set(roomId, myRoom);
+            }
+            sockets.delete(ws.id);
+            socketRoom.delete(ws.id)
         });
+
+        function offer(payload) {
+            const rec = { "type": "offer", "payload": payload }
+            sockets.get(payload.target).send(JSON.stringify(rec));
+        }
+    
+        function iceCandidate(payload) {
+            const rec = { "type": "ice-candidate", "payload": payload }
+            sockets.get(payload.target).send(JSON.stringify(rec));
+        }
+    
+        function answer(payload) {
+            const rec = { "type": "answer", "payload": payload }
+            sockets.get(payload.target).send(JSON.stringify(rec));
+        }
+    
+        function requestOneOnOne(payload) {
+            wsServer.clients.forEach(client => {
+                if (client.readyState === WebSocketServer.OPEN) {
+                    client.send(JSON.stringify(payload));
+                }
+            })
+        }
+
+        function chatMessage(payload) {
+            const senderId = payload.senderId;
+            const receiverId = payload.receiverId;
+            const roomId = socketRoom.get(ws.id);
+            const myRoom = mapOfRooms.get(roomId);
+            const rec = { "type": "chatMessage", "payload": payload };
+            const msg = JSON.stringify(rec);
+            if (receiverId == undefined) {
+                for (const usr of myRoom.socketArray) {
+                    sockets.get(usr).send(msg);
+                }
+            }
+            else {
+                sockets.get(senderId).send(msg);
+                sockets.get(receiverId).send(msg);
+            }
+        }
+
+        function registerMe(_payload) {
+            let userInfo = _payload;
+            const updatedMe = _payload;
+            updatedMe.user.userId = ws.id
+            userInfo = { ...userInfo, userId: ws.id };
+            userInfo.user.userId = ws.id
+            const roomId = userInfo.user.room
+            const recConfirmation = { "type": "registerConfirmation", "payload": _payload.user }
+            ws.send(JSON.stringify(recConfirmation));
+    
+            let myRoomUsers = [];
+            let myRoomSockets = [];
+            let myRoom = mapOfRooms.get(roomId);
+            if (!myRoom) {
+                mapOfRooms.set(roomId, { socketArray: [], userInfoArray: [] });
+                myRoom = mapOfRooms.get(roomId);
+            } else {
+                myRoomUsers = myRoom.userInfoArray;
+                myRoomSockets = myRoom.socketArray;
+                const rec = { "type": "existingUsers", "payload": myRoomUsers }
+                const msg = JSON.stringify(rec);
+                ws.send(msg)
+            }
+    
+            myRoomUsers.push(userInfo);
+            myRoom.userInfoArray = myRoomUsers;
+            myRoom.socketArray = myRoomSockets
+            mapOfRooms.set(roomId, myRoom);
+            const userRec = { "type": "joinedRoom", "payload": userInfo.user }
+            for (const usr of myRoomSockets) {//emit works here but send does not
+                sockets.get(usr).send(JSON.stringify(userRec));//Todo remove to
+            }
+            myRoomSockets.push(ws.id);
+            socketRoom.set(ws.id, roomId);
+        }
+    
+    
     });
     consumer.on('message', function (message) {
         wsServer.clients.forEach(client => {

@@ -1,146 +1,134 @@
 import './home.mjs'
-import './styles.css'
+import './index.css'
 import './topten.mjs'
 import './details.mjs'
 import './about.mjs'
 import './nyi.mjs'
 import { LitElement, html, css } from 'lit-element';
-import dialogPolyfill from 'dialog-polyfill'
-import { createShowRegisteredusersButton } from './login.mjs'
+import dialogPolyfill from 'dialog-polyfill';
+import { getTheOthers } from './the-others.mjs';
+import { getButtonCss } from './utilCss.mjs';
 
-const body = document.getElementsByTagName("body")[0];
-const menuDiv = body.appendChild(document.createElement("div"))
+const menuDiv = document.getElementById("menuDiv");
+const contentDiv = document.getElementById("content");
 
-//const buttonBox = body.appendChild(document.createElement("div"))
-//createShowRegisteredusersButton(buttonBox);
+const menuItems = ["home", "topten", "details", "about", "group-chat"];
+const menuObjects = new Map();
 
-
-const tabs = [];
-
-const objects = ["home", "topten", "details", "about"];
-objects.forEach(name => {
-    const el = body.appendChild(document.createElement("my-" + name))
-    el.id = name;
-    el.classList.add("tab-content");
-    tabs.push(el);
-})
-
-export let loginButtonPlaceHolder = null;
-
+let menu = null;
+export function createMenuWithLogoutButton(loginButton) {
+    if (menu == null) {
+        menu = menuDiv.appendChild(document.createElement("my-menu"));
+        menu.loginButton = loginButton;
+    }
+    return menu;
+}
 
 class Menu extends LitElement {
     static get styles() {
-        return css`
-           
-        .button-box,.profile-box{
+        return [getButtonCss(), css`  
+        dialog{
+            background-color: var(--tertiar-background-color);
+            color: black; 
+            border-width : 10px;
+            border-color: var(--primary-color);
             display: flex;
-            flex-direction: row;
-            justify-content: center;
-            background-color: var(--tertiar);  
-            height: var(--button-box-height);                
         }
-
-        .button {
-            padding: var(--button-padding);
-            margin: var(--button-margin);
-            background-color: var(--button-background-color);
-            border-color: var(--button-border-color);
-            color: var(--button-color);
-            border-width: var(--button-border-width);
-            font-family: var(--button-font-family);
-            font-size: var(--button-font-size);
-            font-weight: var(--button-font-weight);
-        }  
-
-        .button:hover {
-            border-width: var(--button-border-width-hover);
-        }  
-        
-        table {
+        table {          
             width: 100%;
             border-collapse: collapse;
           }
         table, th, td {
-            border: 1px solid black;
-          }
+            border: 1px grey;
+        }
 
-          td {
+        td {
             text-align: left;
-          }
-    `;
+        }
+        
+        tr:nth-child(odd) {
+            background-color:       var(--primary-color);
+        }
+    `];
     }
 
     constructor() {
         super();
-        this.profileBox = null;
-        this.profile = null;
+        this.loginButton = null;
+    }
+
+    static get properties() {
+        return {
+            loginButton: { type: Object }
+        };
     }
 
     render() {
         return html`
-        <section style="display: flex" >            
+        <section style="display:flex" >            
             <div  id="buttonBox"  class="button-box">
-                ${tabs.map(lbl => html`<button class="button" @click=${e => this.activate(lbl.id)}>${lbl.id.toUpperCase()}</button>`)}
-             
-                </div>
-             <div id="profileBox" class="profile-box">
-             ${this.createShowProfileButton()}
-              </div>
+                ${menuItems.map(lbl => html`<button class="button" @click=${e => this.activate(lbl)}>${lbl.toUpperCase()}</button>`)}        
+                ${this.createShowProfileButton()}
+            </div>
         </section>
         `;
     }
 
-    firstUpdated() {
-        this.profileBox = this.shadowRoot.getElementById("profileBox");
+  
+    updated(changedProperties) {
+        changedProperties.forEach((oldValue, propName) => {
+            if (propName = "loginButton")
+                this.shadowRoot.getElementById("buttonBox").appendChild(this.loginButton);
 
-        loginButtonPlaceHolder = this.shadowRoot.getElementById("buttonBox");
-        for (let tab of tabs)
-            tab.style.display = "none";
+        });
     }
 
     activate(id) {
-        for (let tab of tabs) {
-            tab.style.display = "none";
+        for (let tab of menuItems) {
+            const el = (menuObjects.get(tab));
+            if (el) el.style.display = "none";
         }
-        for (let tab of tabs) {
-            if (tab.id == id) { tab.style.display = "block"; return; }
-        }
-        for (let tab of tabs) {
-            if (tab.id == "nyi") { tab.style.display = "block"; tab.text = id; return; }
-        }
-    }
+        for (let tab of menuItems) {
+            let el = (menuObjects.get(tab));
+            if (el == null && tab == id) {
 
-    setProfile(profile) {
-        this.profile = profile;
+                el = contentDiv.appendChild(document.createElement("my-" + tab));
+              
+                menuObjects.set(tab, el);
+            } else
+                if (tab == id) {
+                    el.style.display = "block";
+                }
+        }
     }
 
     createShowProfileButton() {
         const button = document.createElement("button");
         button.classList.add("button")
-        button.innerText = "MY PROFILE";
+        button.innerText = "MY REGISTRATION";
         button.addEventListener("click", e => {
-            if (this.profile) {
-                const dialog = button.appendChild(document.createElement("dialog"));
-                const form = dialog.appendChild(showYourProfile(this.profile));
-                const menu = form.appendChild(document.createElement("menu"));
-                const cancelBtn = menu.appendChild(document.createElement("button"));
-                cancelBtn.classList.add("button")
+            const dialog = button.appendChild(document.createElement("dialog"));
+            const form = dialog.appendChild(showYourProfile());
+            const menu = form.appendChild(document.createElement("menu"));
+            const btn = menu.appendChild(document.createElement("button"));
+            btn.classList.add("button")
 
-                cancelBtn.innerText = "OK";
-                cancelBtn.value = "cancel";
-                dialogPolyfill.registerDialog(dialog);
-    
-                dialog.showModal();
-            }
+            btn.innerText = "OK";
+            btn.value = "cancel";
+            dialogPolyfill.registerDialog(dialog);
+
+            dialog.showModal();
+
         });
         return button;
 
-        function showYourProfile(profile) {
+        function showYourProfile() {
+            const profile = getTheOthers().me.profile;
             if (profile == null)
                 return;
             const form = document.createElement("form");
             const title = form.appendChild(document.createElement("h1"));
-            title.innerText = "Profile:";
+            title.innerText = "Registered as:";
 
             const divtbl = form.appendChild(document.createElement("table"));
             Object.keys(profile).forEach(function (key) {
@@ -154,21 +142,9 @@ class Menu extends LitElement {
                 } else
                     cell.innerText = profile[key]
             });
-
             return form;
         }
     }
-
-
-
 }
 
 customElements.define("my-menu", Menu);
-
-export const menu = menuDiv.appendChild(document.createElement("my-menu"));
-menu.style.display = "none";
-
-
-
-
-

@@ -1,18 +1,30 @@
-import { LitElement, html, css} from 'lit-element';
-import {menu, loginButtonPlaceHolder} from './menu.mjs'
-
-import dialogPolyfill from 'dialog-polyfill'
+import { LitElement, html, css } from 'lit-element';
+import { getTheOthers } from './the-others.mjs';
+import { createMenuWithLogoutButton } from './menu.mjs'
 import { } from './auth0-spa-login.mjs';
+import {doit} from './proces.mjs'
 
-export const registrations = new Map();
+//for metabolism
+//const URL = "wss://ws.metabolism.academy";
+//const DOMAIN=  "dev-7yubhb2t.eu.auth0.com";
+//const CLIENT_ID= "4hLCadSsHhoaBSbaFjBp1cWx0W6zoIIj";
+// for mitochondria
+const DOMAIN = "dev-7yubhb2t.eu.auth0.com"
+const CLIENT_ID = "4hLCadSsHhoaBSbaFjBp1cWx0W6zoIIj";
 
-export let profile = null;
-const URL = "wss://ws.metabolism.academy";
+import { getButtonCss } from './utilCss.mjs';
+
+const contentDiv = document.getElementById("content");
+const login = contentDiv.appendChild(document.createElement("my-login"))
+
 
 class Login extends LitElement {
 
+
     static get styles() {
-        return css`
+        return [
+            getButtonCss(),
+            css`
         *{
             font-size: var(--font-size);
             font-family: var(--font-family)   
@@ -39,26 +51,9 @@ class Login extends LitElement {
             width: 50%;
             border: 3px solid green;
             padding: var(--padding)
-        }
-        .button-box {
-            display: flex;
-            justify-content: center;
         }        
-        .button-box .button,login {
-            padding: 50px;
-            margin: var(--margin-big);
-            background-color: var(--primary);
-            border-color: var(--secundary);
-            color: var(--secundary);
-            border-width: 3px;
-         }  
-               
-        .button-box .button:hover {
-            border-width: 0px;
-        }
-
-      
-   `}
+   `]
+    }
     render() {
         return html`
         <section>
@@ -82,69 +77,38 @@ class Login extends LitElement {
                     </ul>
                 </div>
             </div>
-            <div class='button-box'>${loginButton}
+            <div class='button-box'>${this.createLoginButton()}
             </div>
         </section>`;
     }
 
-}
+    createLoginButton() {
+        const loginButton = document.createElement("auth0-button");
+        loginButton.domain = DOMAIN;
+        loginButton.client_id = CLIENT_ID;
+        loginButton.textLogin = "LOGIN AS VISITOR";
+        loginButton.textLogout = "LOGOUT";
 
-customElements.define("my-login", Login);
+        loginButton.addEventListener("user-logged-in", (e) => {
+            afterAuth0Login(e.detail, "visitor", loginButton);
+        });
 
-const body = document.getElementsByTagName("body")[0];
-const login=body.appendChild(document.createElement("my-login"))
+        return loginButton;
 
-const loginButton= createLoginButton();
-  function createLoginButton(){
-    const loginButton = document.createElement("auth0-button");
-    loginButton.domain = "dev-7yubhb2t.eu.auth0.com";
-    loginButton.client_id = "4hLCadSsHhoaBSbaFjBp1cWx0W6zoIIj";
-    loginButton.textLogin = "LOGIN AS VISITOR";
-    loginButton.textLogout = "LOGOUT";
-  
-    loginButton.addEventListener("user-logged-in", (e) => {
-       
-        loginButtonPlaceHolder.appendChild(loginButton);
-        
-        afterAuth0Login(e.detail, "visitor");
-
-    });
-
-    return loginButton;
-
-    function afterAuth0Login(detail, role) {
-        menu.style.display="block";
-        login.style.display="none";
-        menu.activate('home')
-        const socket = new WebSocket(URL);
-        socket.onopen = () => {
-            const json = { type: "login" };
-            json.payload = JSON.parse(detail);
-            json.payload.role = role;
-            profile = json.payload;
-            menu.setProfile(profile)
-            socket.send(JSON.stringify(json))
-
-            const json2 = { type: "registrations" };
-            socket.send(JSON.stringify(json2))
-        };
-
-        socket.onmessage = (event) => {
-            const rec = JSON.parse(event.data)
-            const type = rec.type;
-            const payload = rec.payload;
-            if (type == "registrations") {
-                const regs = payload.registrations;
-                for (let reg of regs) {
-                     registrations.set(reg.email, reg);
-                }
-            }
+        function afterAuth0Login(detail, role, loginButon) {
+            const menu = createMenuWithLogoutButton(loginButon);
+            login.style.display = "none"
+            menu.activate("home");
+            doit(detail,role);        
+            
         }
     }
 }
 
+customElements.define("my-login", Login);
 
 
+/*
 export function createShowRegisteredusersButton(parent) {
 
     const button = parent.appendChild(document.createElement("button"));
@@ -183,7 +147,7 @@ export function createShowRegisteredusersButton(parent) {
         cancelBtn.innerText = "OK";
         cancelBtn.value = "cancel";
         dialogPolyfill.registerDialog(dialog);
-    
+
         dialog.showModal();
     });
-}
+}*/

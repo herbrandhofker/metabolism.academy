@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css,svg } from 'lit-element';
 
 import dialogPolyfill from 'dialog-polyfill'
 const svgWidth = 30;
@@ -13,32 +13,28 @@ const expandSvg = `<svg width="` + svgWidth + `" height="` + svgHeight + `" view
 
 
 const videos = new Map();
-videos.set(0,{ name: "Dr. Paul Mason - -Are you smarter than a Doctor What your doctor doesn-t know about nutrition-", youtube : "https://www.youtube.com/watch?v=sNz2gWqL0Ng"});
-videos.set(1,{ name: "Prof. Tim Noakes - -The Cholesterol Hypothesis 10 Key Ideas that the Diet Dictators Have Hidden...-", youtube: "https://www.youtube.com/watch?v=jyzkv5uFGt8"});
-videos.set(2,{ name: "Dr. Paul Mason - 'Treating and preventing dementia - how diet can work when drugs fail'", youtube: "https://www.youtube.com/watch?v=O36CNNdgDGQ"});
-videos.set(3,{ name: "Minding your mitochondria Dr. Terry Wahls TEDxIowaCity", youtube : "https://www.youtube.com/watch?v=KLjgBLwH3Wc"});
-videos.set(4,{ name: "Treat cancer with Diet Professor Thomas Seyfried makes a compelling case", yputube: "https://www.youtube.com/watch?v=RyB3VI0vwKA"});
-videos.set(5, { name:"How low carbohydrate diets can help you avoid surgery for arthritis", youtube : "https://www.youtube.com/watch?v=zJ-6EawQfM4"});
-videos.set(6,{ name: "Dr. Paul Mason - -Saturated fat is not dangerous-", youtube: "https://www.youtube.com/watch?v=NUY_SDhxf4k"});
+videos.set(0, { name: "Dr. Paul Mason - -Are you smarter than a Doctor What your doctor doesn-t know about nutrition-", youtube: "https://www.youtube.com/watch?v=sNz2gWqL0Ng" });
+videos.set(1, { name: "Prof. Tim Noakes - -The Cholesterol Hypothesis 10 Key Ideas that the Diet Dictators Have Hidden...-", youtube: "https://www.youtube.com/watch?v=jyzkv5uFGt8" });
+videos.set(2, { name: "Dr. Paul Mason - 'Treating and preventing dementia - how diet can work when drugs fail'", youtube: "https://www.youtube.com/watch?v=O36CNNdgDGQ" });
+videos.set(3, { name: "Minding your mitochondria Dr. Terry Wahls TEDxIowaCity", youtube: "https://www.youtube.com/watch?v=KLjgBLwH3Wc" });
+videos.set(4, { name: "Treat cancer with Diet Professor Thomas Seyfried makes a compelling case", yputube: "https://www.youtube.com/watch?v=RyB3VI0vwKA" });
+videos.set(5, { name: "How low carbohydrate diets can help you avoid surgery for arthritis", youtube: "https://www.youtube.com/watch?v=zJ-6EawQfM4" });
+videos.set(6, { name: "Dr. Paul Mason - -Saturated fat is not dangerous-", youtube: "https://www.youtube.com/watch?v=NUY_SDhxf4k" });
 const configs = new Map();
 
+import { getButtonCss, getYoutube } from './utilCss.mjs';
 class Video extends LitElement {
 
 
     static get styles() {
-        return css`
+        return [getButtonCss(), css`
         .container {
             display: flex; 
             flex-direction: column;
             align-items: center;
         }  
 
-        button{
-            background: var(--primary);
-            color: var(--secundary);
-            font-size:var(--font-size-video-button);
-        }
-
+       
         .video-container {
             display: flex;
             flex-direction: column;
@@ -51,14 +47,7 @@ class Video extends LitElement {
             flex-direction: column;
             margin: 1rem;
         }
-        
-        .button-box {
-            display: flex;
-            width: 100%;
-            align-items: center;
-            justify-content: center;
-        }
-
+       
         .btnbox-item {
             margin-left: 1.2rem;
             font-size: 1.6rem;
@@ -102,14 +91,25 @@ class Video extends LitElement {
         .video-container>video::-webkit-media-controls {
             display: none;
         }   
-       
-        `;
+        svg {
+            max-width: 1.6rem;
+            max-height: 1.6rem    
+          }
+          svg path {
+            fill: blue;
+          }
+      
+          svg path:hover {
+            fill: #ace63c;
+          }
+        `];
     }
 
     constructor() {
         super();
         this.videoData = null;
         this.title = "";
+        console.log("video constructor")
     }
 
 
@@ -120,8 +120,23 @@ class Video extends LitElement {
         };
     }
 
+    getYoutubeButton() {
+        return html`
+        <svg id="button" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="youtube-square"
+            class="svg-inline--fa fa-youtube-square fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512">
+         <path d="M186.8 202.1l95.2 54.1-95.2 54.1V202.1zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48zm-42 176.3s0-59.6-7.6-88.2c-4.2-15.8-16.5-28.2-32.2-32.4C337.9 128 224 128 224 128s-113.9 0-142.2 7.7c-15.7 4.2-28 16.6-32.2 32.4-7.6 28.5-7.6 88.2-7.6 88.2s0 59.6 7.6 88.2c4.2 15.8 16.5 27.7 32.2 31.9C110.1 384 224 384 224 384s113.9 0 142.2-7.7c15.7-4.2 28-16.1 32.2-31.9 7.6-28.5 7.6-88.1 7.6-88.1z">
+        </path>
+        </svg>`;     
+    }
+
     render() {
-        return html`<button @click=${e => { this.createVideo(e) }}>Show Video</button>`;
+        return html`${this.getYoutubeButton()}`;
+    }
+
+    firstUpdated(){
+        let btn=this.shadowRoot.getElementById("button");
+         btn.addEventListener("click", (e) => { this.createVideo(e) });  
     }
 
     createVideo(e) {
@@ -132,10 +147,10 @@ class Video extends LitElement {
         }
 
         const button = e.target;
-
+console.log("todo some problem here")
         button.parentNode.appendChild(videoDialog);
         dialogPolyfill.registerDialog(videoDialog);
-    
+
         videoDialog.showModal();
         const start = getSeconds(this.videoData.start);
         const end = getSeconds(this.videoData.end);
@@ -144,13 +159,14 @@ class Video extends LitElement {
         config.data.current = start;
         config.data.start = start;
         config.data.end = end;
-        config.data.titleEl.innerText =this.title;
+        config.data.titleEl.innerText = this.title;
         config.video.play();
         return videoDialog;
 
         function getMp4(videoId) {
             return videos.get(videoId).name;
         }
+
 
         function getStaticVideo(videoId) {
 
@@ -164,7 +180,7 @@ class Video extends LitElement {
             const videoContainer = videoDialogForm.appendChild(document.createElement("div"));
             videoContainer.classList.add("video-container")
             const menu = videoDialogForm.appendChild(document.createElement('menu'));
-        
+
             const config = { data: {} };
             config.videoDialog = videoDialog;
 
@@ -203,7 +219,7 @@ class Video extends LitElement {
             seekBar.value = "0";
 
             const lengthEl = btnBox.appendChild(document.createElement("label"));
-            lengthEl.classList.add('btnbox-item','length');
+            lengthEl.classList.add('btnbox-item', 'length');
 
             const volume_span = btnBox.appendChild(document.createElement("span"));
             volume_span.classList.add('volume-span', 'btnbox-item')
@@ -229,8 +245,8 @@ class Video extends LitElement {
 
             const youtubeButton = btnBox.appendChild(document.createElement("a"));
             youtubeButton.classList.add('btnbox-item');
-            youtubeButton.innerHTML = "<a href="+videos.get(videoId).youtube+"'>See all on youtube</a>";
-      
+            youtubeButton.innerHTML = "<a href=" + videos.get(videoId).youtube + "'>See all on youtube</a>";
+
             const closeButton = btnBox.appendChild(document.createElement("button"));
             closeButton.classList.add('opaque-button', 'btnbox-item', 'close-button');
             closeButton.innerHTML = closeSvg;
@@ -242,7 +258,7 @@ class Video extends LitElement {
             video.addEventListener('loadedmetadata', (event) => {
                 video.addEventListener("timeupdate", (event) => {
                     const length = (config.data.end - config.data.start);
-                    lengthEl.innerText = showProgress(video.currentTime  - config.data.start,length);
+                    lengthEl.innerText = showProgress(video.currentTime - config.data.start, length);
                     const value = (100 / (length)) * (video.currentTime - config.data.start);
                     seekBar.value = value;
                     if (video.currentTime >= config.end) {
@@ -300,32 +316,32 @@ class Video extends LitElement {
         }
 
         function showProgress(t, seconds) {
-            return showTime(t)+" / "+showTime(seconds);
+            return showTime(t) + " / " + showTime(seconds);
         }
 
         function showTime(seconds) {
-            seconds=Math.round(seconds)
+            seconds = Math.round(seconds)
             let result = "";
-           const hours = Math.floor(seconds / 3600);
+            const hours = Math.floor(seconds / 3600);
             if (hours > 1) {
-                 result = hours + ":";
+                result = hours + ":";
             }
 
             seconds = seconds - (hours * 3600);
             const minutes = Math.floor(seconds / 60);
             if (minutes > 0 || hours > 0) {
-               let tmp = minutes;
+                let tmp = minutes;
                 if (minutes < 10 && result != "")
                     tmp = "0" + tmp;
                 result += tmp + ":";
-            }else
-            if (minutes==0){
-                result="0:"
-            }
+            } else
+                if (minutes == 0) {
+                    result = "0:"
+                }
 
             seconds = seconds - (minutes * 60);
             let tmp = seconds;
-            if (seconds < 10 )
+            if (seconds < 10)
                 tmp = "0" + seconds;
             return result + tmp;
         }
@@ -350,4 +366,4 @@ class Video extends LitElement {
     }
 }
 
-customElements.define("my-video", Video);
+customElements.define("my-youtube-button", Video);

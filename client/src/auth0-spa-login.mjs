@@ -1,25 +1,13 @@
 import { LitElement, css, html } from 'lit-element';
 import createAuth0Client from '@auth0/auth0-spa-js';
 
+import { getButtonCss } from './utilCss.mjs';
+
 class LoginParent extends LitElement {
   static get styles() {
-    return  css`
-    .login-button {
-      padding: var(--button-padding);
-      margin: var(--button-margin);
-      background-color: var(--button-background-color);
-      border-color: var(--button-border-color);
-      color: var(--button-color);
-      border-width: var(--button-border-width);
-      font-family: var(--button-font-family);
-      font-size: var(--button-font-size);
-      font-weight: var(--button-font-weight);
-      }
-
-      .login-button:hover{
-        border-width: 0;
-      }
-    }   `;
+    return [getButtonCss(), css`
+    
+    }   `];
   }
 
   constructor() {
@@ -28,7 +16,7 @@ class LoginParent extends LitElement {
     this.textLogout = 'Log out';
     this.isAuthenticated = false;
     this.profile = undefined;
-  }  
+  }
 
   static get properties() {
     return {
@@ -43,8 +31,9 @@ class LoginParent extends LitElement {
 
   async updated(changedProperties) {
     changedProperties.forEach((oldValue, propName) => {
-      if (propName == 'isAuthenticated')
-        this.updateUser()
+      if (propName == 'isAuthenticated') {
+        this.updateUser();
+      }
     });
   }
 
@@ -64,12 +53,14 @@ class LoginParent extends LitElement {
       }
     }
     else {
-      this.profile = JSON.stringify(await this.auth0.getUser());
-      let myEvent = new CustomEvent('user-logged-in', {
-        bubbles: true,
-        detail: this.profile
-      });
-      this.dispatchEvent(myEvent);
+      if (this.isAuthenticated) {
+        this.profile = JSON.stringify(await this.auth0.getUser());
+        let myEvent = new CustomEvent('user-logged-in', {
+          bubbles: true,
+          detail: this.profile
+        });
+        this.dispatchEvent(myEvent);
+      }
     }
     this.isAuthenticated = await this.auth0.isAuthenticated();
   }
@@ -91,29 +82,29 @@ class LoginParent extends LitElement {
         await this.auth0.loginWithRedirect({ redirect_uri: window.location.origin });
     }
   }
-} 
+}
 
 export class LoginButton extends LoginParent {
-  
+
   render() {
     return html`
-    <button class="login-button" @click="${(e) => this.loginOrLogout()}">
+    <button class="button" @click="${(e) => this.loginOrLogout()}">
       ${(this.isAuthenticated) ? this.textLogout : this.textLogin}
     </button>
    `
-  } 
+  }
 }
 
 customElements.define("auth0-button", LoginButton);
 
-export class LoginAnchor extends LoginParent {  
+export class LoginAnchor extends LoginParent {
   render() {
     return html`
-    <a class="login-button" @click="${(e) => this.loginOrLogout()}">
+    <a class="button" @click="${(e) => this.loginOrLogout()}">
       ${(this.isAuthenticated) ? this.textLogout : this.textLogin}
     </a>
    `
-  } 
+  }
 }
 
 customElements.define("auth0-anchor", LoginAnchor);

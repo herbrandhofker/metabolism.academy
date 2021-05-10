@@ -1,16 +1,21 @@
 import { LitElement, html, css } from 'lit-element';
-import  './video.mjs';
+import  './youtube-button.mjs';
 import getContent from './content.mjs'
 
+import {getButtonCss} from './utilCss.mjs';
 
 export const content = getContent();
 
 class Chapter extends LitElement {
 
     static get styles() {
-        return  css`
-      
-        `;   
+        return [getButtonCss(), css`
+        my-youtube-button{ 
+            position: relative;
+            top: 0.5rem;
+            margin-left: 0.5rem;
+        }
+         `];   
     }
 
     constructor() {
@@ -30,12 +35,12 @@ class Chapter extends LitElement {
     render() {
         return html`
         <div>
-        <h1>${this.chapterNr + ". " + this.chapter.h1}</h1>
-        ${this.chapter.video ? html`<my-video .videoData=${this.chapter.video} title="${this.chapter.h1}"></my-video>` : null}         
+        <h2>${this.chapterNr + ". " + this.chapter.h1}</h2>
+        ${this.chapter.video ? html`<my-youtube-button .videoData=${this.chapter.video} title="${this.chapter.h1}"></my-youtube-button>` : null}         
         ${ (this.chapter.ol)?
             html`
-           <ol>
-               ${this.chapter.ol.map((item, index) => (item.video) ? html`<li id = ${this.chapterNr + "_" + index} >${item.li} <my-video .videoData=${item.video} title=${item.li}></my-video></li>` : null)}
+           <ol>     
+               ${this.chapter.ol.map((item, index) => (item.video) ? html`<li id = ${this.chapterNr + "_" + index} >${item.li} <my-youtube-button .videoData=${item.video} title=${item.li}></my-youtube-button></li>` : null)}
            </ol>`
        : null}
     </div>`;

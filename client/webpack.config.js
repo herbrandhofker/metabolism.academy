@@ -4,22 +4,24 @@ const CopyPlugin = require('copy-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 module.exports = {
   mode: "development",
-  // devServer: {
-  //  https: true,
-  //   port: 3000
-  //},
-  devtool: 'inline-source-map',
+ devServer: {
+    https: true,
+    port: 3020
+
+},
+devtool: 'inline-source-map',
+
   devtool: 'inline-source-map',
   entry: './src/index.mjs',
   plugins: [
-    new HtmlWebpackPlugin({ title: 'Metabolism Academy' }),
+    new HtmlWebpackPlugin({ template: './src/index.html' }),
     new CopyPlugin({
       patterns: [
         { from: './src/data', to: './data' },
         { from: './src/videos', to: './videos' }
       ],
     }),
-    new FaviconsWebpackPlugin('./favicon.ico')
+    new FaviconsWebpackPlugin('./favicon.ico') 
   ], output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
