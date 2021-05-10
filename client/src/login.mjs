@@ -37,8 +37,9 @@ class Login extends LitElement {
         }
 
         .warning{
-            color: var(--color-warning);
+            color: red;
             text-align: center; 
+            font-size: 4rem;
     
         }
         .heading {
@@ -58,7 +59,7 @@ class Login extends LitElement {
         return html`
         <section>
             <div class="warning">
-                <h1>Site is under construction, facts presented has to be checked, and redesign has to be done</h1>
+                <h1 class="warning" >Site is under construction, and will be offline often. facts presented has to be checked, and redesign has to be done</h1>
             </div>
            <div class="heading">
                 <h1>Metabolism in the light of science</h1>
