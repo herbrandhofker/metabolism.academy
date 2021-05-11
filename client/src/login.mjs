@@ -9,8 +9,8 @@ import {doit} from './proces.mjs'
 //const DOMAIN=  "dev-7yubhb2t.eu.auth0.com";
 //const CLIENT_ID= "4hLCadSsHhoaBSbaFjBp1cWx0W6zoIIj";
 // for mitochondria
-const DOMAIN = "dev-7yubhb2t.eu.auth0.com"
-const CLIENT_ID = "4hLCadSsHhoaBSbaFjBp1cWx0W6zoIIj";
+const DOMAIN = "dev-7yubhb2t.eu.auth0.com" //search_engine:'v3'
+const CLIENT_ID = "4hLCadSsHhoaBSbaFjBp1cWx0W6zoIIj"
 
 import { getButtonCss } from './utilCss.mjs';
 
@@ -91,7 +91,7 @@ class Login extends LitElement {
         loginButton.textLogout = "LOGOUT";
 
         loginButton.addEventListener("user-logged-in", (e) => {
-            afterAuth0Login(e.detail, "visitor", loginButton);
+                 afterAuth0Login(e.detail, "visitor", loginButton);
         });
 
         return loginButton;
