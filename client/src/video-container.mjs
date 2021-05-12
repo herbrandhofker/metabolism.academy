@@ -57,7 +57,7 @@ export class VideoContainer extends LitElement {
     flex-direction: row;
 }
 
-button img, button svg{
+button svg{
     height: 25px; 
     width: 20px; 
     padding: var(--padding-small); 
@@ -190,10 +190,10 @@ button img, button svg{
                 <button class="button one-on-one-button"  @click="${this.oneOnOne}">${oneOnOneMode} One to One</button>
                 <button class="button chat-button" data-tooltip="Open/close Private Chat" @click="${this.openOrCloseChat}">${chatMode} Chat<svg viewBox="0 0 49.07 42.95"><defs><style>.cls-1,.cls-2{fill:none;stroke:#010101;stroke-miterlimit:10;}.cls-1{stroke-width:4.07px;}.cls-2{stroke-width:3px;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon class="cls-1" points="2.03 2.03 47.03 2.03 47.03 29.03 20.03 29.03 11.03 38.03 11.03 29.03 2.03 29.03 2.03 2.03"/><line class="cls-2" x1="8.68" y1="9.98" x2="40.39" y2="9.98"/><line class="cls-2" x1="8.68" y1="15.41" x2="40.39" y2="15.41"/><line class="cls-2" x1="8.68" y1="20.83" x2="40.39" y2="20.83"/></g></g></svg>
                 </button>`}
-                <button id="muteBtn" class="button" data-tooltip="Mute" @click="${this.changeMute}">
+                <button id="muteBtn" class="icon" data-tooltip="Mute" @click="${this.changeMute}">
                     ${unMuteIcon()}
                 </button>             
-                <button id="unMuteBtn" class="button" data-tooltip="Unmute" @click="${this.changeMute}">
+                <button id="unMuteBtn" class="icon" data-tooltip="Unmute" @click="${this.changeMute}">
                      ${muteIcon()} 
                 </button>
              </div>
