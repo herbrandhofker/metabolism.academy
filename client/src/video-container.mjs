@@ -3,7 +3,7 @@ import { } from './chat-container.mjs';
 
 import { getWebSocket } from "./socket.mjs"
 import { getTheOthers } from "./the-others.mjs";
-import {screenShare,screenUnhare} from './utilsCss'
+import {screenShare,screenUnhare} from './utilCss.mjs'
 
 export class VideoContainer extends LitElement {
 
