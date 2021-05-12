@@ -2,7 +2,8 @@ import { LitElement, html, css, svg } from 'lit-element';
 import { } from './chat-container.mjs';
 
 import { getWebSocket } from "./socket.mjs"
-import { getTheOthers } from "./the-others.mjs"
+import { getTheOthers } from "./the-others.mjs";
+import {screenShare,screenUnhare} from './utilsCss'
 
 export class VideoContainer extends LitElement {
 
@@ -155,7 +156,7 @@ button img, button svg{
         const oneOnOneMode = (this.isOneOnOne) ? "Stop" : "Start";
         const chatMode = (this.isChatOpen) ? "Close" : "Open";
         this.video.classList.add(this.setVideoClass())//TODO set somewhere else
-        console.log("videoContainer render isitme? "+ this.itIsMe)
+        console.log("videoContainer render isitme? " + this.itIsMe)
 
         const result = html`      
         <div class=${this.getClassName()}>
@@ -192,11 +193,11 @@ button img, button svg{
                 ${(this.video.muted) ?
                 html`                   
                 <button id="mute" class="button mute-button" data-tooltip="Mute" @click="${this.changeMute}">
-                     <img id="muteImg" class="mute-image">
+                     <img id="muteImg" class="mute mute-image">
                 </button>` :
                 html` 
                 <button id="unmute" class="button mute-button" data-tooltip="Unmute" @click="${this.changeMute}">
-                     <img id="unmuteImg" class="unmute-image">
+                     <img id="unmuteImg" class="mute unmute-image">
                 </button>` }
              </div>
         </div>
@@ -209,7 +210,7 @@ button img, button svg{
     }
 
     firstUpdated(changedProperties) {
-       this.setMute();
+        this.setMute();
     }
 
     updated(changedProperties) {
@@ -290,7 +291,13 @@ button img, button svg{
 
     setMute() {
         const img = this.shadowRoot.querySelector('img');
-        img.src = (this.video.muted) ? "./data/muted-icon.svg" : "./data/unmuted-icon.svg";
+        console.log("setmute "+this.video.muted)
+        console.log("setmute "+img);
+        const src= (this.video.muted) ? "./data/muted-icon.svg" : "./data/unmuted-icon.svg";
+        console.log("setmute "+src);
+        img.src=src;  
+        console.log("setmute "+img.src);
+     
 
     }
 
