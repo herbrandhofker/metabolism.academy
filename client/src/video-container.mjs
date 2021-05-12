@@ -124,6 +124,8 @@ button img, button svg{
         this.videoShareScreen.autoplay = true;
         this.videoShareScreen.width = 300;
         this.videoShareScreen.height = 300;
+        console.log("videoContainer constructor einde")
+
     }
 
     static get properties() {
@@ -138,23 +140,24 @@ button img, button svg{
         };
     }
 
-    getName(){
+    getName() {
         console.log(JSON.stringify(getTheOthers().me))
-      return getTheOthers().me.profile.name;
+        return getTheOthers().me.profile.name;
     }
 
-    getRoom(){
+    getRoom() {
         return 1234;
-       // return getTheOthers().me.room;
-      }
+        // return getTheOthers().me.room;
+    }
 
-   
-        render() {
-            const oneOnOneMode = (this.isOneOnOne) ? "Stop" : "Start";
+
+    render() {
+        const oneOnOneMode = (this.isOneOnOne) ? "Stop" : "Start";
         const chatMode = (this.isChatOpen) ? "Close" : "Open";
         this.video.classList.add(this.setVideoClass())//TODO set somewhere else
+        console.log("videoContainer render isitme? "+ this.itIsMe)
 
-        return html`      
+        const result = html`      
         <div class=${this.getClassName()}>
             ${(this.itIsMe) ? html`
             <div class="registration-box">
@@ -186,11 +189,11 @@ button img, button svg{
                 <button class="button one-on-one-button"  @click="${this.oneOnOne}">${oneOnOneMode} One to One</button>
                 <button class="button chat-button" data-tooltip="Open/close Private Chat" @click="${this.openOrCloseChat}">${chatMode} Chat<svg viewBox="0 0 49.07 42.95"><defs><style>.cls-1,.cls-2{fill:none;stroke:#010101;stroke-miterlimit:10;}.cls-1{stroke-width:4.07px;}.cls-2{stroke-width:3px;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon class="cls-1" points="2.03 2.03 47.03 2.03 47.03 29.03 20.03 29.03 11.03 38.03 11.03 29.03 2.03 29.03 2.03 2.03"/><line class="cls-2" x1="8.68" y1="9.98" x2="40.39" y2="9.98"/><line class="cls-2" x1="8.68" y1="15.41" x2="40.39" y2="15.41"/><line class="cls-2" x1="8.68" y1="20.83" x2="40.39" y2="20.83"/></g></g></svg>
                 </button>`}
-                ${(this.video.muted) ? 
+                ${(this.video.muted) ?
                 html`                   
                 <button id="mute" class="button mute-button" data-tooltip="Mute" @click="${this.changeMute}">
                      <img id="muteImg" class="mute-image">
-                </button>` : 
+                </button>` :
                 html` 
                 <button id="unmute" class="button mute-button" data-tooltip="Unmute" @click="${this.changeMute}">
                      <img id="unmuteImg" class="unmute-image">
@@ -201,10 +204,12 @@ button img, button svg{
             ${this.chatbox}
        </div>`: null}
         `;
+        console.log("na render")
+        return result;
     }
 
     firstUpdated(changedProperties) {
-        this.setMute();
+       this.setMute();
     }
 
     updated(changedProperties) {
@@ -247,7 +252,7 @@ button img, button svg{
         }
         else this.shareScreen = true;
     }
- 
+
     openOrCloseChat(event) {
         const div = this.shadowRoot.getElementById("chatPopup");
         div.style.display = "none";
@@ -280,17 +285,18 @@ button img, button svg{
     }
 
     changePause(mode) {
-        (mode) ? this.video.pause():  this.video.play();
+        (mode) ? this.video.pause() : this.video.play();
     }
 
     setMute() {
         const img = this.shadowRoot.querySelector('img');
-        img.src =  (this.video.muted)? "./data/muted-icon.svg" : "./data/unmuted-icon.svg";
+        img.src = (this.video.muted) ? "./data/muted-icon.svg" : "./data/unmuted-icon.svg";
+
     }
 
     startCaptureEH() {
         this.captured = true;
-        VideoContainer.startCapture(this.videoShareScreen, theOthers.me.video);
+        VideoContainer.startCapture(this.videoShareScreen, getTheOthers().me.video);
     }
 
     stopCaptureEH() {
@@ -312,11 +318,11 @@ button img, button svg{
             navigator.mediaDevices.getDisplayMedia(displayMediaOptions).then(stream => {
                 videoShareScreen.srcObject = stream;
                 const screenTrack = stream.getTracks()[0];
-                theOthers.getSenders().forEach(rtpSender => { rtpSender.replaceTrack(screenTrack) });
+                getTheOthers().getSenders().forEach(rtpSender => { rtpSender.replaceTrack(screenTrack) });
                 screenTrack.onended = () => {
                     theOthers.getSenders().forEach(rtpSender => { rtpSender.replaceTrack(theOthers.me.video.srcObject.getTracks()[1]) })
                 }
-          
+
             });
         } catch (err) {
             console.error("Error: " + err);
@@ -327,9 +333,9 @@ button img, button svg{
         let tracks = videoShareScreen.srcObject.getTracks();
         tracks.forEach(track => track.stop());
         videoShareScreen.srcObject = null;
-        theOthers.getSenders().forEach(rtpSender => rtpSender.replaceTrack(theOthers.me.video.srcObject.getTracks()[1]))
+        getTheOthers().getSenders().forEach(rtpSender => rtpSender.replaceTrack(getTheOthers().me.video.srcObject.getTracks()[1]))
     }
-    
+
 }
 
 customElements.define("video-container", VideoContainer);

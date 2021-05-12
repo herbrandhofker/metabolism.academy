@@ -122,7 +122,7 @@ export class GroupChat extends LitElement {
 
     static addTheOtherCallback(theOther) {
         _interactiveGroupChat.mainGrid.addTheOther(createVideoContainer());
-        _interactiveGroupChat.showPublicChatbox = (theOthers.size > 1)
+        _interactiveGroupChat.showPublicChatbox = (getTheOthers().size > 1)
 
         function createVideoContainer() {
             const videoContainer = document.createElement("video-container")
@@ -131,7 +131,7 @@ export class GroupChat extends LitElement {
             videoContainer.theOther = theOther;
             const chatContainer = videoContainer.getChatBox();
             chatContainer.peer = theOther
-            chatContainer.me = theOthers.me
+            chatContainer.me = getTheOthers().me
             chatContainer.addEventListener('chatMessage', (event) => {
                 const ws = getWebSocket();
                 if (!ws) {
