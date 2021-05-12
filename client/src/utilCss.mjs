@@ -1,8 +1,7 @@
 import { svg, css, html } from 'lit-element';
 
 export function getButtonCss() {
-    return css`
-       
+    return css`       
     .button-box{
         display: flex;
         flex-direction: row;
@@ -53,16 +52,13 @@ export function getSectionCss() {
 ` ;
 }
 
-
-
 export function getIconCss() {
     return css`
     svg{
         height: 25px; 
         width: 20px; 
         padding: var(--padding-small); 
-    }
-       
+    }       
 ` ;
 }
 
@@ -74,10 +70,9 @@ export function screenUnshare() {
 }
 
 export function muteIcon(){
-return html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40.39 46.5"><defs><style>.cls-1,.cls-2,.cls-3{fill:none;stroke-miterlimit:10;}.cls-1,.cls-2{stroke:#010101;}.cls-1{stroke-width:3.73px;}.cls-2{stroke-width:2.8px;}.cls-3{stroke:#e62d28;stroke-width:8px;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M7.61,31.32a16.36,16.36,0,0,0,12.59,6.3,16.36,16.36,0,0,0,12.58-6.3"/><rect class="cls-1" x="10.75" y="1.86" width="18.88" height="28.32" rx="9.23"/><line class="cls-1" x1="13.2" y1="44.64" x2="27.19" y2="44.64"/><line class="cls-2" x1="20.2" y1="36.04" x2="20.2" y2="45.86"/><line class="cls-3" x1="2.2" y1="27.84" x2="38.2" y2="4.21"/></g></g></svg>` ;
+    return html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40.39 46.5"><defs><style>.cls-1,.cls-2,.cls-3{fill:none;stroke-miterlimit:10;}.cls-1,.cls-2{stroke:#010101;}.cls-1{stroke-width:3.73px;}.cls-2{stroke-width:2.8px;}.cls-3{stroke:#e62d28;stroke-width:8px;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M7.61,31.32a16.36,16.36,0,0,0,12.59,6.3,16.36,16.36,0,0,0,12.58-6.3"/><rect class="cls-1" x="10.75" y="1.86" width="18.88" height="28.32" rx="9.23"/><line class="cls-1" x1="13.2" y1="44.64" x2="27.19" y2="44.64"/><line class="cls-2" x1="20.2" y1="36.04" x2="20.2" y2="45.86"/><line class="cls-3" x1="2.2" y1="27.84" x2="38.2" y2="4.21"/></g></g></svg>` ;
 }
 
 export function unMuteIcon(){
-    return html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28.16 46.5"><defs><style>.cls-1,.cls-2{fill:none;stroke:#010101;stroke-miterlimit:10;}.cls-1{stroke-width:3.73px;}.cls-2{stroke-width:2.8px;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M1.49,31.32a16.36,16.36,0,0,0,12.59,6.3,16.39,16.39,0,0,0,12.59-6.3"/><rect class="cls-1" x="4.64" y="1.86" width="18.88" height="28.32" rx="9.23"/><line class="cls-1" x1="7.09" y1="44.64" x2="21.07" y2="44.64"/><line class="cls-2" x1="14.08" y1="36.04" x2="14.08" y2="45.86"/></g></g></svg>`;
-    
+    return html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28.16 46.5"><defs><style>.cls-1,.cls-2{fill:none;stroke:#010101;stroke-miterlimit:10;}.cls-1{stroke-width:3.73px;}.cls-2{stroke-width:2.8px;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M1.49,31.32a16.36,16.36,0,0,0,12.59,6.3,16.39,16.39,0,0,0,12.59-6.3"/><rect class="cls-1" x="4.64" y="1.86" width="18.88" height="28.32" rx="9.23"/><line class="cls-1" x1="7.09" y1="44.64" x2="21.07" y2="44.64"/><line class="cls-2" x1="14.08" y1="36.04" x2="14.08" y2="45.86"/></g></g></svg>`;  
 }
