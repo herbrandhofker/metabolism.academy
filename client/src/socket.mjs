@@ -20,9 +20,9 @@ export function createSocket(detail, role) {
         const json2 = { type: "registrations" };
         ws.send(JSON.stringify(json2));
 
-        //      console.log("onopen")
-        //     const rec = { "type": "registerMe", "payload": { "user": getTheOthers().me } }
-        //    ws.send(JSON.stringify(rec))
+             console.log("onopen")
+             const rec = { "type": "registerMe", "payload": { "user": getTheOthers().me } }
+            ws.send(JSON.stringify(rec))
 
     };
 
@@ -37,7 +37,7 @@ export function createSocket(detail, role) {
 
         const type = rec.type;
         const payload = rec.payload;
-        console.log("received : " + type)
+        console.log("received message of type : " + type)
 
         switch (type) {
             case "registrations": {
@@ -52,42 +52,37 @@ export function createSocket(detail, role) {
                 break;
             }
             case "registerConfirmation":
-                registerConfirmation(msg.payload);
+                registerConfirmation(payload);
                 return;
             case "existingUsers":
-                existingUsers(msg.payload);
+                if (stream == null)
+                  console.log("stream null?")
+                existingUsers(payload);
                 return;
             case "joinedRoom":
-                joinedRoom(msg.payload);
+                joinedRoom(payload);
                 return;
             case "leaveRoom":
-                leaveRoom(msg.payload);
+                leaveRoom(payload);
                 return;
             case "offer":
-                offer(msg.payload);
+                offer(payload);
                 return;
             case "answer":
-                answer(msg.payload);
+                answer(payload);
                 return;
             case "ice-candidate":
-                iceCandidate(msg.payload)
+                iceCandidate(payload)
                 return;
             case "chatMessage":
                 chatMessage(msg.payload)
                 return;
             case "requestOneOnOne":
-                OneOnOne(msg.payload)
+                OneOnOne(payload)
                 return;
             default:
-                console.error("unknown msg type: " + msg.type);
+                console.error("unknown msg type: " + type);
         }
-    }
-
-    function createWebSocket(path) {
-        let protocolPrefix = (window.location.protocol === 'https:') ? 'wss:' : 'ws:';
-        protocolPrefix = "ws:" //tijdelijk
-        const url = protocolPrefix + "//" + window.location.hostname + ":" + process.env.PORT
-        return new WebSocket(url);
     }
 
     function registerConfirmation(payload) {
@@ -98,6 +93,7 @@ export function createSocket(detail, role) {
 
     function existingUsers(payload) {
         payload.forEach(_theOther => {
+            console.log("existing user"+ JSON.stringify(_theOther))
             enRichTheOther(_theOther)
             stream.getTracks().forEach(track => _theOther.rtpSender = _theOther.peer.addTrack(track, stream));
             getTheOthers().set(_theOther.userId, _theOther)
@@ -214,8 +210,6 @@ export function createSocket(detail, role) {
     }
 }
 
-
-
 export function procesCommunication(p_stream) {
     if (ws == null) {
         console.error(" ws null??");
@@ -226,10 +220,11 @@ export function procesCommunication(p_stream) {
         return;
     }
     stream = p_stream;
+    console.log("stream set")
+
 
 }
 
 export function getWebSocket() {
     return ws;
 }
-
