@@ -3,7 +3,7 @@ import { } from './chat-container.mjs';
 
 import { getWebSocket } from "./socket.mjs"
 import { getTheOthers } from "./the-others.mjs";
-import {screenShare,screenUnhare} from './utilCss.mjs'
+import { screenShare, screenUnshare, muteIcon, unMuteIcon } from './utilCss.mjs'
 
 export class VideoContainer extends LitElement {
 
@@ -190,17 +190,14 @@ button img, button svg{
                 <button class="button one-on-one-button"  @click="${this.oneOnOne}">${oneOnOneMode} One to One</button>
                 <button class="button chat-button" data-tooltip="Open/close Private Chat" @click="${this.openOrCloseChat}">${chatMode} Chat<svg viewBox="0 0 49.07 42.95"><defs><style>.cls-1,.cls-2{fill:none;stroke:#010101;stroke-miterlimit:10;}.cls-1{stroke-width:4.07px;}.cls-2{stroke-width:3px;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon class="cls-1" points="2.03 2.03 47.03 2.03 47.03 29.03 20.03 29.03 11.03 38.03 11.03 29.03 2.03 29.03 2.03 2.03"/><line class="cls-2" x1="8.68" y1="9.98" x2="40.39" y2="9.98"/><line class="cls-2" x1="8.68" y1="15.41" x2="40.39" y2="15.41"/><line class="cls-2" x1="8.68" y1="20.83" x2="40.39" y2="20.83"/></g></g></svg>
                 </button>`}
-                ${(this.video.muted) ?
-                html`                   
-                <button id="mute" class="button mute-button" data-tooltip="Mute" @click="${this.changeMute}">
-                     <img id="muteImg" class="mute mute-image">
-                </button>` :
-                html` 
-                <button id="unmute" class="button mute-button" data-tooltip="Unmute" @click="${this.changeMute}">
-                     <img id="unmuteImg" class="mute unmute-image">
-                </button>` }
+                <button id="muteBtn" class="button mute-button" data-tooltip="Mute" @click="${this.changeMute}">
+                    ${unMuteIcon()}
+                </button>             
+                <button id="unMuteBtn" class="button mute-button" data-tooltip="Unmute" @click="${this.changeMute}">
+                     ${muteIcon()} 
+                </button>
              </div>
-        </div>
+           
         ${(!this.itIsMe) ? html`<div id="chatPopup" style="display: none" class="chat-box">
             ${this.chatbox}
        </div>`: null}
@@ -232,10 +229,8 @@ button img, button svg{
 
     shareButton() {
         if (this.shareScreen)
-            return html`<button class="button share-button" data-tooltip="Close share screen"  @click="${this.setShareScreen}"><svg viewBox="0 0 47.68 42.21"><defs><style>.cls-1,.cls-3{fill:none;stroke-miterlimit:10;}.cls-1{stroke:#1d1d1b;stroke-width:4px;}.cls-2{fill:#010101;}.cls-3{stroke:#e62d28;stroke-width:7px;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polyline class="cls-1" points="24.7 6.03 45.48 6.03 45.48 32.46 3.91 32.46 3.91 6.03 24.7 6.03"/><line class="cls-1" x1="15.18" y1="40.21" x2="33.06" y2="40.21"/><line class="cls-1" x1="24.7" y1="33.85" x2="24.7" y2="38.54"/><polygon class="cls-2" points="18.78 11.71 18.78 11.71 18.78 29.21 36.28 20.46 18.78 11.71"/><line class="cls-3" x1="2.11" y1="35.7" x2="45.57" y2="2.79"/></g></g></svg>
-           </button>`;
-        else return html`<button class="button share-button" data-tooltip="Open screen share menu" @click="${this.setShareScreen}"><svg viewBox="0 0 45.57 38.18" class="btn-share-screen"><defs><style>.cls-1{fill:none;stroke:#1d1d1b;stroke-miterlimit:10;stroke-width:4px;}.cls-2{fill:#010101;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polyline class="cls-1" points="22.78 2 43.57 2 43.57 28.43 2 28.43 2 2 22.78 2"/><line class="cls-1" x1="13.27" y1="36.18" x2="31.15" y2="36.18"/><line class="cls-1" x1="22.78" y1="29.82" x2="22.78" y2="34.51"/><polygon class="cls-2" points="15.65 6.47 15.65 6.47 15.65 23.97 33.15 15.22 15.65 6.47"/></g></g></svg>
-           </button>`;
+            return html`<button class="button share-button" data-tooltip="Close share screen"  @click="${this.setShareScreen}">${screenShare()}</button>`;
+        else return html`<button class="button share-button" data-tooltip="Open screen share menu" @click="${this.setShareScreen}">${screenUnshare()}</button>`;
     }
 
     setShareScreenClass(show) {
@@ -282,7 +277,8 @@ button img, button svg{
     }
 
     changeMute(event) {
-        this.video.muted = !this.video.muted; this.setMute()
+        this.video.muted = !this.video.muted;
+        this.setMute()
     }
 
     changePause(mode) {
@@ -290,14 +286,22 @@ button img, button svg{
     }
 
     setMute() {
-        const img = this.shadowRoot.querySelector('img');
-        console.log("setmute "+this.video.muted)
-        console.log("setmute "+img);
-        const src= (this.video.muted) ? "./data/muted-icon.svg" : "./data/unmuted-icon.svg";
-        console.log("setmute "+src);
-        img.src=src;  
-        console.log("setmute "+img.src);
-     
+        const muteBtn=this.shadowRoot.getElementById("muteBtn");
+        const unMuteBtn=this.shadowRoot.getElementById("unMuteBtn");
+        if (this.video.muted)  { muteBtn.style.display="block";  unMuteBtn.style.display="none"} 
+
+        if (!this.video.muted)  { muteBtn.style.display="none";  unMuteBtn.style.display="block"} 
+
+       
+        /* const img = this.shadowRoot.querySelector('img');
+         console.log("setmute "+this.video.muted)
+         console.log("setmute "+img);
+         const src= (this.video.muted) ? "./data/muted-icon.svg" : "./data/unmuted-icon.svg";
+         console.log("setmute "+src);
+         img.src=src;  
+         console.log("setmute "+img.src);
+         */
+
 
     }
 
