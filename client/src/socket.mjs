@@ -1,31 +1,44 @@
 
 import { ChatContainer } from './chat-container.mjs';
-import { getTheOthers} from './the-others.mjs';
+import { getTheOthers } from './the-others.mjs';
 
 const URL = "wss://ws.metabolism.academy"
 
 export const registrations = new Map();
-let ws = undefined
+let ws = undefined;
+let stream = undefined;
 
 export function createSocket(detail, role) {
-    const socket = new WebSocket(URL);
-     socket.onopen = () => {
+    ws = new WebSocket(URL);
+    ws.onopen = () => {
         const json = { type: "login" };
         json.payload = JSON.parse(detail);
         json.payload.role = role;
         getTheOthers().me.profile = json.payload;
         console.log("send")
-        socket.send(JSON.stringify(json));
+        ws.send(JSON.stringify(json));
         const json2 = { type: "registrations" };
-        socket.send(JSON.stringify(json2));
+        ws.send(JSON.stringify(json2));
+
+        //      console.log("onopen")
+        //     const rec = { "type": "registerMe", "payload": { "user": getTheOthers().me } }
+        //    ws.send(JSON.stringify(rec))
+
     };
 
-    socket.onmessage = (event) => {
-        const rec = JSON.parse(event.data)
+    ws.onmessage = (event) => {
+        let rec = undefined;
+        try {
+            rec = JSON.parse(event.data);
+        }
+        catch (e) {
+            console.error(event.data + " " + e); return;
+        }
+
         const type = rec.type;
         const payload = rec.payload;
         console.log("received : " + type)
-              
+
         switch (type) {
             case "registrations": {
                 const regs = payload.registrations;
@@ -35,36 +48,9 @@ export function createSocket(detail, role) {
                 break;
             }
             case "login": {
-            
                 console.log("logged in " + payload.name)
                 break;
             }
-            default: console.log("Type " + type + " unknown ");
-        }
-
-    }
-}
-
-export function getWebSocket() {
-    return ws;
-}
-
-export function procesCommunication(stream) {
-    ws = createWebSocket();
-    ws.onopen = () => {
-        console.log("onopen")
-        const rec = { "type": "registerMe", "payload": { "user": getTheOthers().me } }
-        ws.send(JSON.stringify(rec))
-    }
-    ws.onmessage = (event) => {
-        let msg = undefined;
-        try {
-            msg = JSON.parse(event.data);
-        }
-        catch (e) {
-            console.error(event.data + " " + e); return;
-        }
-        switch (msg.type) {
             case "registerConfirmation":
                 registerConfirmation(msg.payload);
                 return;
@@ -148,7 +134,6 @@ export function procesCommunication(stream) {
             const rec = { "type": "answer", "payload": payload }
             ws.send(JSON.stringify(rec));
         })
-
     }
 
     function iceCandidate(incoming) {
@@ -228,3 +213,23 @@ export function procesCommunication(stream) {
         getTheOthers().actionOnOneOnOne(payload)
     }
 }
+
+
+
+export function procesCommunication(p_stream) {
+    if (ws == null) {
+        console.error(" ws null??");
+        return;
+    }
+    if (p_stream == null) {
+        console.error("stream  null??");
+        return;
+    }
+    stream = p_stream;
+
+}
+
+export function getWebSocket() {
+    return ws;
+}
+
