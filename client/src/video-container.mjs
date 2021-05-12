@@ -3,12 +3,12 @@ import { } from './chat-container.mjs';
 
 import { getWebSocket } from "./socket.mjs"
 import { getTheOthers } from "./the-others.mjs";
-import { screenShare, screenUnshare, muteIcon, unMuteIcon } from './utilCss.mjs'
+import { screenShare, screenUnshare, muteIcon, unMuteIcon,getIconCss} from './utilCss.mjs'
 
 export class VideoContainer extends LitElement {
 
     static get styles() {
-        return css`
+        return [getIconCss(),css`
 .the-other-video-container {
     position: relative; 
 }
@@ -57,11 +57,7 @@ export class VideoContainer extends LitElement {
     flex-direction: row;
 }
 
-button svg{
-    height: 25px; 
-    width: 20px; 
-    padding: var(--padding-small); 
-}
+
 
 .user-name {
     font-size: 1.4rem; 
@@ -98,7 +94,7 @@ button svg{
     max-width: 200px; 
     max-height: 150px;
 }
-  `;
+  `]
     }
 
     constructor() {
