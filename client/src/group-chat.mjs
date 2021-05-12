@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 import { getTheOthers } from "./the-others.mjs"
-import { procesCommunication, getWebSocket } from "./proces.mjs"
+import { procesCommunication, getWebSocket } from "./socket.mjs"
 import { } from './video-container.mjs';
 
 import { } from './chat-container.mjs';

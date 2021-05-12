@@ -1,5 +1,5 @@
 import { LitElement, html, css, svg } from 'lit-element';
-import { getWebSocket } from "./proces.mjs"
+import { getWebSocket } from "./socket.mjs"
 
 import {  getTheOthers } from "./the-others.mjs"
 import { _interactiveGroupChat } from './group-chat.mjs';

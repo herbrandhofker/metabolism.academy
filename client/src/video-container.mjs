@@ -1,7 +1,7 @@
 import { LitElement, html, css, svg } from 'lit-element';
 import { } from './chat-container.mjs';
 
-import { getWebSocket } from "./proces.mjs"
+import { getWebSocket } from "./socket.mjs"
 import { getTheOthers } from "./the-others.mjs"
 
 export class VideoContainer extends LitElement {

@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit-element';
 import { getTheOthers } from './the-others.mjs';
 import { createMenuWithLogoutButton } from './menu.mjs'
 import { } from './auth0-spa-login.mjs';
-import {doit} from './proces.mjs'
+import {createSocket} from './socket.mjs'
 
 //for metabolism
 //const URL = "wss://ws.metabolism.academy";
@@ -100,7 +100,7 @@ class Login extends LitElement {
             const menu = createMenuWithLogoutButton(loginButon);
             login.style.display = "none"
             menu.activate("home");
-            doit(detail,role);        
+            createSocket(detail,role);        
             
         }
     }

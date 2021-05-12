@@ -2,13 +2,12 @@
 import { ChatContainer } from './chat-container.mjs';
 import { getTheOthers} from './the-others.mjs';
 
-
 const URL = "wss://ws.metabolism.academy"
 
 export const registrations = new Map();
 let ws = undefined
 
-export function doit(detail, role) {
+export function createSocket(detail, role) {
     const socket = new WebSocket(URL);
      socket.onopen = () => {
         const json = { type: "login" };
