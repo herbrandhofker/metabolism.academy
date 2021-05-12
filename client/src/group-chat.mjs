@@ -91,6 +91,7 @@ export class GroupChat extends LitElement {
         navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
             theOthers.me.video.srcObject = stream;
             procesCommunication(stream);
+            console.log("camera found")
         }).catch(err => console.error("camera not found on this hardware"));    
 
     }

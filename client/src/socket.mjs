@@ -20,9 +20,7 @@ export function createSocket(detail, role) {
         const json2 = { type: "registrations" };
         ws.send(JSON.stringify(json2));
 
-             console.log("onopen")
-             const rec = { "type": "registerMe", "payload": { "user": getTheOthers().me } }
-            ws.send(JSON.stringify(rec))
+      
 
     };
 
@@ -56,7 +54,7 @@ export function createSocket(detail, role) {
                 return;
             case "existingUsers":
                 if (stream == null)
-                  console.log("stream null?")
+                    console.log("stream null?")
                 existingUsers(payload);
                 return;
             case "joinedRoom":
@@ -93,7 +91,7 @@ export function createSocket(detail, role) {
 
     function existingUsers(payload) {
         payload.forEach(_theOther => {
-            console.log("existing user"+ JSON.stringify(_theOther))
+            console.log("existing user" + JSON.stringify(_theOther))
             enRichTheOther(_theOther)
             stream.getTracks().forEach(track => _theOther.rtpSender = _theOther.peer.addTrack(track, stream));
             getTheOthers().set(_theOther.userId, _theOther)
@@ -221,6 +219,9 @@ export function procesCommunication(p_stream) {
     }
     stream = p_stream;
     console.log("stream set")
+    console.log("onopen")
+    const rec = { "type": "registerMe", "payload": { "user": getTheOthers().me } }
+    ws.send(JSON.stringify(rec))
 
 
 }
