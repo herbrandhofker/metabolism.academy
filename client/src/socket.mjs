@@ -19,18 +19,19 @@ export function createSocket(detail, role) {
         ws.send(JSON.stringify(json));
         const json2 = { type: "registrations" };
         ws.send(JSON.stringify(json2));
-
-      
-
     };
 
     ws.onmessage = (event) => {
         let rec = undefined;
         try {
-            rec = JSON.parse(event.data);
+            console.log(99, event.data)
+             rec = JSON.parse(event.data);
         }
         catch (e) {
-            console.error(event.data + " " + e); return;
+            console.log(100, event.type)
+            console.log(100, event.payload)
+            console.log(100,JSON.stringify(event.data));
+            console.error(JSON.stringify(event.data) + " " + e); return;
         }
 
         const type = rec.type;
@@ -39,10 +40,16 @@ export function createSocket(detail, role) {
 
         switch (type) {
             case "registrations": {
-                const regs = payload.registrations;
-                for (let reg of regs) {
-                    registrations.set(reg.email, reg);
+                console.log(88)
+            //    const regs = payload.registrations;
+                console.log(JSON.stringify(payload))
+                console.log(888)
+               for (let reg of payload) {
+                   registrations.set(reg.email, reg);
+                   console.log(123)
+              
                 }
+                console.log(1234)
                 break;
             }
             case "login": {
@@ -73,7 +80,7 @@ export function createSocket(detail, role) {
                 iceCandidate(payload)
                 return;
             case "chatMessage":
-                chatMessage(msg.payload)
+                chatMessage(payload)
                 return;
             case "requestOneOnOne":
                 OneOnOne(payload)
@@ -200,6 +207,7 @@ export function createSocket(detail, role) {
     }
 
     function chatMessage(payload) {
+        console.log("chatmessage received"+JSON.stringify(payload))
         ChatContainer.processChatOutput(payload.senderId, payload.sender, payload.receiverId, payload.message)
     }
 

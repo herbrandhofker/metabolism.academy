@@ -31,14 +31,15 @@ producer.on('ready', function () {
 
     wsServer.on('connection', (ws) => {
         ws.id = wsServer.getUniqueID();
-
+        sockets.set(ws.id, ws);
         console.log("connection with client:" + ws.id)
         ws.on('message', data => {
             console.log("message from client received")
             let msg = "";
             try { msg = JSON.parse(data); }
             catch (err) { console.error(err + " with data:" + data); return; }
-           
+            producer.send([{ topic: msg.type, messages: new kafka.KeyedMessage(msg.type,msg.payload) }], (err, data) => { console.log(data); });
+                
             switch (msg.type) {
                 case 'login': {
                     connections.set(ws.id, msg.payload)
@@ -57,7 +58,8 @@ producer.on('ready', function () {
                     for (let value of connections.values()) {
                         arr.push(value)
                       }
-                    rec.payload={registrations: arr}
+                    rec.payload=arr;
+
                     ws.send(JSON.stringify(rec));                 
                     break;
                 }
@@ -117,6 +119,7 @@ producer.on('ready', function () {
     
         function iceCandidate(payload) {
             const rec = { "type": "ice-candidate", "payload": payload }
+            console.log("payload.target="+payload.target)
             sockets.get(payload.target).send(JSON.stringify(rec));
         }
     
@@ -189,12 +192,13 @@ producer.on('ready', function () {
     
     
     });
-    consumer.on('message', function (message) {
+    consumer.on('message', message=>
         wsServer.clients.forEach(client => {
-            client.send(message.value);
-        });
-    })
-
+            console.log("xxx")
+            console.log(message.value);
+        //    client.send(message.value);
+        })
+    )
 
 
     console.log(" ws listening on ws://localhost:" + port)

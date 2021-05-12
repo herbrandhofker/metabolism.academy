@@ -9,6 +9,20 @@ export class ChatContainer extends LitElement {
 
     static get styles() {
         return css`  
+        .messages {
+            overflow: scroll;
+            margin-bottom: var(--padding-mid);
+            background: #f3f3f3;
+            color: black;
+            flex-grow: 1; 
+            min-height: 20rem;
+            overflow-x: hidden;
+        }
+   ` ;
+    }
+
+    static get abcstyles() {
+        return css`  
     .messages {
         overflow: scroll;
         margin-bottom: var(--padding-mid);
@@ -74,7 +88,8 @@ export class ChatContainer extends LitElement {
     constructor() {
         super()
         this.peer = null
-        this.message = ""
+        this.message = "";
+        console.log("chat container constructor")
     }
 
     static get properties() {
@@ -87,7 +102,7 @@ export class ChatContainer extends LitElement {
     render() {
         return html`
            <div class='${(this.peer == null) ? "public-chat-box" : "private-chat-box"}'>
-                <div id='messages' class='messages'></div>
+                <div id='messages' class='messages'>messages</div>
                     <div class="send-message-wrapper">
                         <input type='text' 
                                 id='chatInput' 
@@ -103,7 +118,6 @@ export class ChatContainer extends LitElement {
     }
 
     send(e) {
-        alert(888)
         const inputEl = this.shadowRoot.getElementById("chatInput");
         const value = inputEl.value;
         inputEl.value = "";
@@ -111,6 +125,7 @@ export class ChatContainer extends LitElement {
             { "type": "chatMessage", "payload": { "sender": getTheOthers().me.profile.name, "senderId": getTheOthers().me.userId, "receiverId": this.peer.userId, "message": value } }
             : { "type": "chatMessage", "payload": { "sender": getTheOthers().me.profile.name, "senderId": getTheOthers().me.userId, "message": value } };
 
+        console.log("chatmsg:"+JSON.stringify(msg))
         getWebSocket().send(JSON.stringify(msg));
     }
 
@@ -126,17 +141,28 @@ export class ChatContainer extends LitElement {
     updated(changedProperties) {
         changedProperties.forEach((oldValue, propName) => {
             if (propName == "message") {
+                console.log("1 message un updated")
                 const messagesEl = this.shadowRoot.getElementById("messages");
+                console.log("2 message un updated")
+              
                 messagesEl.innerHTML += this.message + "<br>"
+                console.log("3 message un updated")
+              
+             
             }
         });
     }
 
     static processChatOutput(senderId, sender, receiverId, message) {
+        console.log(1);
         if (receiverId == null) {
-            if (_interactiveGroupChat.publicChatbox)
-                _interactiveGroupChat.publicChatbox.message = sender + ": " + message;
+            console.log(11)
+            if (_interactiveGroupChat.publicChatbox){
+                console.log(111)
+                 _interactiveGroupChat.publicChatbox.message = sender + ": " + message;
+            }
         }
+        console.log(2);
         _mainGrid.getVideoContainers().forEach(videoContainer => {
             const _chatboxContainer = videoContainer.chatbox;
             if (videoContainer.id == receiverId) {

@@ -76,7 +76,7 @@ export class GroupChat extends LitElement {
         super()
         console.log("group chat constructor")
         _interactiveGroupChat = this;
-        this.showPublicChatbox = false;
+        this.showPublicChatbox = true;
         this.myCameraContainer = document.createElement("video-container");
         this.myCameraContainer.classList.add("my-camera-container");
         let theOthers = getTheOthers();
@@ -105,19 +105,29 @@ export class GroupChat extends LitElement {
     render() {
         return html`
             ${this.myCameraContainer}
-            ${this.mainGrid}
+             aaa
             <chat-container class="public-chat-container" style="display:${(this.showPublicChatbox) ? 'flex' : 'none'}" ></chat-container>
+            bbb
+        `;
+    }
+
+    render2() {
+        return html`
+            ${this.myCameraContainer}
+            ${this.mainGrid}
+            aaa
+            <chat-container class="public-chat-container" style="display:${(this.showPublicChatbox) ? 'flex' : 'none'}" ></chat-container>
+            bbb
         `;
     }
 
     firstUpdated() {
         this.publicChatbox = this.shadowRoot.querySelector('chat-container');
-
-    }
+   }
 
     static removeTheOtherCallback(userId) {
         _interactiveGroupChat.mainGrid.removeTheOther(userId);
-        _interactiveGroupChat.showPublicChatbox = (theOthers.size > 1);
+        _interactiveGroupChat.showPublicChatbox = (getTheOthers().size > 1);
     }
 
     static addTheOtherCallback(theOther) {
