@@ -289,20 +289,7 @@ button img, button svg{
         const muteBtn=this.shadowRoot.getElementById("muteBtn");
         const unMuteBtn=this.shadowRoot.getElementById("unMuteBtn");
         if (this.video.muted)  { muteBtn.style.display="block";  unMuteBtn.style.display="none"} 
-
-        if (!this.video.muted)  { muteBtn.style.display="none";  unMuteBtn.style.display="block"} 
-
-       
-        /* const img = this.shadowRoot.querySelector('img');
-         console.log("setmute "+this.video.muted)
-         console.log("setmute "+img);
-         const src= (this.video.muted) ? "./data/muted-icon.svg" : "./data/unmuted-icon.svg";
-         console.log("setmute "+src);
-         img.src=src;  
-         console.log("setmute "+img.src);
-         */
-
-
+        else  { muteBtn.style.display="none";  unMuteBtn.style.display="block"}    
     }
 
     startCaptureEH() {
