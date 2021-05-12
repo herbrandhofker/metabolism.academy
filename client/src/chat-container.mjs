@@ -108,8 +108,8 @@ export class ChatContainer extends LitElement {
         const value = inputEl.value;
         inputEl.value = "";
         let msg = (this.peer) ?
-            { "type": "chatMessage", "payload": { "sender": theOthers.me.profile.name, "senderId": theOthers.me.userId, "receiverId": this.peer.userId, "message": value } }
-            : { "type": "chatMessage", "payload": { "sender": theOthers.me.profile.name, "senderId": theOthers.me.userId, "message": value } };
+            { "type": "chatMessage", "payload": { "sender": getTheOthers().me.profile.name, "senderId": getTheOthers().me.userId, "receiverId": this.peer.userId, "message": value } }
+            : { "type": "chatMessage", "payload": { "sender": getTheOthers().me.profile.name, "senderId": getTheOthers().me.userId, "message": value } };
 
         getWebSocket().send(JSON.stringify(msg));
     }

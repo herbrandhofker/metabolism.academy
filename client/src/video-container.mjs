@@ -177,7 +177,6 @@ export class VideoContainer extends LitElement {
                `}               
             </div>
             <div class="button-box">
-zzz
              ${(this.itIsMe) ?
                 this.shareButton() :
                 html`
