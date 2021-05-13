@@ -362,6 +362,17 @@ class ChatContainer extends LitElement {
             min-height: 20rem;
             overflow-x: hidden;
         }
+
+        .chat-box {
+            display: flex; 
+            flex-direction: column; 
+            padding: 1rem; 
+            background-color: purple;
+            }
+
+            .chat-box .messages {
+                min-height: 10rem;     
+            }
    ` ;
     }
 
@@ -376,29 +387,8 @@ class ChatContainer extends LitElement {
         overflow-x: hidden;
     }
 
-    .public-chat-box {
-        display: flex; 
-        flex-direction: column; 
-    }
-
-    .public-chat-message-box .chat-messages {
-        flex: 4 1 auto; 
-    }
-
-    .public-chat-box .input-chat-message {
-        flex: 1 1 auto; 
-    }
-
-    .private-chat-box {
-    display: flex; 
-    flex-direction: column; 
-    padding: 1rem; 
-    background-color: purple;
-    }
-
-    .private-chat-box .messages {
-    min-height: 10rem;     
-    }
+ 
+   
 
     .send-button {
         height: auto;
@@ -445,7 +435,7 @@ class ChatContainer extends LitElement {
 
     render() {
         return html`
-           <div class='${(this.peer == null) ? "public-chat-box" : "private-chat-box"}'>
+           <div class="chat-box">
                 <div id='messages' class='messages'>messages</div>
                     <div class="send-message-wrapper">
                         <input type='text' 

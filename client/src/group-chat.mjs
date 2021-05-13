@@ -38,12 +38,7 @@ export class GroupChat extends LitElement {
             background-color: var(--color-one);
          }
         
-        .public-chat-container { 
-            height: fit-content; 
-            background: var(--color-two);
-            padding: var(--padding-small); 
-        }
-        
+              
         .page-header {
             display: flex;
             justify-content: space-between;
