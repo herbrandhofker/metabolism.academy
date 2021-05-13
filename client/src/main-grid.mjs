@@ -20,6 +20,7 @@ export class MainGrid extends LitElement {
             grid-gap: 25px;  
             margin: 0 25px;
             flex: 1 0 auto;
+            background-color: red;
         }
         `;
     }

@@ -48,6 +48,27 @@ export class VideoContainer extends LitElement {
             padding: 0.5rem;
         }
 
+        [data-tooltip]:before {
+            content: attr(data-tooltip);
+            position: absolute;
+            opacity: 0;
+            transition: all 0.25s ease;
+            padding: var(---small);
+            color: #777;
+            border-radius: 10px;
+            box-shadow: 2px 2px 1px silver;    
+        }
+        
+        [data-tooltip]:hover:before {
+            opacity: 1;
+            background: black;
+            margin-top: -30px;
+        }
+        
+        [data-tooltip]:not([data-tooltip-persistent]):before {
+            pointer-events: none;
+        }
+
 `]
 }
 
@@ -73,26 +94,7 @@ export class VideoContainer extends LitElement {
     color: white; 
 }
 
-[data-tooltip]:before {
-    content: attr(data-tooltip);
-    position: absolute;
-    opacity: 0;
-    transition: all 0.25s ease;
-    padding: var(---small);
-    color: #777;
-    border-radius: 10px;
-    box-shadow: 2px 2px 1px silver;    
-}
 
-[data-tooltip]:hover:before {
-    opacity: 1;
-    background: black;
-    margin-top: -30px;
-}
-
-[data-tooltip]:not([data-tooltip-persistent]):before {
-    pointer-events: none;
-}
 
 .chat-box {
     padding: var(--padding-small);
@@ -263,7 +265,7 @@ export class VideoContainer extends LitElement {
         else this.shareScreen = true;
     }
 
-    openOrCloseChat(event) {
+    openOrCloseChat() {
         const div = this.shadowRoot.getElementById("chatPopup");
         div.style.display = "none";
         if (this.isChatOpen)
@@ -275,7 +277,7 @@ export class VideoContainer extends LitElement {
 
     openChatDialog() {
         if (!this.isChatOpen)
-            this.openOrCloseChat(null)
+            this.openOrCloseChat()
     }
 
     oneOnOneButton() {
@@ -423,8 +425,7 @@ class ChatContainer extends LitElement {
 
     render() {
         return html`
-           <div class="chat-box">
-           
+           <div class="chat-box">           
                 <div id='messages' class='messages'>Messages:</div>
                     <div class="send-message-wrapper icon-box" >
                         <input type='text' 
