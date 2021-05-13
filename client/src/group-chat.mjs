@@ -145,11 +145,11 @@ export class GroupChat extends LitElement {
         _interactiveGroupChat.showPublicChatbox = (getTheOthers().size > 1);
     }
 
-    static addTheOtherCallback(theOther) {
-        _interactiveGroupChat.mainGrid.addTheOther(createVideoContainer());
+    static addTheOtherCallback(_theOther) {
+        _interactiveGroupChat.mainGrid.addTheOther(createVideoContainer(_theOther));
         _interactiveGroupChat.showPublicChatbox = (getTheOthers().size > 1)
 
-        function createVideoContainer() {
+        function createVideoContainer(theOther) {
             const videoContainer = document.createElement("video-container")
             theOther.video = videoContainer.getVideo();
             videoContainer.id = theOther.userId;
@@ -166,8 +166,7 @@ export class GroupChat extends LitElement {
                 ws.send(JSON.stringify(event.detail));
             });
 
-            theOther.chatbox = chatContainer;
-            videoContainer.appendChild(chatContainer);
+            theOther.chatboxContainer = chatContainer;
             return videoContainer;
         }
     }
