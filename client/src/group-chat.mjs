@@ -85,7 +85,10 @@ export class GroupChat extends LitElement {
         getWebSocket().send(JSON.stringify({ type: "registrations" }));
 
 
-        this.myVideoContainer = this.createVideoContainer(theOthers.me);
+        this.myVideoContainer = createVideoContainerMe(theOthers.me);
+        this.myVideoContainer.classList.add("my-video-container");
+        this.myVideoContainer.itIsMe = true;
+   
      
      //   _interactiveGroupChat = this.myVideoContainer.chatContainer;
         _interactiveGroupChat = this;
@@ -104,13 +107,7 @@ export class GroupChat extends LitElement {
 
     }
 
-    createVideoContainer(me) {
-        const videoContainer = document.createElement("video-container");
-        videoContainer.classList.add("my-video-container");
-        videoContainer.theOther = me;
-        videoContainer.itIsMe = true;
-        return videoContainer;
-    }
+  
 
 
     static get properties() {
@@ -149,31 +146,39 @@ export class GroupChat extends LitElement {
         _interactiveGroupChat.mainGrid.addTheOther(createVideoContainer(_theOther));
         _interactiveGroupChat.showPublicChatbox = (getTheOthers().size > 1)
 
-        function createVideoContainer(theOther) {
-            const videoContainer = document.createElement("video-container")
-            theOther.video = videoContainer.getVideo();
-            videoContainer.id = theOther.userId;
-            videoContainer.theOther = theOther;
-            const chatContainer = videoContainer.getChatBox();
-            chatContainer.peer = theOther
-            chatContainer.me = getTheOthers().me
-            chatContainer.addEventListener('chatMessage', (event) => {
-                const ws = getWebSocket();
-                if (!ws) {
-                    console.error("No WebSocket connection :(");
-                    return;
-                }
-                ws.send(JSON.stringify(event.detail));
-            });
-
-            theOther.chatboxContainer = chatContainer;
-            return videoContainer;
-        }
+       
     }
 
     static onOneOnOneCallback(payload) {
         _interactiveGroupChat.mainGrid.onOneOnOneCallback(payload)
     }
+}
+
+function createVideoContainerMe(theOther) {
+    const videoContainer = document.createElement("video-container");
+    videoContainer.theOther = theOther;
+     return videoContainer;
+}
+
+function createVideoContainer(theOther) {
+    const videoContainer = document.createElement("video-container")
+    theOther.video = videoContainer.getVideo();
+    videoContainer.id = theOther.userId;
+    videoContainer.theOther = theOther;
+    const chatContainer = videoContainer.getChatBox();
+    chatContainer.peer = theOther
+    chatContainer.me = getTheOthers().me
+    chatContainer.addEventListener('chatMessage', (event) => {
+        const ws = getWebSocket();
+        if (!ws) {
+            console.error("No WebSocket connection :(");
+            return;
+        }
+        ws.send(JSON.stringify(event.detail));
+    });
+
+    theOther.chatboxContainer = chatContainer;
+    return videoContainer;
 }
 
 customElements.define("my-group-chat", GroupChat);
