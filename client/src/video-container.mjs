@@ -266,7 +266,6 @@ export class VideoContainer extends LitElement {
         else
             div.style.display = "block"
         this.isChatOpen = !this.isChatOpen;
-        alert("open chat?")
     }
 
     openChatDialog() {

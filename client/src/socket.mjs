@@ -14,8 +14,7 @@ export function createSocket(detail, role) {
         const json = { type: "login" };
         json.payload = JSON.parse(detail);
         json.payload.role = role;
-        getTheOthers().me.profile = json.payload;
-        console.log("send")
+        getTheOthers().updateMe({profile: json.payload})
         ws.send(JSON.stringify(json));
         const json2 = { type: "registrations" };
         ws.send(JSON.stringify(json2));
@@ -24,13 +23,9 @@ export function createSocket(detail, role) {
     ws.onmessage = (event) => {
         let rec = undefined;
         try {
-            console.log(99, event.data)
              rec = JSON.parse(event.data);
         }
         catch (e) {
-            console.log(100, event.type)
-            console.log(100, event.payload)
-            console.log(100,JSON.stringify(event.data));
             console.error(JSON.stringify(event.data) + " " + e); return;
         }
 
@@ -40,16 +35,11 @@ export function createSocket(detail, role) {
 
         switch (type) {
             case "registrations": {
-                console.log(88)
-            //    const regs = payload.registrations;
-                console.log(JSON.stringify(payload))
-                console.log(888)
+             
                for (let reg of payload) {
                    registrations.set(reg.email, reg);
-                   console.log(123)
-              
+                
                 }
-                console.log(1234)
                 break;
             }
             case "login": {
@@ -60,8 +50,6 @@ export function createSocket(detail, role) {
                 registerConfirmation(payload);
                 return;
             case "existingUsers":
-                if (stream == null)
-                    console.log("stream null?")
                 existingUsers(payload);
                 return;
             case "joinedRoom":

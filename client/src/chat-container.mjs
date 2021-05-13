@@ -160,6 +160,9 @@ export class ChatContainer extends LitElement {
             if (_interactiveGroupChat.publicChatbox){
                 console.log(111)
                  _interactiveGroupChat.publicChatbox.message = sender + ": " + message;
+               //  const _chatboxContainer = videoContainer.chatbox; 
+             //    sender + ": " + message;
+           
             }
         }
         console.log(2);

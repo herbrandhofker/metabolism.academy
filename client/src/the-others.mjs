@@ -17,23 +17,7 @@ export class TheOthers extends Map {
     }
 
     updateMe(me) {
-        this.me = { ...this.me, ...me }
-        if (this.me.userId && this.me.initialized) {
-            setTimeout(() => {
-      /*          _this.spinner.classList.remove("spinner-start");
-                _this.spinner.classList.add("spinner-stop");
-                _interactiveGroupChat.classList.remove("interactive-group-chat-hidden");
-                _interactiveGroupChat.classList.add("interactive-group-chat-visible");
-            */    }, 1800);
-        } else
-            if (this.me.userId) {
-                setTimeout(() => {
-      /*           _this.spinner.classList.remove("spinner-start");
-                _this.spinner.classList.add("spinner-stop");
-                _interactiveGroupChat.classList.remove("interactive-group-chat-hidden");
-                _interactiveGroupChat.classList.add("interactive-group-chat-visible");
-            */    }, 2400);
-            }
+        this.me = { ...this.me, ...me }      
     }
 
     set(userId, theOther) {

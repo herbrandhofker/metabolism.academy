@@ -75,9 +75,10 @@ export class GroupChat extends LitElement {
     constructor() {
         super()
         console.log("group chat constructor")
-        _interactiveGroupChat = this;
         this.showPublicChatbox = true;
         this.myCameraContainer = document.createElement("video-container");
+        _interactiveGroupChat = this;
+     
         this.myCameraContainer.classList.add("my-camera-container");
         let theOthers = getTheOthers();
         this.myCameraContainer.theOther = theOthers.me;
