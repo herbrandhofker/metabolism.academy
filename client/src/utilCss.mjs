@@ -28,6 +28,8 @@ export function getButtonCss() {
     .button:hover {
         background-color: var(--button-background-color-hover);
     }  
+
+  
     `;
 }
 
@@ -58,7 +60,16 @@ export function getIconCss() {
         height: 25px; 
         width: 20px; 
         padding: var(--padding-small); 
-    }       
+    } 
+    
+    .icon-box {
+        padding: 1rem;
+        display: flex;
+    }
+
+
+
+    
 ` ;
 }
 

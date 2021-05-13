@@ -2,7 +2,7 @@ import { LitElement, html, css, svg } from 'lit-element';
 
 import { getWebSocket } from "./socket.mjs"
 import { getTheOthers } from "./the-others.mjs";
-import { screenShare, screenUnshare, muteIcon, unMuteIcon, getIconCss } from './utilCss.mjs'
+import { screenShare, screenUnshare, muteIcon, unMuteIcon, getIconCss,getButtonCss} from './utilCss.mjs'
 import { } from './group-chat.mjs';
 import { _mainGrid } from './main-grid.mjs'
 
@@ -11,26 +11,21 @@ const videoContainers=[]
 export class VideoContainer extends LitElement {
 
     static get styles() {
-        return [getIconCss(), css`
+        return [getIconCss(), getButtonCss(),css`
 
         .container{
             display: flex;     
             flex-direction: column;
-            height: auto;
+            justify-content : center;
             background-color : var(--tertiar-color); 
             color: black;
+            padding: 1rem;
       
          }
         
         .my-video-container video {
             max-width: 200px; 
             max-height: 150px;
-        }
-
-        .button-box {
-            margin: 5px;
-            display: flex;
-            flex-direction: row;
         }
 
         .video-shared-screen-box{
@@ -48,6 +43,9 @@ export class VideoContainer extends LitElement {
             display: flex; 
             flex-direction: column;
             max-width: 100%;  
+        }
+        .item{
+            padding: 0.5rem;
         }
 
 `]
@@ -129,8 +127,6 @@ export class VideoContainer extends LitElement {
         this.videoShareScreen.autoplay = true;
         this.videoShareScreen.width = 300;
         this.videoShareScreen.height = 300;
-        console.log("videoContainer constructor einde")
-
     }
 
     static get properties() {
@@ -164,33 +160,33 @@ export class VideoContainer extends LitElement {
         const result = html`      
         <div class="container ${(this.itIsMe)? 'my-video-container' : 'the-other-video-container'}">
             ${(this.itIsMe) ? html`
-            <div>
+            <div class="item">
                 <div>You are in room: ${this.getRoom()}</div>
                 <div>You are registered as: ${this.getName()}</div>
                 <div>invite participants with url: <br>${window.location.href}</div>
             </div>
                  
-            <div class="video-shared-screen-box ${this.setShareScreenClass(this.shareScreen)}"> 
+            <div class="item video-shared-screen-box ${this.setShareScreenClass(this.shareScreen)}"> 
                 ${this.videoShareScreen}
-                <div class="button-box">
-                <button id="start" class="button button-start" @click=${()=>this.startCaptureEH()}>Start Capture</button>
-                <button id="stop"  class="button button-stop"  @click=${()=>this.stopCaptureEH()}>Stop Capture</button>
+                <div class="icon-box">
+                <button id="start" @click=${()=>this.startCaptureEH()}>Start Capture</button>
+                <button id="stop"  @click=${()=>this.stopCaptureEH()}>Stop Capture</button>
                 </div>
             </div>
             `: null}
           
-            <div class="video-box ${this.setShareScreenClass(!this.shareScreen)}"> 
+            <div class="item video-box ${this.setShareScreenClass(!this.shareScreen)}"> 
                 ${this.video}
                 ${this.itIsMe ? null : html`                
                     <div class="user-name">${this.theOther.userName}</div>
                `}               
             </div>
-            <div class="button-box">
+            <div class="item icon-box">
              ${(this.itIsMe) ?
                 this.shareButton() :
                 html`
-                <button class="button one-on-one-button"  @click="${this.oneOnOne}">${oneOnOneMode} One to One</button>
-                <button class="button chat-button" data-tooltip="Open/close Private Chat" @click=${()=>this.openOrCloseChat()}>${chatMode} Chat<svg viewBox="0 0 49.07 42.95"><defs><style>.cls-1,.cls-2{fill:none;stroke:#010101;stroke-miterlimit:10;}.cls-1{stroke-width:4.07px;}.cls-2{stroke-width:3px;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon class="cls-1" points="2.03 2.03 47.03 2.03 47.03 29.03 20.03 29.03 11.03 38.03 11.03 29.03 2.03 29.03 2.03 2.03"/><line class="cls-2" x1="8.68" y1="9.98" x2="40.39" y2="9.98"/><line class="cls-2" x1="8.68" y1="15.41" x2="40.39" y2="15.41"/><line class="cls-2" x1="8.68" y1="20.83" x2="40.39" y2="20.83"/></g></g></svg>
+                <button @click="${this.oneOnOne}">${oneOnOneMode} One to One</button>
+                <button data-tooltip="Open/close Private Chat" @click=${()=>this.openOrCloseChat()}>${chatMode} Chat<svg viewBox="0 0 49.07 42.95"><defs><style>.cls-1,.cls-2{fill:none;stroke:#010101;stroke-miterlimit:10;}.cls-1{stroke-width:4.07px;}.cls-2{stroke-width:3px;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon class="cls-1" points="2.03 2.03 47.03 2.03 47.03 29.03 20.03 29.03 11.03 38.03 11.03 29.03 2.03 29.03 2.03 2.03"/><line class="cls-2" x1="8.68" y1="9.98" x2="40.39" y2="9.98"/><line class="cls-2" x1="8.68" y1="15.41" x2="40.39" y2="15.41"/><line class="cls-2" x1="8.68" y1="20.83" x2="40.39" y2="20.83"/></g></g></svg>
                 </button>`}
               
                 <button id="muteBtn" class="icon" data-tooltip="Mute" @click=${()=>this.changeMute()}>
@@ -200,11 +196,11 @@ export class VideoContainer extends LitElement {
                     ${muteIcon()} 
                 </button>
 
-                <button class="button chat-button" data-tooltip="Open/close Private Chat" @click=${()=>this.openOrCloseChat()}>${(this.isChatOpen) ? "Close" : "Open"} Chat
+                <button class="icon" data-tooltip="Open/close Private Chat" @click=${()=>this.openOrCloseChat()}>${(this.isChatOpen) ? "Close" : "Open"} Chat
                     <svg viewBox="0 0 49.07 42.95"><defs><style>.cls-1,.cls-2{fill:none;stroke:#010101;stroke-miterlimit:10;}.cls-1{stroke-width:4.07px;}.cls-2{stroke-width:3px;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon class="cls-1" points="2.03 2.03 47.03 2.03 47.03 29.03 20.03 29.03 11.03 38.03 11.03 29.03 2.03 29.03 2.03 2.03"/><line class="cls-2" x1="8.68" y1="9.98" x2="40.39" y2="9.98"/><line class="cls-2" x1="8.68" y1="15.41" x2="40.39" y2="15.41"/><line class="cls-2" x1="8.68" y1="20.83" x2="40.39" y2="20.83"/></g></g></svg>
                 </button>   
              </div>
-             <div id="chatPopup" style="display:none" class="chat-box"><chat-container></chat-container></div>
+             <div id="chatPopup" style="display:none"><chat-container></chat-container></div>
         </div>
    
         `;
@@ -212,7 +208,7 @@ export class VideoContainer extends LitElement {
         return result;
     }
 
-    firstUpdated(changedProperties) {
+    firstUpdated() {
         this.setMute();
         this.chatContainer=this.shadowRoot.querySelector("chat-container")
     }
@@ -220,10 +216,8 @@ export class VideoContainer extends LitElement {
     updated(changedProperties) {
         changedProperties.forEach((oldValue, propName) => {
             if (propName == "inAnotherOneOnOne") { this.changePause(this.inAnotherOneOnOne) }
-
         });
-    }
-    
+    }    
 
     createMuteButton() {
         return html`
@@ -235,7 +229,6 @@ export class VideoContainer extends LitElement {
     </button>
     `;
     }
-
   
     getChatContainer() { return this.chatContainer; }
 
@@ -243,8 +236,8 @@ export class VideoContainer extends LitElement {
 
     shareButton() {
         if (this.shareScreen)
-            return html`<button class="button share-button" data-tooltip="Close share screen"  @click=${()=>this.setShareScreen()}>${screenShare()}</button>`;
-        else return html`<button class="button share-button" data-tooltip="Open screen share menu" @click=${()=>this.setShareScreen()}>${screenUnshare()}</button>`;
+            return html`<button  data-tooltip="Close share screen"  @click=${()=>this.setShareScreen()}>${screenShare()}</button>`;
+        else return html`<button data-tooltip="Open screen share menu" @click=${()=>this.setShareScreen()}>${screenUnshare()}</button>`;
     }
 
     setShareScreenClass(show) {
@@ -280,7 +273,7 @@ export class VideoContainer extends LitElement {
 
     oneOnOneButton() {
         const mode = (this.isOneOnOne) ? "stop" : "start";
-        return html`<button class="button" data-tooltip="Start One to One" @click="${this.oneOnOne}">${mode} One to One</button>`;
+        return html`<button data-tooltip="Start One to One" @click="${this.oneOnOne}">${mode} One to One</button>`;
     }
 
     oneOnOne(event) {
@@ -355,12 +348,12 @@ customElements.define("video-container", VideoContainer);
 class ChatContainer extends LitElement {
 
     static get styles() {
-        return css`  
+        return [getButtonCss(),getIconCss(),css`  
         .messages {
             overflow: scroll;
             margin-bottom: var(--padding-mid);
             flex-grow: 1; 
-            min-height: 20rem;
+            min-height: 10rem;
             overflow-x: hidden;
             background-color: var(--secundairy-color);
             color: white;
@@ -370,12 +363,12 @@ class ChatContainer extends LitElement {
             display: flex; 
             flex-direction: column; 
             padding: 1rem; 
-            }
-
-            .chat-box .messages {
-                min-height: 10rem;     
-            }
-   ` ;
+        }
+       
+        .send {
+    margin-left: 1rem;
+        }
+   ` ];
     }
 
    /*
@@ -412,7 +405,6 @@ class ChatContainer extends LitElement {
         super()
         this.peer = null
         this.message = "";
-        this.abc="def"
     }
 
     static get properties() {
@@ -427,14 +419,14 @@ class ChatContainer extends LitElement {
            <div class="chat-box">
            
                 <div id='messages' class='messages'>Messages:</div>
-                    <div class="send-message-wrapper">
+                    <div class="send-message-wrapper icon-box" >
                         <input type='text' 
                                 id='chatInput' 
                                 class='input'
                                 placeholder = "Type your message here"
                                 value="">
                         </input>
-                        <button id='send' class='send-button'  @click=${() => this.send()}>Send message</button>
+                        <button  class="icon send"  @click=${() => this.send()}>Send</button>
                     </div>   
                 </div>         
            </div>     
