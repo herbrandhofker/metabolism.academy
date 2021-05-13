@@ -1,5 +1,5 @@
 
-import { ChatContainer } from './chat-container.mjs';
+import { ChatContainer } from './video-container.mjs';
 import { getTheOthers } from './the-others.mjs';
 
 const URL = "wss://ws.metabolism.academy"

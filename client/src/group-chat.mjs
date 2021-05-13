@@ -3,7 +3,6 @@ import { getTheOthers } from "./the-others.mjs"
 import { procesCommunication, getWebSocket } from "./socket.mjs"
 import { } from './video-container.mjs';
 
-import { } from './chat-container.mjs';
 
 export let _interactiveGroupChat = null;
 
@@ -80,8 +79,7 @@ export class GroupChat extends LitElement {
     constructor() {
         super()
         this.showPublicChatbox = true;
-        _interactiveGroupChat = this;
-        const theOthers = getTheOthers();
+       const theOthers = getTheOthers();
 
         console.log("group chat constructor")
         getWebSocket().send(JSON.stringify({ type: "registrations" }));
@@ -91,8 +89,12 @@ export class GroupChat extends LitElement {
         this.myVideoContainer.classList.add("my-video-container");
         this.myVideoContainer.theOther = theOthers.me;
         this.myVideoContainer.itIsMe = true;
+      
+        _interactiveGroupChat =  this.myVideoContainer.chatContainer;
+        _interactiveGroupChat =  this;
         this.mainGrid = document.createElement("main-grid");
         this.mainGrid.classList.add("main-grid");
+
         theOthers.updateMe({ "video": this.myVideoContainer.getVideo() });
         theOthers.addSetListener(GroupChat.addTheOtherCallback);
         theOthers.addDeleteListener(GroupChat.removeTheOtherCallback);

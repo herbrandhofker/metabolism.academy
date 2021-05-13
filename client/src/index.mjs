@@ -2,9 +2,8 @@ import './index.css'
 
 import './the-others.mjs';
 import './login.mjs'
-//import './menu.mjs'
-//import './group-chat.mjs'
 
+/*
 const createChat=function () {
   const item = root.appendChild(document.createElement("group-chat"))
   item.id = "Chat";
@@ -12,3 +11,4 @@ const createChat=function () {
   item.style.display = "none"
   return item;
 }
+*/

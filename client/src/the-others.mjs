@@ -1,4 +1,4 @@
-import { _interactiveGroupChat } from './group-chat.mjs';
+import { _interactiveGroupChat } from './video-container.mjs';
 
 let _this = undefined
 
