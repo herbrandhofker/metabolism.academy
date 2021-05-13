@@ -139,15 +139,12 @@ export class VideoContainer extends LitElement {
         };
     }
 
-
     getName() {
-        console.log("in get name video contaner")
-        console.log(JSON.stringify(getTheOthers().me))
         return getTheOthers().me.profile.name;
     }
 
     getRoom() {
-        return 1234;
+        return "public";
         // return getTheOthers().me.room;
     }
 
@@ -164,7 +161,7 @@ export class VideoContainer extends LitElement {
             <div class="registration-box">
                 <div class="chatroom-name">You are in room: ${this.getRoom()}</div>
                 <div class="registered-with-name">You are registered as: ${this.getName()}</div>
-                <div class="chat-room-link">nvite participants with url: ${window.location.href}</div>
+                <div class="chat-room-link">invite participants with url: <br>${window.location.href}</div>
             </div>
                  
             <div class="video-shared-screen-box ${this.setShareScreenClass(this.shareScreen)}"> 

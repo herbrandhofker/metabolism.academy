@@ -115,22 +115,12 @@ export class GroupChat extends LitElement {
     render() {
         return html`
             ${this.myVideoContainer}
-           <chat-container class="public-chat-container" style="display:${(this.showPublicChatbox) ? 'flex' : 'none'}" ></chat-container>
+            ${this.mainGrid}         
          `;
     }
 
-    render2() {
-        return html`
-            ${this.myVideoContainer}
-            ${this.mainGrid}
-            aaa
-            <chat-container class="public-chat-container" style="display:${(this.showPublicChatbox) ? 'flex' : 'none'}" ></chat-container>
-            bbb
-        `;
-    }
 
     firstUpdated() {
-        this.publicChatbox = this.shadowRoot.querySelector('chat-container');
     }
 
     static removeTheOtherCallback(userId) {
