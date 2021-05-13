@@ -11,13 +11,19 @@ let stream = undefined;
 export function createSocket(detail, role) {
     ws = new WebSocket(URL);
     ws.onopen = () => {
-        const json = { type: "login" };
-        json.payload = JSON.parse(detail);
-        json.payload.role = role;
-        getTheOthers().updateMe({ profile: json.payload })
-        ws.send(JSON.stringify(json));
-        const json2 = { type: "registrations" };
-        ws.send(JSON.stringify(json2));
+       const payload= JSON.parse(detail);
+       getTheOthers().updateMe({ profile: payload })
+       
+      
+       ws.send(JSON.stringify({ type: "login" ,payload: payload}));
+      //  const json2 = { type: "registrations" };
+      //  ws.send(JSON.stringify(json2));
+
+      //  const rec = { "type": "registerMe", "payload": { "user": theOthers.me } }
+    //    ws.send(JSON.stringify(rec))
+
+
+  
     };
 
     ws.onmessage = (event) => {

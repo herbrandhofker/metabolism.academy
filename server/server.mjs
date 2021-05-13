@@ -49,8 +49,7 @@ producer.on('ready', function () {
                     payload.timestamp = new Date();
                     payload.test = "from mitochondria";
                     ws.send(JSON.stringify(msg));
-                    producer.send([{ topic: msgType, messages: new kafka.KeyedMessage(payload.email, JSON.stringify(msg)) }], (err, data) => { console.log(data); });
-                    break;
+                     break;
                 }
                 case 'registrations': {
                     
@@ -67,6 +66,8 @@ producer.on('ready', function () {
                 }
                 case "registerMe":
                     registerMe(payload);
+                    producer.send([{ topic: msgType, messages: new kafka.KeyedMessage(payload.email, JSON.stringify(msg)) }], (err, data) => { console.log(data); });
+              
                     break;
                 case "chatMessage":
                     chatMessage(payload);
