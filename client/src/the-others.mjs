@@ -21,7 +21,12 @@ export class TheOthers extends Map {
         console.log(`add theother ${userId} ${JSON.stringify(theOther)}`)
         super.set(userId, theOther);
         /*so a new "theOther" was added, now update the ui's using it that are registered*/
+        console.log("set the other 2")
+        this.set_listeners.forEach(createCallback => console.log(createCallback))
         this.set_listeners.forEach(createCallback => createCallback(theOther))
+        
+        console.log("set the other 2")
+    
     }
 
     delete(userId) {

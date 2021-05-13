@@ -88,9 +88,13 @@ export function createSocket(detail, role) {
     }
 
     function joinedRoom(payload) {
+        console.log("joinedroom1")
         const _theOther = payload;
         enRichTheOther(_theOther)
+        console.log("2joinedroom1")
         getTheOthers().set(_theOther.userId, _theOther)
+        console.log("3 joinedroom1")
+    
     };
 
     function leaveRoom(payload) {

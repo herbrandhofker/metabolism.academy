@@ -124,8 +124,10 @@ export class GroupChat extends LitElement {
     }
 
     static addTheOtherCallback(_theOther) {
+        console.log("in groupchat add the other 1")
         _mainGrid.addTheOther(createVideoContainer(_theOther));
-     //   _interactiveGroupChat.showPublicChatbox = (getTheOthers().size > 1)
+        console.log("in groupchat add the other 2")
+        //   _interactiveGroupChat.showPublicChatbox = (getTheOthers().size > 1)
 
 
     }
@@ -137,12 +139,23 @@ export class GroupChat extends LitElement {
 
 
 function createVideoContainer(theOther) {
-    const videoContainer = document.createElement("video-container")
+   console.log("1 create video container")
+     const videoContainer = document.createElement("video-container")
+
+   console.log("2 create video container")
     theOther.video = videoContainer.getVideo();
     videoContainer.theOther = theOther;
+
+   console.log("3 create video container")
     if (theOther != getTheOthers().me) {
+
+   console.log("3.1 create video container")
         videoContainer.id = theOther.userId;
+
+   console.log("3.2 create video container")
         const chatContainer = videoContainer.getChatContainer();
+
+   console.log("3.3 create video container")
         chatContainer.peer = theOther
         chatContainer.me = getTheOthers().me
         chatContainer.addEventListener('chatMessage', (event) => {
@@ -156,6 +169,8 @@ function createVideoContainer(theOther) {
 
         theOther.chatboxContainer = chatContainer;
     }
+
+   console.log("4 create video container")
     return videoContainer;
 }
 
