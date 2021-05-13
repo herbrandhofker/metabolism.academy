@@ -163,7 +163,7 @@ export class VideoContainer extends LitElement {
             <div class="item">
                 <div>You are in room: ${this.getRoom()}</div>
                 <div>You are registered as: ${this.getName()}</div>
-                <div>invite participants with url: <br>${window.location.href}</div>
+                <div>Invite participants with url: <br>${window.location.href}</div>
             </div>
                  
             <div class="item video-shared-screen-box ${this.setShareScreenClass(this.shareScreen)}"> 
