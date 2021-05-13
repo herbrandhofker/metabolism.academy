@@ -1,5 +1,5 @@
 
-import { ChatContainer } from './video-container.mjs';
+import { processChatOutput } from './video-container.mjs';
 import { getTheOthers } from './the-others.mjs';
 
 const URL = "wss://ws.metabolism.academy"
@@ -190,7 +190,7 @@ export function createSocket(detail, role) {
 
     function chatMessage(payload) {
         console.log("chatmessage received" + JSON.stringify(payload))
-        ChatContainer.processChatOutput(payload.senderId, payload.sender, payload.receiverId, payload.message)
+        processChatOutput(payload.senderId, payload.sender, payload.receiverId, payload.message)
     }
 
     function OneOnOne(payload) {

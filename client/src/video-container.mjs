@@ -3,6 +3,8 @@ import { LitElement, html, css, svg } from 'lit-element';
 import { getWebSocket } from "./socket.mjs"
 import { getTheOthers } from "./the-others.mjs";
 import { screenShare, screenUnshare, muteIcon, unMuteIcon, getIconCss } from './utilCss.mjs'
+import { _interactiveGroupChat } from './group-chat.mjs';
+import { _mainGrid } from './main-grid.mjs'
 
 export class VideoContainer extends LitElement {
 
@@ -134,7 +136,7 @@ export class VideoContainer extends LitElement {
         };
     }
 
-  
+
     getName() {
         console.log("in get name video contaner")
         console.log(JSON.stringify(getTheOthers().me))
@@ -205,13 +207,13 @@ export class VideoContainer extends LitElement {
         });
     }
 
-    createChatPopup()  {
+    createChatPopup() {
         return html`
         <div id="chatPopup" style="display:none" class="chat-box">${this.chatContainer}</div>`;
     }
 
     createChatButton() {
-        const chatMode = (this.isChatOpen) ? "Close" : "Open";       
+        const chatMode = (this.isChatOpen) ? "Close" : "Open";
         return html`<button class="button chat-button" data-tooltip="Open/close Private Chat" @click="${this.openOrCloseChat}">${chatMode} Chat<svg viewBox="0 0 49.07 42.95"><defs><style>.cls-1,.cls-2{fill:none;stroke:#010101;stroke-miterlimit:10;}.cls-1{stroke-width:4.07px;}.cls-2{stroke-width:3px;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon class="cls-1" points="2.03 2.03 47.03 2.03 47.03 29.03 20.03 29.03 11.03 38.03 11.03 29.03 2.03 29.03 2.03 2.03"/><line class="cls-2" x1="8.68" y1="9.98" x2="40.39" y2="9.98"/><line class="cls-2" x1="8.68" y1="15.41" x2="40.39" y2="15.41"/><line class="cls-2" x1="8.68" y1="20.83" x2="40.39" y2="20.83"/></g></g></svg>
     </button>`;
     }
@@ -348,10 +350,9 @@ export class VideoContainer extends LitElement {
 customElements.define("video-container", VideoContainer);
 
 
-import { _interactiveGroupChat } from './group-chat.mjs';
-import { _mainGrid } from './main-grid.mjs'
 
-export class ChatContainer extends LitElement {
+
+class ChatContainer extends LitElement {
 
     static get styles() {
         return css`  
@@ -471,14 +472,14 @@ export class ChatContainer extends LitElement {
             { "type": "chatMessage", "payload": { "sender": getTheOthers().me.profile.name, "senderId": getTheOthers().me.userId, "receiverId": this.peer.userId, "message": value } }
             : { "type": "chatMessage", "payload": { "sender": getTheOthers().me.profile.name, "senderId": getTheOthers().me.userId, "message": value } };
 
-        console.log("chatmsg:"+JSON.stringify(msg))
+        console.log("chatmsg:" + JSON.stringify(msg))
         getWebSocket().send(JSON.stringify(msg));
     }
 
-    firstUpdated(){
+    firstUpdated() {
         const inputEl = this.shadowRoot.getElementById("chatInput");
-        inputEl.onkeypress=(e)=>{
-            if(e.keyCode==13){
+        inputEl.onkeypress = (e) => {
+            if (e.keyCode == 13) {
                 this.send();
             }
         }
@@ -490,41 +491,43 @@ export class ChatContainer extends LitElement {
                 console.log("1 message un updated")
                 const messagesEl = this.shadowRoot.getElementById("messages");
                 console.log("2 message un updated")
-              
+
                 messagesEl.innerHTML += this.message + "<br>"
                 console.log("3 message un updated")
-              
-             
-            }
-        });
-    }
 
-    static processChatOutput(senderId, sender, receiverId, message) {
-        console.log(1);
-        if (receiverId == null) {
-            console.log(11)
-            if (_interactiveGroupChat.publicChatbox){
-                console.log(111)
-                _interactiveGroupChat.publicChatbox.message = sender + ": " + message;
-         //       _interactiveGroupChat.publicChatbox.message = sender + ": " + message;
-                //  const _chatboxContainer = videoContainer.chatbox; 
-             //    sender + ": " + message;
-           
-            }
-        }
-        console.log(2);
-        _mainGrid.getVideoContainers().forEach(videoContainer => {
-            const _chatboxContainer = videoContainer.chatbox;
-            if (videoContainer.id == receiverId) {
-                _chatboxContainer.message = "me : " + message;
-                _chatboxContainer.videoContainer.openChatDialog();
-            }
-            else if (videoContainer.id == senderId) {
-                _chatboxContainer.message = sender + ": " + message;
-                _chatboxContainer.videoContainer.openChatDialog();
+
             }
         });
     }
 }
+
+
+export function processChatOutput(senderId, sender, receiverId, message) {
+    console.log(1);
+    if (receiverId == null) {
+        console.log(11)
+        if (_interactiveGroupChat.publicChatbox) {
+            console.log(111)
+            _interactiveGroupChat.publicChatbox.message = sender + ": " + message;
+            //       _interactiveGroupChat.publicChatbox.message = sender + ": " + message;
+            //  const _chatboxContainer = videoContainer.chatbox; 
+            //    sender + ": " + message;
+
+        }
+    }
+    console.log(2);
+    _mainGrid.getVideoContainers().forEach(videoContainer => {
+        const _chatboxContainer = videoContainer.chatbox;
+        if (videoContainer.id == receiverId) {
+            _chatboxContainer.message = "me : " + message;
+            _chatboxContainer.videoContainer.openChatDialog();
+        }
+        else if (videoContainer.id == senderId) {
+            _chatboxContainer.message = sender + ": " + message;
+            _chatboxContainer.videoContainer.openChatDialog();
+        }
+    });
+}
+
 
 customElements.define("chat-container", ChatContainer);
