@@ -11,8 +11,30 @@ export class GroupChat extends LitElement {
 
     static get styles() {
         return css` 
-      
-        .main-container {
+        video-container {
+            background-color: rgb(100, 136, 212);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            max-height: 75vh; 
+        }
+        .my-video-container {
+            position: absolute;
+            bottom: 1rem;
+            right: 25px;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: flex-end;
+        }
+
+     
+      `}
+
+
+    static get stylesabc() {
+        return css` 
+          
+            .main-container {
             display: flex;
             justify-content: space-between;
             margin: 0 25px;
@@ -45,24 +67,7 @@ export class GroupChat extends LitElement {
             margin: 0 25px;
             flex-grow: 1;
         }
-        
-        video-container {
-            background-color: rgb(100, 136, 212);
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-
-            max-height: 75vh; 
-        }
-
-        .my-camera-container {
-            position: absolute;
-            bottom: 1rem;
-            right: 25px;
-            display: flex;
-            flex-direction: row-reverse;
-            align-items: flex-end;
-        }
+     
         
         video {
             max-width: 100%;
@@ -74,15 +79,16 @@ export class GroupChat extends LitElement {
 
     constructor() {
         super()
+        this.showPublicChatbox = true;
+        _interactiveGroupChat = this;
+        const theOthers = getTheOthers();
+
         console.log("group chat constructor")
         getWebSocket().send(JSON.stringify({ type: "registrations" }));
-   
-        this.showPublicChatbox = true;
+
+
         this.myVideoContainer = document.createElement("video-container");
-        _interactiveGroupChat = this;
-     
-        this.myVideoContainer.classList.add("my-camera-container");
-        let theOthers = getTheOthers();
+        this.myVideoContainer.classList.add("my-video-container");
         this.myVideoContainer.theOther = theOthers.me;
         this.myVideoContainer.itIsMe = true;
         this.mainGrid = document.createElement("main-grid");
@@ -95,7 +101,7 @@ export class GroupChat extends LitElement {
             theOthers.me.video.srcObject = stream;
             procesCommunication(stream);
             console.log("camera found")
-        }).catch(err => console.error("camera not found on this hardware"));    
+        }).catch(err => console.error("camera not found on this hardware"));
 
     }
 
@@ -124,7 +130,7 @@ export class GroupChat extends LitElement {
 
     firstUpdated() {
         this.publicChatbox = this.shadowRoot.querySelector('chat-container');
-   }
+    }
 
     static removeTheOtherCallback(userId) {
         _interactiveGroupChat.mainGrid.removeTheOther(userId);
