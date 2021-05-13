@@ -14,7 +14,7 @@ export function createSocket(detail, role) {
        const payload= JSON.parse(detail);
        getTheOthers().updateMe({ profile: payload })           
         ws.send(JSON.stringify({ type: "login" ,payload: payload}));
-       ws.send(JSON.stringify({ type: "registrations" }));
+   //    ws.send(JSON.stringify({ type: "registrations" }));
     };
 
     ws.onmessage = (event) => {
