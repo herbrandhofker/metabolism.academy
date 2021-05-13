@@ -6,6 +6,8 @@ import { screenShare, screenUnshare, muteIcon, unMuteIcon, getIconCss } from './
 import { _interactiveGroupChat } from './group-chat.mjs';
 import { _mainGrid } from './main-grid.mjs'
 
+const videoContainers=[]
+
 export class VideoContainer extends LitElement {
 
     static get styles() {
@@ -99,6 +101,7 @@ export class VideoContainer extends LitElement {
     constructor() {
         super()
         console.log("videoContainer constructor")
+        videoContainers.push(this)
         this.theOther = {}
         this.itIsMe = false;
         this.shareScreen = false;
@@ -234,7 +237,7 @@ export class VideoContainer extends LitElement {
         return "the-other-video-container"
     }
 
-    getChatBox() { return this.chatContainer; }
+    getChatContainer() { return this.chatContainer; }
 
     getVideo() { return this.video; }
 
@@ -433,7 +436,7 @@ class ChatContainer extends LitElement {
         super()
         this.peer = null
         this.message = "";
-        console.log("chat container constructor")
+        this.abc="def"
     }
 
     static get properties() {
@@ -491,28 +494,19 @@ class ChatContainer extends LitElement {
 
                 messagesEl.innerHTML += this.message + "<br>"
                 console.log("3 message un updated")
-
-
             }
         });
     }
 }
 
-
 customElements.define("chat-container", ChatContainer);
 
 export function processChatOutput(senderId, sender, receiverId, message) {
-    console.log(1);
     if (receiverId == null) {
-        console.log(11)
-        if (_interactiveGroupChat.publicChatbox) {
-            console.log(111)
-            _interactiveGroupChat.publicChatbox.message = sender + ": " + message;
-            //       _interactiveGroupChat.publicChatbox.message = sender + ": " + message;
-            //  const _chatboxContainer = videoContainer.chatbox; 
-            //    sender + ": " + message;
-
-        }
+         videoContainers.forEach(vc=>{
+            if (vc.id== getTheOthers().me.profile.email)
+                vc.getChatContainer().message =  sender + ": " + message;           
+        })       
     }
     console.log(2);
     _mainGrid.getVideoContainers().forEach(videoContainer => {

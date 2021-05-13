@@ -85,12 +85,13 @@ export class GroupChat extends LitElement {
         getWebSocket().send(JSON.stringify({ type: "registrations" }));
 
 
-        this.myVideoContainer = createVideoContainerMe(theOthers.me);
+        this.myVideoContainer = createVideoContainer(theOthers.me);
         this.myVideoContainer.classList.add("my-video-container");
         this.myVideoContainer.itIsMe = true;
-   
-     
-     //   _interactiveGroupChat = this.myVideoContainer.chatContainer;
+        this.myVideoContainer.id = theOthers.me.profile.email;
+
+
+        //   _interactiveGroupChat = this.myVideoContainer.chatContainer;
         _interactiveGroupChat = this;
         this.mainGrid = document.createElement("main-grid");
         this.mainGrid.classList.add("main-grid");
@@ -107,7 +108,7 @@ export class GroupChat extends LitElement {
 
     }
 
-  
+
 
 
     static get properties() {
@@ -146,7 +147,7 @@ export class GroupChat extends LitElement {
         _interactiveGroupChat.mainGrid.addTheOther(createVideoContainer(_theOther));
         _interactiveGroupChat.showPublicChatbox = (getTheOthers().size > 1)
 
-       
+
     }
 
     static onOneOnOneCallback(payload) {
@@ -154,30 +155,27 @@ export class GroupChat extends LitElement {
     }
 }
 
-function createVideoContainerMe(theOther) {
-    const videoContainer = document.createElement("video-container");
-    videoContainer.theOther = theOther;
-     return videoContainer;
-}
 
 function createVideoContainer(theOther) {
     const videoContainer = document.createElement("video-container")
     theOther.video = videoContainer.getVideo();
-    videoContainer.id = theOther.userId;
     videoContainer.theOther = theOther;
-    const chatContainer = videoContainer.getChatBox();
-    chatContainer.peer = theOther
-    chatContainer.me = getTheOthers().me
-    chatContainer.addEventListener('chatMessage', (event) => {
-        const ws = getWebSocket();
-        if (!ws) {
-            console.error("No WebSocket connection :(");
-            return;
-        }
-        ws.send(JSON.stringify(event.detail));
-    });
+    if (theOther != getTheOthers().me) {
+        videoContainer.id = theOther.userId;
+        const chatContainer = videoContainer.getChatContainer();
+        chatContainer.peer = theOther
+        chatContainer.me = getTheOthers().me
+        chatContainer.addEventListener('chatMessage', (event) => {
+            const ws = getWebSocket();
+            if (!ws) {
+                console.error("No WebSocket connection :(");
+                return;
+            }
+            ws.send(JSON.stringify(event.detail));
+        });
 
-    theOther.chatboxContainer = chatContainer;
+        theOther.chatboxContainer = chatContainer;
+    }
     return videoContainer;
 }
 
