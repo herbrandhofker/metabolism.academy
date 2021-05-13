@@ -132,7 +132,6 @@ export class VideoContainer extends LitElement {
         this.videoShareScreen.width = 300;
         this.videoShareScreen.height = 300;
         this.chatContainer=document.createElement("chat-container");
-        console.log("videocontainer constructor")
     }
 
     static get properties() {
@@ -161,8 +160,7 @@ export class VideoContainer extends LitElement {
         const oneOnOneMode = (this.isOneOnOne) ? "Stop" : "Start";
         const chatMode = (this.isChatOpen) ? "Close" : "Open";
         this.video.classList.add(this.setVideoClass())//TODO set somewhere else
-        console.log("videoContainer render isitme? " + this.itIsMe)
-
+     
         const result = html`      
         <div class="container ${(this.itIsMe)? 'my-video-container' : 'the-other-video-container'}">
             ${(this.itIsMe) ? html`
@@ -208,7 +206,6 @@ export class VideoContainer extends LitElement {
         </div>
    
         `;
-        console.log("na render")
         return result;
     }
 
@@ -234,10 +231,7 @@ export class VideoContainer extends LitElement {
     `;
     }
   
-    getChatContainer() { 
-        console.log("2.1get chatcontainer" )
-        console.log("2.2 get chatcontainer: "+this.chatContainer)
-   
+    getChatContainer() {       
         return this.chatContainer; 
     }
 
@@ -449,7 +443,6 @@ class ChatContainer extends LitElement {
             { "type": "chatMessage", "payload": { "sender": getTheOthers().me.profile.name, "senderId": getTheOthers().me.userId, "receiverId": this.peer.userId, "message": value } }
             : { "type": "chatMessage", "payload": { "sender": getTheOthers().me.profile.name, "senderId": getTheOthers().me.userId, "message": value } };
 
-        console.log("chatmsg:" + JSON.stringify(msg))
         getWebSocket().send(JSON.stringify(msg));
     }
 
@@ -482,7 +475,6 @@ export function processChatOutput(senderId, sender, receiverId, message) {
                 vc.getChatContainer().message =  sender + ": " + message;           
         })       
     }
-    console.log(2);
     _mainGrid.getVideoContainers().forEach(videoContainer => {
         const _chatboxContainer = videoContainer.getChatContainer();
         if (videoContainer.id == receiverId) {

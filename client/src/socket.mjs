@@ -27,8 +27,7 @@ export function createSocket(detail, role) {
 
         const type = rec.type;
         const payload = rec.payload;
-        console.log("received message of type : " + type)
-
+     
         switch (type) {
             case "registrations": {
                 for (let reg of payload) {
@@ -88,13 +87,10 @@ export function createSocket(detail, role) {
     }
 
     function joinedRoom(payload) {
-        console.log("joinedroom1")
         const _theOther = payload;
         enRichTheOther(_theOther)
-        console.log("2joinedroom1")
         getTheOthers().set(_theOther.userId, _theOther)
-        console.log("3 joinedroom1")
-    
+     
     };
 
     function leaveRoom(payload) {
@@ -211,8 +207,6 @@ export function procesCommunication(p_stream) {
         return;
     }
     stream = p_stream;
-    console.log("stream set")
-    console.log("onopen")
     const rec = { "type": "registerMe", "payload": { "user": getTheOthers().me } }
     ws.send(JSON.stringify(rec))
 

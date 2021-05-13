@@ -74,7 +74,6 @@ export class GroupChat extends LitElement {
         this.showPublicChatbox = true;
         const theOthers = getTheOthers();
 
-        console.log("group chat constructor")
         getWebSocket().send(JSON.stringify({ type: "registrations" }));
 
 
@@ -96,7 +95,6 @@ export class GroupChat extends LitElement {
         navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
             theOthers.me.video.srcObject = stream;
             procesCommunication(stream);
-            console.log("camera found")
         }).catch(err => console.error("camera not found on this hardware"));
 
     }
@@ -114,21 +112,12 @@ export class GroupChat extends LitElement {
          `;
     }
 
-
-    firstUpdated() {
-    }
-
     static removeTheOtherCallback(userId) {
         _mainGrid.removeTheOther(userId);
-       // _interactiveGroupChat.showPublicChatbox = (getTheOthers().size > 1);
     }
 
     static addTheOtherCallback(_theOther) {
-        console.log("in groupchat add the other 1")
         _mainGrid.addTheOther(createVideoContainer(_theOther));
-        console.log("in groupchat add the other 2")
-        //   _interactiveGroupChat.showPublicChatbox = (getTheOthers().size > 1)
-
 
     }
 
@@ -139,23 +128,15 @@ export class GroupChat extends LitElement {
 
 
 function createVideoContainer(theOther) {
-   console.log("1 create video container")
      const videoContainer = document.createElement("video-container")
 
-   console.log("2 create video container")
     theOther.video = videoContainer.getVideo();
     videoContainer.theOther = theOther;
 
-   console.log("3 create video container")
     if (theOther != getTheOthers().me) {
-
-   console.log("3.1 create video container")
         videoContainer.id = theOther.userId;
-
-   console.log("3.2 create video container")
         const chatContainer = videoContainer.getChatContainer();
 
-   console.log("3.3 create video container")
         chatContainer.peer = theOther
         chatContainer.me = getTheOthers().me
         chatContainer.addEventListener('chatMessage', (event) => {
@@ -170,7 +151,6 @@ function createVideoContainer(theOther) {
         theOther.chatboxContainer = chatContainer;
     }
 
-   console.log("4 create video container")
     return videoContainer;
 }
 
