@@ -12,6 +12,32 @@ export class VideoContainer extends LitElement {
 
     static get styles() {
         return [getIconCss(), css`
+
+        .container{
+            display: flex;     
+            flex-direction: column;
+         }
+        
+        .my-video-container video {
+            max-width: 200px; 
+            max-height: 150px;
+        }
+
+        .button-box {
+            margin: 5px;
+            display: flex;
+            flex-direction: row;
+        }
+
+
+.video-shared-screen-box{
+    border: 1px solid #999;
+    max-height: 150px; 
+    max-width: 100%;
+    background-color : green; 
+}
+
+
 .the-other-video-container {
     position: relative; 
 }
@@ -26,12 +52,6 @@ export class VideoContainer extends LitElement {
     right: 0; 
 }
 
-.video-shared-screen-box{
-    border: 1px solid #999;
-    max-height: 150px; 
-    max-width: 100%;
-    background-color : green; 
-}
 
 .video-box{
     border: 1px solid #999;
@@ -49,16 +69,6 @@ export class VideoContainer extends LitElement {
     
  }
 
- .container{
-    display: flex;     
-    flex-direction: column;
- }
-
-.button-box {
-    margin: 5px;
-    display: flex;
-    flex-direction: row;
-}
 
 .user-name {
     font-size: 1.4rem; 
@@ -91,16 +101,14 @@ export class VideoContainer extends LitElement {
     padding: var(--padding-small);
 }
 
-.my-video-container video {
-    max-width: 200px; 
-    max-height: 150px;
-}
+
   `]
     }
 
+    
+
     constructor() {
         super()
-        console.log("videoContainer constructor")
         videoContainers.push(this)
         this.theOther = {}
         this.itIsMe = false;
@@ -115,8 +123,7 @@ export class VideoContainer extends LitElement {
         //best solution  is autoplay=true (chrome), changing to explictit video.play() does not solve the error
         //Note : srcObject=... gives the error, not the .play()
         //Uncaught (in promise) DOMException: The play() request was interrupted by a new load request
-        this.chatContainer = document.createElement("chat-container");
-        this.chatContainer.videoContainer = this;
+     //   this.chatContainer = document.createElement("chat-container");
         this.videoShareScreen = document.createElement("video");
         this.videoShareScreen.classList.add("video");
         this.videoShareScreen.muted = true;
@@ -156,12 +163,12 @@ export class VideoContainer extends LitElement {
         console.log("videoContainer render isitme? " + this.itIsMe)
 
         const result = html`      
-        <div class=${this.getClassName()}>
+        <div class="container ${(this.itIsMe)? 'my-video-container' : 'the-other-video-container'}">
             ${(this.itIsMe) ? html`
-            <div class="registration-box">
-                <div class="chatroom-name">You are in room: ${this.getRoom()}</div>
-                <div class="registered-with-name">You are registered as: ${this.getName()}</div>
-                <div class="chat-room-link">invite participants with url: <br>${window.location.href}</div>
+            <div>
+                <div>You are in room: ${this.getRoom()}</div>
+                <div>You are registered as: ${this.getName()}</div>
+                <div>invite participants with url: <br>${window.location.href}</div>
             </div>
                  
             <div class="video-shared-screen-box ${this.setShareScreenClass(this.shareScreen)}"> 
@@ -198,7 +205,7 @@ export class VideoContainer extends LitElement {
                <svg viewBox="0 0 49.07 42.95"><defs><style>.cls-1,.cls-2{fill:none;stroke:#010101;stroke-miterlimit:10;}.cls-1{stroke-width:4.07px;}.cls-2{stroke-width:3px;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon class="cls-1" points="2.03 2.03 47.03 2.03 47.03 29.03 20.03 29.03 11.03 38.03 11.03 29.03 2.03 29.03 2.03 2.03"/><line class="cls-2" x1="8.68" y1="9.98" x2="40.39" y2="9.98"/><line class="cls-2" x1="8.68" y1="15.41" x2="40.39" y2="15.41"/><line class="cls-2" x1="8.68" y1="20.83" x2="40.39" y2="20.83"/></g></g></svg>
                </button>   
              </div>
-             <div id="chatPopup" style="display:none" class="chat-box">${this.chatContainer}</div>
+             <div id="chatPopup" style="display:none" class="chat-box"><chat-container></chat-container></div>
    
         `;
         console.log("na render")
@@ -207,6 +214,7 @@ export class VideoContainer extends LitElement {
 
     firstUpdated(changedProperties) {
         this.setMute();
+        this.chatContainer=this.shadowRoot.querySelector("chat-container")
     }
 
     updated(changedProperties) {
@@ -228,12 +236,7 @@ export class VideoContainer extends LitElement {
     `;
     }
 
-    getClassName() {
-        if (this.itIsMe)
-            return "my-video-container"
-        return "the-other-video-container"
-    }
-
+  
     getChatContainer() { return this.chatContainer; }
 
     getVideo() { return this.video; }
@@ -376,20 +379,7 @@ class ChatContainer extends LitElement {
    ` ;
     }
 
-    static get abcstyles() {
-        return css`  
-    .messages {
-        overflow: scroll;
-        margin-bottom: var(--padding-mid);
-        background: #f3f3f3;
-        flex-grow: 1; 
-        min-height: 20rem;
-        overflow-x: hidden;
-    }
-
- 
-   
-
+   /*
     .send-button {
         height: auto;
         padding: var(--padding-small); 
@@ -416,8 +406,8 @@ class ChatContainer extends LitElement {
         display: flex; 
         align-items: center; 
     }
-  `;
-    }
+
+    */
 
     constructor() {
         super()
@@ -444,7 +434,7 @@ class ChatContainer extends LitElement {
                                 placeholder = "Type your message here"
                                 value="">
                         </input>
-                        <button id='send' class='send-button' @click="${this.send}">Send message</button>
+                        <button id='send' class='send-button'  @click=${() => this.send()}>Send message</button>
                     </div>   
                 </div>         
            </div>     
