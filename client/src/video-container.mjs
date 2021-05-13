@@ -16,6 +16,10 @@ export class VideoContainer extends LitElement {
         .container{
             display: flex;     
             flex-direction: column;
+            height: auto;
+            background-color : var(--tertiar-color); 
+            color: black;
+      
          }
         
         .my-video-container video {
@@ -29,14 +33,27 @@ export class VideoContainer extends LitElement {
             flex-direction: row;
         }
 
+        .video-shared-screen-box{
+            border: 1px solid #999;
+            max-height: 150px; 
+            max-width: 100%;
+            background-color : var(--primary-color); 
+        }
 
-.video-shared-screen-box{
-    border: 1px solid #999;
-    max-height: 150px; 
-    max-width: 100%;
-    background-color : green; 
+       .no-show{
+            display: none;   
+        }
+
+        .show{
+            display: flex; 
+            flex-direction: column;
+            max-width: 100%;  
+        }
+
+`]
 }
 
+/*
 
 .the-other-video-container {
     position: relative; 
@@ -51,24 +68,6 @@ export class VideoContainer extends LitElement {
     bottom: 0;
     right: 0; 
 }
-
-
-.video-box{
-    border: 1px solid #999;
-    width: 100%;
-}
-
-.no-show{
-    display: none;   
- }
-
-.show{
-    display: flex; 
-    flex-direction: column;
-    max-width: 100%;
-    
- }
-
 
 .user-name {
     font-size: 1.4rem; 
@@ -105,7 +104,7 @@ export class VideoContainer extends LitElement {
   `]
     }
 
-    
+    */
 
     constructor() {
         super()
@@ -191,7 +190,7 @@ export class VideoContainer extends LitElement {
                 this.shareButton() :
                 html`
                 <button class="button one-on-one-button"  @click="${this.oneOnOne}">${oneOnOneMode} One to One</button>
-               <button class="button chat-button" data-tooltip="Open/close Private Chat" @click=${()=>this.openOrCloseChat()}>${chatMode} Chat<svg viewBox="0 0 49.07 42.95"><defs><style>.cls-1,.cls-2{fill:none;stroke:#010101;stroke-miterlimit:10;}.cls-1{stroke-width:4.07px;}.cls-2{stroke-width:3px;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon class="cls-1" points="2.03 2.03 47.03 2.03 47.03 29.03 20.03 29.03 11.03 38.03 11.03 29.03 2.03 29.03 2.03 2.03"/><line class="cls-2" x1="8.68" y1="9.98" x2="40.39" y2="9.98"/><line class="cls-2" x1="8.68" y1="15.41" x2="40.39" y2="15.41"/><line class="cls-2" x1="8.68" y1="20.83" x2="40.39" y2="20.83"/></g></g></svg>
+                <button class="button chat-button" data-tooltip="Open/close Private Chat" @click=${()=>this.openOrCloseChat()}>${chatMode} Chat<svg viewBox="0 0 49.07 42.95"><defs><style>.cls-1,.cls-2{fill:none;stroke:#010101;stroke-miterlimit:10;}.cls-1{stroke-width:4.07px;}.cls-2{stroke-width:3px;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon class="cls-1" points="2.03 2.03 47.03 2.03 47.03 29.03 20.03 29.03 11.03 38.03 11.03 29.03 2.03 29.03 2.03 2.03"/><line class="cls-2" x1="8.68" y1="9.98" x2="40.39" y2="9.98"/><line class="cls-2" x1="8.68" y1="15.41" x2="40.39" y2="15.41"/><line class="cls-2" x1="8.68" y1="20.83" x2="40.39" y2="20.83"/></g></g></svg>
                 </button>`}
               
                 <button id="muteBtn" class="icon" data-tooltip="Mute" @click=${()=>this.changeMute()}>
@@ -201,11 +200,12 @@ export class VideoContainer extends LitElement {
                     ${muteIcon()} 
                 </button>
 
-               <button class="button chat-button" data-tooltip="Open/close Private Chat" @click=${()=>this.openOrCloseChat()}>${(this.isChatOpen) ? "Close" : "Open"} Chat
-               <svg viewBox="0 0 49.07 42.95"><defs><style>.cls-1,.cls-2{fill:none;stroke:#010101;stroke-miterlimit:10;}.cls-1{stroke-width:4.07px;}.cls-2{stroke-width:3px;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon class="cls-1" points="2.03 2.03 47.03 2.03 47.03 29.03 20.03 29.03 11.03 38.03 11.03 29.03 2.03 29.03 2.03 2.03"/><line class="cls-2" x1="8.68" y1="9.98" x2="40.39" y2="9.98"/><line class="cls-2" x1="8.68" y1="15.41" x2="40.39" y2="15.41"/><line class="cls-2" x1="8.68" y1="20.83" x2="40.39" y2="20.83"/></g></g></svg>
-               </button>   
+                <button class="button chat-button" data-tooltip="Open/close Private Chat" @click=${()=>this.openOrCloseChat()}>${(this.isChatOpen) ? "Close" : "Open"} Chat
+                    <svg viewBox="0 0 49.07 42.95"><defs><style>.cls-1,.cls-2{fill:none;stroke:#010101;stroke-miterlimit:10;}.cls-1{stroke-width:4.07px;}.cls-2{stroke-width:3px;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon class="cls-1" points="2.03 2.03 47.03 2.03 47.03 29.03 20.03 29.03 11.03 38.03 11.03 29.03 2.03 29.03 2.03 2.03"/><line class="cls-2" x1="8.68" y1="9.98" x2="40.39" y2="9.98"/><line class="cls-2" x1="8.68" y1="15.41" x2="40.39" y2="15.41"/><line class="cls-2" x1="8.68" y1="20.83" x2="40.39" y2="20.83"/></g></g></svg>
+                </button>   
              </div>
              <div id="chatPopup" style="display:none" class="chat-box"><chat-container></chat-container></div>
+        </div>
    
         `;
         console.log("na render")
@@ -359,18 +359,17 @@ class ChatContainer extends LitElement {
         .messages {
             overflow: scroll;
             margin-bottom: var(--padding-mid);
-            background: #f3f3f3;
-            color: black;
             flex-grow: 1; 
             min-height: 20rem;
             overflow-x: hidden;
+            background-color: var(--secundairy-color);
+            color: white;
         }
 
         .chat-box {
             display: flex; 
             flex-direction: column; 
             padding: 1rem; 
-            background-color: purple;
             }
 
             .chat-box .messages {
@@ -426,7 +425,8 @@ class ChatContainer extends LitElement {
     render() {
         return html`
            <div class="chat-box">
-                <div id='messages' class='messages'>messages</div>
+           
+                <div id='messages' class='messages'>Messages:</div>
                     <div class="send-message-wrapper">
                         <input type='text' 
                                 id='chatInput' 
@@ -465,12 +465,9 @@ class ChatContainer extends LitElement {
     updated(changedProperties) {
         changedProperties.forEach((oldValue, propName) => {
             if (propName == "message") {
-                console.log("1 message un updated")
-                const messagesEl = this.shadowRoot.getElementById("messages");
-                console.log("2 message un updated")
-
+               const messagesEl = this.shadowRoot.getElementById("messages");
+              
                 messagesEl.innerHTML += this.message + "<br>"
-                console.log("3 message un updated")
             }
         });
     }

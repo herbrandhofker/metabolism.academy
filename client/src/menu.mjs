@@ -28,7 +28,7 @@ class Menu extends LitElement {
     static get styles() {
         return [getButtonCss(), css`  
         dialog{
-            background-color: var(--tertiar-background-color);
+            background-color: var(--tertiar-color);
             color: black; 
             border-width : 10px;
             border-color: var(--primary-color);

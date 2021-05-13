@@ -36,7 +36,7 @@ export function getSectionCss() {
         section {
             display: flex;
             flex-direction: column;     
-            background-color: var(--tertiar-background-color);       
+            background-color: var(--tertiar-color);       
             color: black;
             border: 3px solid ;
             border-color: var(--primary-color);
