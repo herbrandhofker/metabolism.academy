@@ -1,11 +1,8 @@
 import { _interactiveGroupChat } from './video-container.mjs';
 
-let _this = undefined
-
 export class TheOthers extends Map {
     constructor() {
         super();
-        _this = this
         this.set_listeners = []
         this.delete_listeners = []
         this.oneonone_listeners = []
@@ -60,11 +57,6 @@ export class TheOthers extends Map {
     actionOnOneOnOne(payload) {
         this.oneonone_listeners.forEach(callback => callback(payload));
     }
-
-    initMe(me) {
-        this.me = me;
-    }
-
 }
 
 let theOthers = null;

@@ -344,12 +344,9 @@ export class VideoContainer extends LitElement {
         videoShareScreen.srcObject = null;
         getTheOthers().getSenders().forEach(rtpSender => rtpSender.replaceTrack(getTheOthers().me.video.srcObject.getTracks()[1]))
     }
-
 }
 
 customElements.define("video-container", VideoContainer);
-
-
 
 
 class ChatContainer extends LitElement {
@@ -502,6 +499,8 @@ class ChatContainer extends LitElement {
 }
 
 
+customElements.define("chat-container", ChatContainer);
+
 export function processChatOutput(senderId, sender, receiverId, message) {
     console.log(1);
     if (receiverId == null) {
@@ -530,4 +529,3 @@ export function processChatOutput(senderId, sender, receiverId, message) {
 }
 
 
-customElements.define("chat-container", ChatContainer);
