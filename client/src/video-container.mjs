@@ -69,6 +69,13 @@ export class VideoContainer extends LitElement {
             pointer-events: none;
         }
 
+        .user-name {
+            font-size: 1.4rem; 
+            background-color: var(--primary-color); 
+            color: black; 
+        }
+        
+
 `]
 }
 
@@ -88,11 +95,6 @@ export class VideoContainer extends LitElement {
     right: 0; 
 }
 
-.user-name {
-    font-size: 1.4rem; 
-    background: var(--color-three); 
-    color: white; 
-}
 
 
 
@@ -182,7 +184,7 @@ export class VideoContainer extends LitElement {
             <div class="item video-box ${this.setShareScreenClass(!this.shareScreen)}"> 
                 ${this.video}
                 ${this.itIsMe ? null : html`                
-                    <div class="user-name">${this.theOther.userName}</div>
+                    <div class="user-name">${this.theOther.user.profile.name}</div>
                `}               
             </div>
             <div class="item icon-box">
@@ -200,9 +202,7 @@ export class VideoContainer extends LitElement {
                     ${muteIcon()} 
                 </button>
 
-                <button class="icon" data-tooltip="Open/close Private Chat" @click=${()=>this.openOrCloseChat()}>${(this.isChatOpen) ? "Close" : "Open"} Chat
-                    <svg viewBox="0 0 49.07 42.95"><defs><style>.cls-1,.cls-2{fill:none;stroke:#010101;stroke-miterlimit:10;}.cls-1{stroke-width:4.07px;}.cls-2{stroke-width:3px;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon class="cls-1" points="2.03 2.03 47.03 2.03 47.03 29.03 20.03 29.03 11.03 38.03 11.03 29.03 2.03 29.03 2.03 2.03"/><line class="cls-2" x1="8.68" y1="9.98" x2="40.39" y2="9.98"/><line class="cls-2" x1="8.68" y1="15.41" x2="40.39" y2="15.41"/><line class="cls-2" x1="8.68" y1="20.83" x2="40.39" y2="20.83"/></g></g></svg>
-                </button>   
+               
              </div>
              <div id="chatPopup" style="display:none">${this.chatContainer}</div>
         </div>
