@@ -483,7 +483,7 @@ export function processChatOutput(senderId, sender, receiverId, message) {
     }
     console.log(2);
     _mainGrid.getVideoContainers().forEach(videoContainer => {
-        const _chatboxContainer = videoContainer.chatboxContainer;
+        const _chatboxContainer = videoContainer.getChatContainer();
         if (videoContainer.id == receiverId) {
             _chatboxContainer.message = "me : " + message;
             _chatboxContainer.videoContainer.openChatDialog();
