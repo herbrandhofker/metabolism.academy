@@ -189,8 +189,10 @@ export class VideoContainer extends LitElement {
 
                ${this.createMuteButton()}
                ${this.createChatButton()}
+               
              </div>
-        ${this.createChatPopup()}  
+             <div id="chatPopup" style="display:none" class="chat-box">${this.chatContainer}</div>
+   
         `;
         console.log("na render")
         return result;
@@ -207,10 +209,7 @@ export class VideoContainer extends LitElement {
         });
     }
 
-    createChatPopup() {
-        return html`
-        <div id="chatPopup" style="display:none" class="chat-box">${this.chatContainer}</div>`;
-    }
+    
 
     createChatButton() {
         const chatMode = (this.isChatOpen) ? "Close" : "Open";
