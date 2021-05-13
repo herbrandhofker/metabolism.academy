@@ -3,7 +3,7 @@ import { LitElement, html, css, svg } from 'lit-element';
 import { getWebSocket } from "./socket.mjs"
 import { getTheOthers } from "./the-others.mjs";
 import { screenShare, screenUnshare, muteIcon, unMuteIcon, getIconCss } from './utilCss.mjs'
-import { _interactiveGroupChat } from './group-chat.mjs';
+import { } from './group-chat.mjs';
 import { _mainGrid } from './main-grid.mjs'
 
 const videoContainers=[]
