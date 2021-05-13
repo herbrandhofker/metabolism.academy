@@ -75,6 +75,8 @@ export class GroupChat extends LitElement {
     constructor() {
         super()
         console.log("group chat constructor")
+       // getWebSocket().send(JSON.stringify({ type: "registrations" }));
+   
         this.showPublicChatbox = true;
         this.myVideoContainer = document.createElement("video-container");
         _interactiveGroupChat = this;

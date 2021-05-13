@@ -54,7 +54,7 @@ producer.on('ready', function () {
                 case 'registrations': {
                     
                     const rec={type: "registrations"};
-                    const arr=[];
+                    const arr=[]; 
 
                     for (let value of connections.values()) {
                         arr.push(value)
@@ -65,8 +65,9 @@ producer.on('ready', function () {
                     break;
                 }
                 case "registerMe":
-                    registerMe(payload);
-                    producer.send([{ topic: msgType, messages: new kafka.KeyedMessage(payload.email, JSON.stringify(msg)) }], (err, data) => { console.log(data); });
+                    console.error("register me not active")
+                  registerMe(payload);
+                 //   producer.send([{ topic: msgType, messages: new kafka.KeyedMessage(payload.email, JSON.stringify(msg)) }], (err, data) => { console.log(data); });
               
                     break;
                 case "chatMessage":
@@ -155,8 +156,8 @@ producer.on('ready', function () {
                 sockets.get(senderId).send(msg);
                 sockets.get(receiverId).send(msg);
             }
-        }
-
+        }  
+ 
         function registerMe(_payload) {
             let userInfo = _payload;
             const updatedMe = _payload;

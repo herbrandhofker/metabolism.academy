@@ -12,18 +12,9 @@ export function createSocket(detail, role) {
     ws = new WebSocket(URL);
     ws.onopen = () => {
        const payload= JSON.parse(detail);
-       getTheOthers().updateMe({ profile: payload })
-       
-      
-       ws.send(JSON.stringify({ type: "login" ,payload: payload}));
-      //  const json2 = { type: "registrations" };
-      //  ws.send(JSON.stringify(json2));
-
-      //  const rec = { "type": "registerMe", "payload": { "user": theOthers.me } }
-    //    ws.send(JSON.stringify(rec))
-
-
-  
+       getTheOthers().updateMe({ profile: payload })           
+        ws.send(JSON.stringify({ type: "login" ,payload: payload}));
+       ws.send(JSON.stringify({ type: "registrations" }));
     };
 
     ws.onmessage = (event) => {
