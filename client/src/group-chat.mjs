@@ -76,16 +76,16 @@ export class GroupChat extends LitElement {
         super()
         console.log("group chat constructor")
         this.showPublicChatbox = true;
-        this.myCameraContainer = document.createElement("video-container");
+        this.myVideoContainer = document.createElement("video-container");
         _interactiveGroupChat = this;
      
-        this.myCameraContainer.classList.add("my-camera-container");
+        this.myVideoContainer.classList.add("my-camera-container");
         let theOthers = getTheOthers();
-        this.myCameraContainer.theOther = theOthers.me;
-        this.myCameraContainer.itIsMe = true;
+        this.myVideoContainer.theOther = theOthers.me;
+        this.myVideoContainer.itIsMe = true;
         this.mainGrid = document.createElement("main-grid");
         this.mainGrid.classList.add("main-grid");
-        theOthers.updateMe({ "video": this.myCameraContainer.getVideo() });
+        theOthers.updateMe({ "video": this.myVideoContainer.getVideo() });
         theOthers.addSetListener(GroupChat.addTheOtherCallback);
         theOthers.addDeleteListener(GroupChat.removeTheOtherCallback);
         theOthers.addOneOnOneListener(GroupChat.onOneOnOneCallback);
@@ -105,16 +105,14 @@ export class GroupChat extends LitElement {
 
     render() {
         return html`
-            ${this.myCameraContainer}
-             aaa
-            <chat-container class="public-chat-container" style="display:${(this.showPublicChatbox) ? 'flex' : 'none'}" ></chat-container>
-            bbb
-        `;
+            ${this.myVideoContainer}
+           <chat-container class="public-chat-container" style="display:${(this.showPublicChatbox) ? 'flex' : 'none'}" ></chat-container>
+         `;
     }
 
     render2() {
         return html`
-            ${this.myCameraContainer}
+            ${this.myVideoContainer}
             ${this.mainGrid}
             aaa
             <chat-container class="public-chat-container" style="display:${(this.showPublicChatbox) ? 'flex' : 'none'}" ></chat-container>

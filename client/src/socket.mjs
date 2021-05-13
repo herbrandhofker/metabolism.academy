@@ -14,7 +14,7 @@ export function createSocket(detail, role) {
         const json = { type: "login" };
         json.payload = JSON.parse(detail);
         json.payload.role = role;
-        getTheOthers().updateMe({profile: json.payload})
+        getTheOthers().updateMe({ profile: json.payload })
         ws.send(JSON.stringify(json));
         const json2 = { type: "registrations" };
         ws.send(JSON.stringify(json2));
@@ -23,7 +23,7 @@ export function createSocket(detail, role) {
     ws.onmessage = (event) => {
         let rec = undefined;
         try {
-             rec = JSON.parse(event.data);
+            rec = JSON.parse(event.data);
         }
         catch (e) {
             console.error(JSON.stringify(event.data) + " " + e); return;
@@ -35,10 +35,8 @@ export function createSocket(detail, role) {
 
         switch (type) {
             case "registrations": {
-             
-               for (let reg of payload) {
-                   registrations.set(reg.email, reg);
-                
+                for (let reg of payload) {
+                    registrations.set(reg.email, reg);
                 }
                 break;
             }
@@ -195,7 +193,7 @@ export function createSocket(detail, role) {
     }
 
     function chatMessage(payload) {
-        console.log("chatmessage received"+JSON.stringify(payload))
+        console.log("chatmessage received" + JSON.stringify(payload))
         ChatContainer.processChatOutput(payload.senderId, payload.sender, payload.receiverId, payload.message)
     }
 

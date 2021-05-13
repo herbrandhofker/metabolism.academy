@@ -38,16 +38,18 @@ producer.on('ready', function () {
             let msg = "";
             try { msg = JSON.parse(data); }
             catch (err) { console.error(err + " with data:" + data); return; }
-            producer.send([{ topic: msg.type, messages: new kafka.KeyedMessage(msg.type,msg.payload) }], (err, data) => { console.log(data); });
-                
-            switch (msg.type) {
+            const msgType=msg.type;
+            const payload= msg.payload;
+            producer.send([{ topic: msgType, messages: new kafka.KeyedMessage(msgType,payload) }], (err, data) => { console.log(data); });
+            
+            switch (msgType) {
                 case 'login': {
-                    connections.set(ws.id, msg.payload)
-                    msg.payload.websocketId =ws.id;
-                    msg.payload.timestamp = new Date();
-                    msg.payload.test = "from mitochondria";
+                    connections.set(ws.id, payload)
+                    payload.websocketId =ws.id;
+                    payload.timestamp = new Date();
+                    payload.test = "from mitochondria";
                     ws.send(JSON.stringify(msg));
-                    producer.send([{ topic: msg.type, messages: new kafka.KeyedMessage(msg.payload.email, JSON.stringify(msg)) }], (err, data) => { console.log(data); });
+                    producer.send([{ topic: msgType, messages: new kafka.KeyedMessage(payload.email, JSON.stringify(msg)) }], (err, data) => { console.log(data); });
                     break;
                 }
                 case 'registrations': {
@@ -64,25 +66,25 @@ producer.on('ready', function () {
                     break;
                 }
                 case "registerMe":
-                    registerMe(msg.payload);
+                    registerMe(payload);
                     break;
                 case "chatMessage":
-                    chatMessage(msg.payload);
+                    chatMessage(payload);
                     break;
                 case "offer":
-                    offer(msg.payload);
+                    offer(payload);
                     break;
                 case "ice-candidate":
-                    iceCandidate(msg.payload);
+                    iceCandidate(payload);
                     break;
                 case "answer":
-                    answer(msg.payload);
+                    answer(payload);
                     break;
                 case "requestOneOnOne":
-                    requestOneOnOne(msg);
+                    requestOneOnOne(payload);
                     break;
     
-                default: console.error("unknown type: " + msg.type);
+                default: console.error("unknown type: " + msgType);
             }
         }); 
 
