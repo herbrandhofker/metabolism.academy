@@ -4,7 +4,7 @@ import { procesCommunication, getWebSocket } from "./socket.mjs"
 import { } from './video-container.mjs';
 
 
-export let _interactiveGroupChat = null;
+export let _mainGrid = null;
 
 export class GroupChat extends LitElement {
 
@@ -24,9 +24,7 @@ export class GroupChat extends LitElement {
             display: flex;
             flex-direction: row-reverse;
             align-items: flex-end;
-        }
-
-     
+        }     
       `}
 
 
@@ -92,10 +90,10 @@ export class GroupChat extends LitElement {
 
 
         //   _interactiveGroupChat = this.myVideoContainer.chatContainer;
-        _interactiveGroupChat = this;
         this.mainGrid = document.createElement("main-grid");
         this.mainGrid.classList.add("main-grid");
-
+        _mainGrid = this.mainGrid;
+      
         theOthers.updateMe({ "video": this.myVideoContainer.getVideo() });
         theOthers.addSetListener(GroupChat.addTheOtherCallback);
         theOthers.addDeleteListener(GroupChat.removeTheOtherCallback);
@@ -107,9 +105,6 @@ export class GroupChat extends LitElement {
         }).catch(err => console.error("camera not found on this hardware"));
 
     }
-
-
-
 
     static get properties() {
         return {
@@ -139,19 +134,19 @@ export class GroupChat extends LitElement {
     }
 
     static removeTheOtherCallback(userId) {
-        _interactiveGroupChat.mainGrid.removeTheOther(userId);
-        _interactiveGroupChat.showPublicChatbox = (getTheOthers().size > 1);
+        _mainGrid.removeTheOther(userId);
+       // _interactiveGroupChat.showPublicChatbox = (getTheOthers().size > 1);
     }
 
     static addTheOtherCallback(_theOther) {
-        _interactiveGroupChat.mainGrid.addTheOther(createVideoContainer(_theOther));
-        _interactiveGroupChat.showPublicChatbox = (getTheOthers().size > 1)
+        _mainGrid.addTheOther(createVideoContainer(_theOther));
+     //   _interactiveGroupChat.showPublicChatbox = (getTheOthers().size > 1)
 
 
     }
 
     static onOneOnOneCallback(payload) {
-        _interactiveGroupChat.mainGrid.onOneOnOneCallback(payload)
+        _mainGrid.onOneOnOneCallback(payload)
     }
 }
 
