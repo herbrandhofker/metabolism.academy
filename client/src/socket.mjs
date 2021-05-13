@@ -75,7 +75,6 @@ export function createSocket(detail, role) {
     function registerConfirmation(payload) {
         const me = payload;
         getTheOthers().updateMe({ "userId": me.userId });
-
     }
 
     function existingUsers(payload) {

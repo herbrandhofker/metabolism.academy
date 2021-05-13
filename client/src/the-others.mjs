@@ -3,10 +3,10 @@ import { _interactiveGroupChat } from './video-container.mjs';
 export class TheOthers extends Map {
     constructor() {
         super();
+        this.me = {}
         this.set_listeners = []
         this.delete_listeners = []
         this.oneonone_listeners = []
-        this.me = {}
     }
 
     get(userId) {

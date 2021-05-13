@@ -79,19 +79,16 @@ export class GroupChat extends LitElement {
     constructor() {
         super()
         this.showPublicChatbox = true;
-       const theOthers = getTheOthers();
+        const theOthers = getTheOthers();
 
         console.log("group chat constructor")
         getWebSocket().send(JSON.stringify({ type: "registrations" }));
 
 
-        this.myVideoContainer = document.createElement("video-container");
-        this.myVideoContainer.classList.add("my-video-container");
-        this.myVideoContainer.theOther = theOthers.me;
-        this.myVideoContainer.itIsMe = true;
-      
-        _interactiveGroupChat =  this.myVideoContainer.chatContainer;
-        _interactiveGroupChat =  this;
+        this.myVideoContainer = this.createVideoContainer(theOthers.me);
+     
+     //   _interactiveGroupChat = this.myVideoContainer.chatContainer;
+        _interactiveGroupChat = this;
         this.mainGrid = document.createElement("main-grid");
         this.mainGrid.classList.add("main-grid");
 
@@ -106,6 +103,15 @@ export class GroupChat extends LitElement {
         }).catch(err => console.error("camera not found on this hardware"));
 
     }
+
+    createVideoContainer(me) {
+        const videoContainer = document.createElement("video-container");
+        videoContainer.classList.add("my-video-container");
+        videoContainer.theOther = me;
+        videoContainer.itIsMe = true;
+        return videoContainer;
+    }
+
 
     static get properties() {
         return {

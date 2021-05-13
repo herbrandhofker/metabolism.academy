@@ -35,7 +35,7 @@ class Video extends LitElement {
         }  
 
        
-        .video-container {
+        .youtube-video-container {
             display: flex;
             flex-direction: column;
             background-color:  lightgrey;
@@ -177,17 +177,17 @@ console.log("todo some problem here")
             const videoDialogForm = videoDialog.appendChild(document.createElement("form"));
             videoDialogForm.method = "dialog";
 
-            const videoContainer = videoDialogForm.appendChild(document.createElement("div"));
-            videoContainer.classList.add("video-container")
+            const ytVideoContainer = videoDialogForm.appendChild(document.createElement("div"));
+            ytVideoContainer.classList.add("youtube-video-container")
             const menu = videoDialogForm.appendChild(document.createElement('menu'));
 
             const config = { data: {} };
             config.videoDialog = videoDialog;
 
-            const video = videoContainer.appendChild(document.createElement("video"));
+            const video = ytVideoContainer.appendChild(document.createElement("video"));
             config.video = video;
 
-            const bottomSection = videoContainer.appendChild(document.createElement("div"));
+            const bottomSection = ytVideoContainer.appendChild(document.createElement("div"));
             bottomSection.classList.add("video-bottom-section")
             const btnBox = bottomSection.appendChild(document.createElement("div"));
             btnBox.classList.add("button-box");
