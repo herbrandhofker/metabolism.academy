@@ -2,16 +2,16 @@ import { LitElement, html, css, svg } from 'lit-element';
 
 import { getWebSocket } from "./socket.mjs"
 import { getTheOthers } from "./the-others.mjs";
-import { screenShare, screenUnshare, muteIcon, unMuteIcon, getIconCss,getButtonCss} from './utilCss.mjs'
+import { screenShare, screenUnshare, muteIcon, unMuteIcon, getIconCss, getButtonCss } from './utilCss.mjs'
 import { } from './group-chat.mjs';
 import { _mainGrid } from './main-grid.mjs'
 
-const videoContainers=[]
+const videoContainers = []
 
 export class VideoContainer extends LitElement {
 
     static get styles() {
-        return [getIconCss(), getButtonCss(),css`
+        return [getIconCss(), getButtonCss(), css`
 
         .container{
             display: flex;     
@@ -77,36 +77,36 @@ export class VideoContainer extends LitElement {
         
 
 `]
-}
-
-/*
-
-.the-other-video-container {
-    position: relative; 
-}
-
-.the-other-video-container video{
-        max-height: 75vh; 
-}
-
-.the-other-video-container .button-box {
-    position: absolute; 
-    bottom: 0;
-    right: 0; 
-}
-
-
-
-
-.chat-box {
-    padding: var(--padding-small);
-}
-
-
-  `]
     }
 
-    */
+    /*
+    
+    .the-other-video-container {
+        position: relative; 
+    }
+    
+    .the-other-video-container video{
+            max-height: 75vh; 
+    }
+    
+    .the-other-video-container .button-box {
+        position: absolute; 
+        bottom: 0;
+        right: 0; 
+    }
+    
+    
+    
+    
+    .chat-box {
+        padding: var(--padding-small);
+    }
+    
+    
+      `]
+        }
+    
+        */
 
     constructor() {
         super()
@@ -124,14 +124,14 @@ export class VideoContainer extends LitElement {
         //best solution  is autoplay=true (chrome), changing to explictit video.play() does not solve the error
         //Note : srcObject=... gives the error, not the .play()
         //Uncaught (in promise) DOMException: The play() request was interrupted by a new load request
-     //   this.chatContainer = document.createElement("chat-container");
+        //   this.chatContainer = document.createElement("chat-container");
         this.videoShareScreen = document.createElement("video");
         this.videoShareScreen.classList.add("video");
         this.videoShareScreen.muted = true;
         this.videoShareScreen.autoplay = true;
         this.videoShareScreen.width = 300;
         this.videoShareScreen.height = 300;
-        this.chatContainer=document.createElement("chat-container");
+        this.chatContainer = document.createElement("chat-container");
     }
 
     static get properties() {
@@ -157,12 +157,11 @@ export class VideoContainer extends LitElement {
 
 
     render() {
-        const oneOnOneMode = (this.isOneOnOne) ? "Stop" : "Start";
-        const chatMode = (this.isChatOpen) ? "Close" : "Open";
+      
         this.video.classList.add(this.setVideoClass())//TODO set somewhere else
-     
+
         const result = html`      
-        <div class="container ${(this.itIsMe)? 'my-video-container' : 'the-other-video-container'}">
+        <div class="container ${(this.itIsMe) ? 'my-video-container' : 'the-other-video-container'}">
             ${(this.itIsMe) ? html`
             <div class="item">
                 <div>You are in room: ${this.getRoom()}</div>
@@ -173,8 +172,8 @@ export class VideoContainer extends LitElement {
             <div class="item video-shared-screen-box ${this.setShareScreenClass(this.shareScreen)}"> 
                 ${this.videoShareScreen}
                 <div class="icon-box">
-                <button id="start" @click=${()=>this.startCaptureEH()}>Start Capture</button>
-                <button id="stop"  @click=${()=>this.stopCaptureEH()}>Stop Capture</button>
+                <button id="start" @click=${() => this.startCaptureEH()}>Start Capture</button>
+                <button id="stop"  @click=${() => this.stopCaptureEH()}>Stop Capture</button>
                 </div>
             </div>
             `: null}
@@ -186,22 +185,17 @@ export class VideoContainer extends LitElement {
                `}               
             </div>
             <div class="item icon-box">
-             ${(this.itIsMe) ?
-                this.shareButton() :
-                html`
-                <button @click="${this.oneOnOne}">${oneOnOneMode} One to One</button>
-                <button data-tooltip="Open/close Private Chat" @click=${()=>this.openOrCloseChat()}>${chatMode} Chat<svg viewBox="0 0 49.07 42.95"><defs><style>.cls-1,.cls-2{fill:none;stroke:#010101;stroke-miterlimit:10;}.cls-1{stroke-width:4.07px;}.cls-2{stroke-width:3px;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon class="cls-1" points="2.03 2.03 47.03 2.03 47.03 29.03 20.03 29.03 11.03 38.03 11.03 29.03 2.03 29.03 2.03 2.03"/><line class="cls-2" x1="8.68" y1="9.98" x2="40.39" y2="9.98"/><line class="cls-2" x1="8.68" y1="15.41" x2="40.39" y2="15.41"/><line class="cls-2" x1="8.68" y1="20.83" x2="40.39" y2="20.83"/></g></g></svg>
-                </button>`}
-              
-                <button id="muteBtn" class="icon" data-tooltip="Mute" @click=${()=>this.changeMute()}>
+                ${(this.itIsMe) ? this.shareButton() :  this.setPrivateChats()}
+               <button id="muteBtn" class="icon" data-tooltip="Mute" @click=${() => this.changeMute()}>
                     ${unMuteIcon()}
-                </button>             
-                <button id="unMuteBtn" class="icon" data-tooltip="Unmute" @click=${()=>this.changeMute()}>
+                </button>   
+                bbb          
+                <button id="unMuteBtn" class="icon" data-tooltip="Unmute" @click=${() => this.changeMute()}>
                     ${muteIcon()} 
                 </button>
                 
 
-               
+               ccc
              </div>
              <div id="chatPopup" style="display:none">${this.chatContainer}</div>
         </div>
@@ -211,41 +205,53 @@ export class VideoContainer extends LitElement {
     }
 
     firstUpdated() {
-       this.setMute();
-      
+        this.setMute();
+
     }
 
     updated(changedProperties) {
         changedProperties.forEach((oldValue, propName) => {
             if (propName == "inAnotherOneOnOne") { this.changePause(this.inAnotherOneOnOne) }
         });
-    }    
+    }
 
     createMuteButton() {
         return html`
-     <button id="muteBtn" class="icon" data-tooltip="Mute" @click=${()=>this.changeMute()}>
+     <button id="muteBtn" class="icon" data-tooltip="Mute" @click=${() => this.changeMute()}>
         ${unMuteIcon()}
     </button>             
-    <button id="unMuteBtn" class="icon" data-tooltip="Unmute" @click=${()=>this.changeMute()}>
+    <button id="unMuteBtn" class="icon" data-tooltip="Unmute" @click=${() => this.changeMute()}>
          ${muteIcon()} 
     </button>
     `;
     }
-  
-    getChatContainer() {       
-        return this.chatContainer; 
+
+    getChatContainer() {
+        return this.chatContainer;
     }
 
     getVideo() { return this.video; }
 
     shareButton() {
-        if (this.shareScreen)
-            return html`<button  data-tooltip="Close share screen"  @click=${()=>this.setShareScreen()}>${screenShare()}</button>`;
-        else return html`<button data-tooltip="Open screen share menu" @click=${()=>this.setShareScreen()}>${screenUnshare()}</button>`;
+        const result= (this.shareScreen) ? html`
+            <button  data-tooltip="Close share screen"  @click=${() => this.setShareScreen()}>${screenShare()}</button>`
+            : html`<button data-tooltip="Open screen share menu" @click=${() => this.setShareScreen()}>${screenUnshare()}</button>`;
+            return html`${result}${this.setPrivateChats('')}`;
     }
 
     setShareScreenClass(show) {
         return (show) ? "show" : "no-show";
+    }
+
+    setPrivateChats() {
+        return html`
+            <button @click="${this.oneOnOne}">${(this.isOneOnOne) ? "Stop" : "Start"} One to One</button>
+            ${this.setChatButtons('private')}`;
+    }
+
+    setChatButtons(mode){
+        return html`
+            <button data-tooltip="Open/close ${mode} Chat" @click=${() => this.openOrCloseChat()}>${(this.isChatOpen) ? "Close" : "Open"} Chat<svg viewBox="0 0 49.07 42.95"><defs><style>.cls-1,.cls-2{fill:none;stroke:#010101;stroke-miterlimit:10;}.cls-1{stroke-width:4.07px;}.cls-2{stroke-width:3px;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon class="cls-1" points="2.03 2.03 47.03 2.03 47.03 29.03 20.03 29.03 11.03 38.03 11.03 29.03 2.03 29.03 2.03 2.03"/><line class="cls-2" x1="8.68" y1="9.98" x2="40.39" y2="9.98"/><line class="cls-2" x1="8.68" y1="15.41" x2="40.39" y2="15.41"/><line class="cls-2" x1="8.68" y1="20.83" x2="40.39" y2="20.83"/></g></g></svg></button>`;
     }
 
     setVideoClass() {
@@ -352,7 +358,7 @@ customElements.define("video-container", VideoContainer);
 class ChatContainer extends LitElement {
 
     static get styles() {
-        return [getButtonCss(),getIconCss(),css`  
+        return [getButtonCss(), getIconCss(), css`  
         .messages {
             overflow: scroll;
             margin-bottom: var(--padding-mid);
@@ -375,35 +381,35 @@ class ChatContainer extends LitElement {
    ` ];
     }
 
-   /*
-    .send-button {
-        height: auto;
-        padding: var(--padding-small); 
-    }
-
-    .user-chat div {
-        display: flex;
-        flex-direction: column;
-        padding: var(--padding-mid);
-    }
-
-    .chat-box {
-        background: blue; 
-    }   
-    
-    input {
-    margin-bottom: var(--padding-mid);
-    height: 2.5rem;
-    padding: var(--padding-small);
-    flex-grow: 3; 
-    }
-
-    .send-message-wrapper {
-        display: flex; 
-        align-items: center; 
-    }
-
-    */
+    /*
+     .send-button {
+         height: auto;
+         padding: var(--padding-small); 
+     }
+ 
+     .user-chat div {
+         display: flex;
+         flex-direction: column;
+         padding: var(--padding-mid);
+     }
+ 
+     .chat-box {
+         background: blue; 
+     }   
+     
+     input {
+     margin-bottom: var(--padding-mid);
+     height: 2.5rem;
+     padding: var(--padding-small);
+     flex-grow: 3; 
+     }
+ 
+     .send-message-wrapper {
+         display: flex; 
+         align-items: center; 
+     }
+ 
+     */
 
     constructor() {
         super()
@@ -459,8 +465,8 @@ class ChatContainer extends LitElement {
     updated(changedProperties) {
         changedProperties.forEach((oldValue, propName) => {
             if (propName == "message") {
-               const messagesEl = this.shadowRoot.getElementById("messages");
-              
+                const messagesEl = this.shadowRoot.getElementById("messages");
+
                 messagesEl.innerHTML += this.message + "<br>"
             }
         });
@@ -471,20 +477,20 @@ customElements.define("chat-container", ChatContainer);
 
 export function processChatOutput(senderId, sender, receiverId, message) {
     if (receiverId == null) {
-         videoContainers.forEach(vc=>{
-            if (vc.id== getTheOthers().me.profile.email)
-                vc.getChatContainer().message =  sender + ": " + message;           
-        })       
+        videoContainers.forEach(vc => {
+            if (vc.id == getTheOthers().me.profile.email)
+                vc.getChatContainer().message = sender + ": " + message;
+        })
     }
     _mainGrid.getVideoContainers().forEach(videoContainer => {
         const _chatboxContainer = videoContainer.getChatContainer();
         if (videoContainer.id == receiverId) {
             _chatboxContainer.message = "me : " + message;
-            _chatboxContainer.videoContainer.openChatDialog();
+            videoContainer.openChatDialog();
         }
         else if (videoContainer.id == senderId) {
             _chatboxContainer.message = sender + ": " + message;
-            _chatboxContainer.videoContainer.openChatDialog();
+            videoContainer.openChatDialog();
         }
     });
 }
