@@ -188,14 +188,10 @@ export class VideoContainer extends LitElement {
                 ${(this.itIsMe) ? this.shareButton() :  this.setPrivateChats()}
                <button id="muteBtn" class="icon" data-tooltip="Mute" @click=${() => this.changeMute()}>
                     ${unMuteIcon()}
-                </button>   
-                bbb          
+                </button>            
                 <button id="unMuteBtn" class="icon" data-tooltip="Unmute" @click=${() => this.changeMute()}>
                     ${muteIcon()} 
                 </button>
-                
-
-               ccc
              </div>
              <div id="chatPopup" style="display:none">${this.chatContainer}</div>
         </div>
