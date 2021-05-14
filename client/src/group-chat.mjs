@@ -17,6 +17,19 @@ export class GroupChat extends LitElement {
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
             max-height: 75vh; 
         }
+        .test {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            bottom: 1rem;
+            right: 25px;          
+        }     
+      `}
+
+
+    static get stylesabc() {
+        return css` 
+          
         .my-video-container {
             position: absolute;
             bottom: 1rem;
@@ -25,12 +38,6 @@ export class GroupChat extends LitElement {
             flex-direction: row-reverse;
             align-items: flex-end;
         }     
-      `}
-
-
-    static get stylesabc() {
-        return css` 
-          
             .main-container {
             display: flex;
             justify-content: space-between;
@@ -107,9 +114,27 @@ export class GroupChat extends LitElement {
 
     render() {
         return html`
-            ${this.myVideoContainer}
+            <div id="myVideoContainer" class="test">
+                <button  @click="${(e) => this.hideMyVideoContainer()}">hide</button>
+                ${this.myVideoContainer}
+            </div>
+            <button id="toggleMyVideoContainer" @click="${(e) => this.hideMyVideoContainer()}">show</button>
+            
             ${this.mainGrid}         
          `;
+    }
+
+    hideMyVideoContainer(){
+        const vc=this.shadowRoot.getElementById("myVideoContainer");
+        const toggle=this.shadowRoot.getElementById("toggleMyVideoContainer");
+        if (vc.style.display=="none") {
+            vc.style.display="flex" ;
+            toggle.style.display="none";
+        } 
+        else {
+            vc.style.display="none";
+            toggle.style.display="block";
+        }
     }
 
     static removeTheOtherCallback(userId) {
