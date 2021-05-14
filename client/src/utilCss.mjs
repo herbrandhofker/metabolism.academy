@@ -65,11 +65,7 @@ export function getIconCss() {
     .icon-box {
         padding: 1rem;
         display: flex;
-    }
-
-
-
-    
+    }   
 ` ;
 }
 

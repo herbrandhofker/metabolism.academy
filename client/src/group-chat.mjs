@@ -24,9 +24,8 @@ export class GroupChat extends LitElement {
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 0;
+    top: 10rem;
     right: 0;
-    background-color: #111;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -45,14 +44,14 @@ export class GroupChat extends LitElement {
     color: #f1f1f1;
   }
   
-  .sidenav .closebtn {
-
+#closebtn {
     background-color: var(--primary-color);
     position: absolute;
     top: 0;
-    right: 25px;
+    right: 1rem;
     font-size: 36px;
     margin-left: 50px;
+    border-radius : var(--button-border-radius) 0 0  var(--button-border-radius)
   }
 
 #openButton{
@@ -62,8 +61,16 @@ export class GroupChat extends LitElement {
     right: 1rem;
     font-size: 3rem;
     min-height: 10rem;
-    padding: 2rem;
-}  `}
+    padding: 1rem;
+    color: #818181;
+    border-radius : var(--button-border-radius) 0 0  var(--button-border-radius)
+}  
+
+#openButton:hover {  
+    color: #f1f1f1;
+  }
+
+`}
 
 /*
           
@@ -121,12 +128,9 @@ export class GroupChat extends LitElement {
 
 
         this.myVideoContainer = createVideoContainer(theOthers.me);
- //       this.myVideoContainer.classList.add("my-video-container");
         this.myVideoContainer.itIsMe = true;
         this.myVideoContainer.id = theOthers.me.profile.email;
 
-
-        //   _interactiveGroupChat = this.myVideoContainer.chatContainer;
         this.mainGrid = document.createElement("main-grid");
         this.mainGrid.classList.add("main-grid");
         _mainGrid = this.mainGrid;
@@ -151,9 +155,9 @@ export class GroupChat extends LitElement {
     render() {
         return html`          
             ${this.mainGrid}     
-            <div id="mySidenav" class="sidenav">
-                <a href="javascript:void(0)" class="closebtn"  @click="${()=>this.closeNav()}">close &times;</a>
-                <div style="color:yellow">
+            <div id="myVideoContanerDiv" class="sidenav">
+                <a href="javascript:void(0)" id="closebtn"  @click="${()=>this.closeNav()}">close &times;</a>
+                <div>
                     ${this.myVideoContainer}
                 </div>
             </div>
@@ -164,12 +168,12 @@ export class GroupChat extends LitElement {
     }
 
     openNav() {
-        this.shadowRoot.getElementById("mySidenav").style.width = "250px";
+        this.shadowRoot.getElementById("myVideoContanerDiv").style.width = "250px";
         this.shadowRoot.getElementById("openDiv").style.display = "none";
     }
       
       closeNav() {
-        this.shadowRoot.getElementById("mySidenav").style.width = "0";
+        this.shadowRoot.getElementById("myVideoContanerDiv").style.width = "0";
         this.shadowRoot.getElementById("openDiv").style.display = "block";
       }
 
