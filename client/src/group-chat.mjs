@@ -168,13 +168,13 @@ export class GroupChat extends LitElement {
     }
 
     openNav() {
-        this.shadowRoot.getElementById("myVideoContanerDiv").style.width = "250px";
-        this.shadowRoot.getElementById("openDiv").style.display = "none";
+        this.shadowRoot.getElementById("myVideoContanerDiv").style.width = "20rem";
+        this.shadowRoot.getElementById("openButton").style.display = "none";
     }
       
       closeNav() {
         this.shadowRoot.getElementById("myVideoContanerDiv").style.width = "0";
-        this.shadowRoot.getElementById("openDiv").style.display = "block";
+        this.shadowRoot.getElementById("openButton").style.display = "block";
       }
 
 
