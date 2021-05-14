@@ -232,7 +232,7 @@ export class VideoContainer extends LitElement {
         const result= (this.shareScreen) ? html`
             <button  data-tooltip="Close share screen"  @click=${() => this.setShareScreen()}>${screenShare()}</button>`
             : html`<button data-tooltip="Open screen share menu" @click=${() => this.setShareScreen()}>${screenUnshare()}</button>`;
-            return html`${result}${this.setPrivateChats('')}`;
+            return html`${result}${this.setChatButtons('')}`;
     }
 
     setShareScreenClass(show) {
@@ -241,7 +241,7 @@ export class VideoContainer extends LitElement {
 
     setPrivateChats() {
         return html`
-            <button @click="${this.oneOnOne}">${(this.isOneOnOne) ? "Stop" : "Start"} One to One</button>
+            <button @click="${this.oneOnOne}">${(this.isOneOnOne) ? "Stop" : "Start"} xxxOne to One</button>
             ${this.setChatButtons('private')}`;
     }
 
