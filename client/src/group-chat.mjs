@@ -17,13 +17,17 @@ export class GroupChat extends LitElement {
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
             max-height: 75vh; 
         }
-        .test {
+        .my-video-container-div{
             display: flex;
             flex-direction: column;
             position: absolute;
             bottom: 1rem;
             right: 25px;          
-        }     
+        }  
+        
+        #toggleMyVideoContainer{
+            background-color: var(--primary-color)
+        }
       `}
 
 
@@ -85,7 +89,7 @@ export class GroupChat extends LitElement {
 
 
         this.myVideoContainer = createVideoContainer(theOthers.me);
-        this.myVideoContainer.classList.add("my-video-container");
+ //       this.myVideoContainer.classList.add("my-video-container");
         this.myVideoContainer.itIsMe = true;
         this.myVideoContainer.id = theOthers.me.profile.email;
 
@@ -114,7 +118,7 @@ export class GroupChat extends LitElement {
 
     render() {
         return html`
-            <div id="myVideoContainer" class="test">
+            <div id="myVideoContainer" class="my-video-container-div">
                 <button  @click="${(e) => this.hideMyVideoContainer()}">hide</button>
                 ${this.myVideoContainer}
             </div>
