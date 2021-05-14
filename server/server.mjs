@@ -34,41 +34,38 @@ producer.on('ready', function () {
         sockets.set(ws.id, ws);
         console.log("connection with client:" + ws.id)
         ws.on('message', data => {
-            console.log("message from client received")
             let msg = "";
             try { msg = JSON.parse(data); }
             catch (err) { console.error(err + " with data:" + data); return; }
-            const msgType=msg.type;
-            const payload= msg.payload;
-            producer.send([{ topic: msgType, messages: new kafka.KeyedMessage(msgType,payload) }], (err, data) => { console.log(data); });
-            
+            const msgType = msg.type;
+            const payload = msg.payload;
+            producer.send([{ topic: msgType, messages: new kafka.KeyedMessage(msgType, payload) }], (err, data) => { console.log(data); });
+
             switch (msgType) {
-                case 'login': {
-                    connections.set(ws.id, payload)
-                    payload.websocketId =ws.id;
-                    payload.timestamp = new Date();
-                    payload.test = "from mitochondria";
-                    ws.send(JSON.stringify(msg));
-                     break;
-                }
+
                 case 'registrations': {
-                    
-                    const rec={type: "registrations"};
-                    const arr=[]; 
+
+                    const rec = { type: "registrations" };
+                    const arr = [];
 
                     for (let value of connections.values()) {
                         arr.push(value)
-                      }
-                    rec.payload=arr;
+                    }
+                    rec.payload = arr;
 
-                    ws.send(JSON.stringify(rec));                 
+                    ws.send(JSON.stringify(rec));
                     break;
                 }
-                case "registerMe":
+                case "login":
                     console.error("register me not active")
-                  registerMe(payload);
-                 //   producer.send([{ topic: msgType, messages: new kafka.KeyedMessage(payload.email, JSON.stringify(msg)) }], (err, data) => { console.log(data); });
-              
+                    login(payload);
+                    //   producer.send([{ topic: msgType, messages: new kafka.KeyedMessage(payload.email, JSON.stringify(msg)) }], (err, data) => { console.log(data); });
+
+                    break;
+                case "registerMe":
+                    registerMe(payload);
+                    //   producer.send([{ topic: msgType, messages: new kafka.KeyedMessage(payload.email, JSON.stringify(msg)) }], (err, data) => { console.log(data); });
+
                     break;
                 case "chatMessage":
                     chatMessage(payload);
@@ -85,10 +82,10 @@ producer.on('ready', function () {
                 case "requestOneOnOne":
                     requestOneOnOne(payload);
                     break;
-    
+
                 default: console.error("unknown type: " + msgType);
             }
-        }); 
+        });
 
         ws.on('close', () => {
             console.log("close");
@@ -120,18 +117,17 @@ producer.on('ready', function () {
             const rec = { "type": "offer", "payload": payload }
             sockets.get(payload.target).send(JSON.stringify(rec));
         }
-    
+
         function iceCandidate(payload) {
             const rec = { "type": "ice-candidate", "payload": payload }
-            console.log("payload.target="+payload.target)
             sockets.get(payload.target).send(JSON.stringify(rec));
         }
-    
+
         function answer(payload) {
             const rec = { "type": "answer", "payload": payload }
             sockets.get(payload.target).send(JSON.stringify(rec));
         }
-    
+
         function requestOneOnOne(payload) {
             wsServer.clients.forEach(client => {
                 if (client.readyState === WebSocketServer.OPEN) {
@@ -156,18 +152,24 @@ producer.on('ready', function () {
                 sockets.get(senderId).send(msg);
                 sockets.get(receiverId).send(msg);
             }
-        }  
- 
-        function registerMe(_payload) {
-            let userInfo = _payload;
-            const updatedMe = _payload;
-            updatedMe.user.userId = ws.id
-            userInfo = { ...userInfo, userId: ws.id };
-            userInfo.user.userId = ws.id
-            const roomId = userInfo.user.room
-            const recConfirmation = { "type": "registerConfirmation", "payload": _payload.user }
+        }
+
+        function login(_payload) {
+            console.log("login")
+            _payload.userId = ws.id;
+            _payload.timestamp = new Date();
+            const recConfirmation = { "type": "loginConfirmation", "payload": _payload }
             ws.send(JSON.stringify(recConfirmation));
-    
+
+        }
+
+        function registerMe(_payload) {
+            console.log("registerme")
+             const recConfirmation = { "type": "registerConfirmation", "payload": _payload }
+            ws.send(JSON.stringify(recConfirmation));
+
+            const roomId = _payload.room
+
             let myRoomUsers = [];
             let myRoomSockets = [];
             let myRoom = mapOfRooms.get(roomId);
@@ -181,26 +183,25 @@ producer.on('ready', function () {
                 const msg = JSON.stringify(rec);
                 ws.send(msg)
             }
-    
-            myRoomUsers.push(userInfo);
+
+            myRoomUsers.push(_payload);
             myRoom.userInfoArray = myRoomUsers;
             myRoom.socketArray = myRoomSockets
             mapOfRooms.set(roomId, myRoom);
-            const userRec = { "type": "joinedRoom", "payload": userInfo.user }
+            const userRec = { "type": "joinedRoom", "payload": _payload }
             for (const usr of myRoomSockets) {//emit works here but send does not
                 sockets.get(usr).send(JSON.stringify(userRec));//Todo remove to
             }
             myRoomSockets.push(ws.id);
             socketRoom.set(ws.id, roomId);
         }
-    
-    
+
+
     });
-    consumer.on('message', message=>
+    consumer.on('message', message =>
         wsServer.clients.forEach(client => {
-            console.log("xxx")
-            console.log(message.value);
-        //    client.send(message.value);
+            //   console.log("from kafka",message);
+            //    client.send(message.value);
         })
     )
 

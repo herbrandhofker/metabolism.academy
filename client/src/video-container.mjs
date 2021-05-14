@@ -182,7 +182,7 @@ export class VideoContainer extends LitElement {
             <div class="item video-box ${this.setShareScreenClass(!this.shareScreen)}"> 
                 ${this.video}
                 ${this.itIsMe ? null : html`                
-                    <div class="user-name">${this.theOther.user.profile.name}</div>
+                    <div class="user-name">${this.theOther.profile.name}</div>
                `}               
             </div>
             <div class="item icon-box">
@@ -199,6 +199,7 @@ export class VideoContainer extends LitElement {
                 <button id="unMuteBtn" class="icon" data-tooltip="Unmute" @click=${()=>this.changeMute()}>
                     ${muteIcon()} 
                 </button>
+                
 
                
              </div>

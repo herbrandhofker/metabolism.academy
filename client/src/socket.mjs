@@ -12,8 +12,10 @@ export function createSocket(detail, role) {
     ws = new WebSocket(URL);
     ws.onopen = () => {
        const payload= JSON.parse(detail);
-       getTheOthers().updateMe({ profile: payload })           
-        ws.send(JSON.stringify({ type: "login" ,payload: payload}));
+       getTheOthers().me.profile= payload;
+       getTheOthers().me.room="public";
+       ws.send(JSON.stringify({ type: "login" ,payload: getTheOthers().me}));
+
     };
 
     ws.onmessage = (event) => {
@@ -29,16 +31,19 @@ export function createSocket(detail, role) {
         const payload = rec.payload;
      
         switch (type) {
+
+            case "loginConfirmation":
+                loginConfirmation(payload);
+                return;
+           
+            
             case "registrations": {
                 for (let reg of payload) {
                     registrations.set(reg.email, reg);
                 }
                 break;
             }
-            case "login": {
-                console.log("logged in " + payload.name)
-                break;
-            }
+          
             case "registerConfirmation":
                 registerConfirmation(payload);
                 return;
@@ -71,15 +76,21 @@ export function createSocket(detail, role) {
         }
     }
 
+    function loginConfirmation(payload) {
+        getTheOthers().me=payload;
+        console.log(getTheOthers().me.userId)
+     }
+
     function registerConfirmation(payload) {
-        const me = payload;
-        getTheOthers().updateMe({ "userId": me.userId });
+       getTheOthers().me=payload;
     }
 
     function existingUsers(payload) {
         payload.forEach(_theOther => {
             console.log("existing user" + JSON.stringify(_theOther))
             enRichTheOther(_theOther)
+
+       console.log("existing ",  JSON.stringify( _theOther))
             stream.getTracks().forEach(track => _theOther.rtpSender = _theOther.peer.addTrack(track, stream));
             getTheOthers().set(_theOther.userId, _theOther)
         })
@@ -90,6 +101,8 @@ export function createSocket(detail, role) {
         const _theOther = payload;
         enRichTheOther(_theOther)
         getTheOthers().set(_theOther.userId, _theOther)
+
+      // console.log("joined ",  JSON.stringify( _theOther))
      
     };
 
@@ -207,7 +220,9 @@ export function procesCommunication(p_stream) {
         return;
     }
     stream = p_stream;
-    const rec = { "type": "registerMe", "payload": { "user": getTheOthers().me } }
+    const rec = { "type": "registerMe", "payload": getTheOthers().me  }
+    console.log("2 oorspronkelijk",   JSON.stringify(getTheOthers().me))
+ 
     ws.send(JSON.stringify(rec))
 
 
