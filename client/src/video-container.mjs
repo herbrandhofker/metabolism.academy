@@ -241,7 +241,7 @@ export class VideoContainer extends LitElement {
 
     setPrivateChats() {
         return html`
-            <button @click="${this.oneOnOne}">${(this.isOneOnOne) ? "Stop" : "Start"} xxxOne to One</button>
+            <button @click="${this.oneOnOne}">${(this.isOneOnOne) ? "Stop" : "Start"} One to One</button>
             ${this.setChatButtons('private')}`;
     }
 

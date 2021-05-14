@@ -17,22 +17,55 @@ export class GroupChat extends LitElement {
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
             max-height: 75vh; 
         }
-        .my-video-container-div{
-            display: flex;
-            flex-direction: column;
-            position: absolute;
-            bottom: 1rem;
-            right: 25px;          
-        }  
+
         
-        #toggleMyVideoContainer{
-            background-color: var(--primary-color)
-        }
-      `}
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+  
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+  
+  .sidenav .closebtn {
 
+    background-color: var(--primary-color);
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
 
-    static get stylesabc() {
-        return css` 
+#openButton{
+    background-color: var(--primary-color);
+    position: absolute;
+    top: 10rem;
+    right: 1rem;
+    font-size: 3rem;
+    min-height: 10rem;
+    padding: 2rem;
+}  `}
+
+/*
           
         .my-video-container {
             position: absolute;
@@ -77,8 +110,7 @@ export class GroupChat extends LitElement {
             max-height: 75vh;
         }
     
-        `;
-    }
+*/
 
     constructor() {
         super()
@@ -117,29 +149,30 @@ export class GroupChat extends LitElement {
     }
 
     render() {
-        return html`
-            <div id="myVideoContainer" class="my-video-container-div">
-                <button  @click="${(e) => this.hideMyVideoContainer()}">hide</button>
-                ${this.myVideoContainer}
+        return html`          
+            ${this.mainGrid}     
+            <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn"  @click="${()=>this.closeNav()}">close &times;</a>
+                <div style="color:yellow">
+                    ${this.myVideoContainer}
+                </div>
             </div>
-            <button id="toggleMyVideoContainer" @click="${(e) => this.hideMyVideoContainer()}">show</button>
-            
-            ${this.mainGrid}         
+
+            <span id="openButton" style="font-size:30px;cursor:pointer"  @click="${()=>this.openNav()}">o<br>p<br>e<br>n</span>
+
          `;
     }
 
-    hideMyVideoContainer(){
-        const vc=this.shadowRoot.getElementById("myVideoContainer");
-        const toggle=this.shadowRoot.getElementById("toggleMyVideoContainer");
-        if (vc.style.display=="none") {
-            vc.style.display="flex" ;
-            toggle.style.display="none";
-        } 
-        else {
-            vc.style.display="none";
-            toggle.style.display="block";
-        }
+    openNav() {
+        this.shadowRoot.getElementById("mySidenav").style.width = "250px";
+        this.shadowRoot.getElementById("openDiv").style.display = "none";
     }
+      
+      closeNav() {
+        this.shadowRoot.getElementById("mySidenav").style.width = "0";
+        this.shadowRoot.getElementById("openDiv").style.display = "block";
+      }
+
 
     static removeTheOtherCallback(userId) {
         _mainGrid.removeTheOther(userId);
