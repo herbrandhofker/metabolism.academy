@@ -5,7 +5,7 @@ export function getButtonCss() {
     .button-box{
         display: flex;
         flex-direction: row;
-        justify-content: center;
+        justify-content: space-around;
         height: var(--button-box-height);  
         width: 100%;              
     }

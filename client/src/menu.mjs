@@ -49,11 +49,16 @@ class Menu extends LitElement {
         tr:nth-child(odd) {
             background-color:       var(--primary-color);
         }
+
+        #buttonBox{
+            background-color: red;
+        }
     `];
     }
 
     constructor() {
         super();
+        this.buttonBox=null;
         this.loginButton = null;
     }
 
@@ -65,20 +70,22 @@ class Menu extends LitElement {
 
     render() {
         return html`
-        <section style="display:flex" >            
             <div  id="buttonBox"  class="button-box">
                 ${menuItems.map(lbl => html`<button class="button" @click=${e => this.activate(lbl)}>${lbl.toUpperCase()}</button>`)}        
                 ${this.createShowProfileButton()}
             </div>
-        </section>
         `;
     }
 
+    firstUpdated(){
+        this.buttonBox=this.shadowRoot.getElementById("buttonBox");
+
+    }
   
     updated(changedProperties) {
         changedProperties.forEach((oldValue, propName) => {
             if (propName = "loginButton")
-                this.shadowRoot.getElementById("buttonBox").appendChild(this.loginButton);
+                this.buttonBox.appendChild(this.loginButton);
 
         });
     }
