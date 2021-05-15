@@ -1,6 +1,6 @@
 import './home.mjs'
 import './index.css'
-import './topten.mjs'
+import './top-ten.mjs'
 import './details.mjs'
 import './about.mjs'
 import './nyi.mjs'
@@ -12,7 +12,7 @@ import { getButtonCss } from './utilCss.mjs';
 const menuDiv = document.getElementById("menuDiv");
 const contentDiv = document.getElementById("content");
 
-const menuItems = ["home", "topten", "details", "about", "group-chat"];
+const menuItems = ["home", "top-ten", "details", "about", "group-chat"];
 const menuObjects = new Map();
 
 let menu = null;

@@ -176,4 +176,4 @@ insertFood(event, food) {
 
 }
 }
-customElements.define("my-topten", TopTen);
+customElements.define("my-top-ten", TopTen);
