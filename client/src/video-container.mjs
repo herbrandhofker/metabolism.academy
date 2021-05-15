@@ -1,5 +1,4 @@
 import { LitElement, html, css, svg } from 'lit-element';
-
 import { getWebSocket } from "./socket.mjs"
 import { getTheOthers } from "./the-others.mjs";
 import { screenShare, screenUnshare, muteIcon, unMuteIcon, getIconCss, getButtonCss } from './utilCss.mjs'
@@ -79,34 +78,6 @@ export class VideoContainer extends LitElement {
 `]
     }
 
-    /*
-    
-    .the-other-video-container {
-        position: relative; 
-    }
-    
-    .the-other-video-container video{
-            max-height: 75vh; 
-    }
-    
-    .the-other-video-container .button-box {
-        position: absolute; 
-        bottom: 0;
-        right: 0; 
-    }
-    
-    
-    
-    
-    .chat-box {
-        padding: var(--padding-small);
-    }
-    
-    
-      `]
-        }
-    
-        */
 
     constructor() {
         super()

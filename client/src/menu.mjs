@@ -1,9 +1,10 @@
-import './home.mjs'
+
+import { LitElement, html, css } from 'lit-element';
 import './index.css'
+import './home.mjs'
 import './top-ten.mjs'
 import './details.mjs'
 import './about.mjs'
-import { LitElement, html, css } from 'lit-element';
 import dialogPolyfill from 'dialog-polyfill';
 import { getTheOthers } from './the-others.mjs';
 import { getButtonCss } from './utilCss.mjs';
@@ -11,7 +12,7 @@ import { getButtonCss } from './utilCss.mjs';
 const menuDiv = document.getElementById("menuDiv");
 const contentDiv = document.getElementById("content");
 
-const menuItems = ["home", "top-ten", "details", "about", "group-chat"];
+const menuItems = ["home", "top-ten", "details","group-chat", "about", ];
 const menuObjects = new Map();
 
 let menu = null;
