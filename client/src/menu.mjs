@@ -68,7 +68,7 @@ class Menu extends LitElement {
     render() {
         return html`
             <div  id="buttonBox"  class="button-box">
-                ${menuItems.map(lbl => html`<button class="button" @click=${e => this.activate(lbl)}>${lbl.toUpperCase()}</button>`)}        
+                ${menuItems.map(lbl => html`<button class="button" @click=${e => this.activate(lbl)}>${lbl.toUpperCase().replace("-"," ")}</button>`)}        
                 ${this.createShowProfileButton()}
             </div>
         `;
