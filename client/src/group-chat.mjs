@@ -3,121 +3,51 @@ import { getTheOthers } from "./the-others.mjs"
 import { procesCommunication, getWebSocket } from "./socket.mjs"
 import { } from './video-container.mjs';
 
+import { getButtonCss } from './utilCss.mjs';
 
 export let _mainGrid = null;
 
 export class GroupChat extends LitElement {
 
     static get styles() {
-        return css` 
+        return [getButtonCss(),css` 
         video-container {
-            background-color: rgb(100, 136, 212);
             display: flex;
             flex-direction: column;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
             max-height: 75vh; 
         }
-
+      
+        .my-video-container-div {
+            background-color : var(--tertiar-color); 
+            position: fixed;
+            z-index: 1;
+            top: 10rem;
+            right: 0;
+            transition: 0.5s;
+            padding-top: 3rem;
+        }
         
-.sidenav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 10rem;
-    right: 0;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-  }
-  
-  .sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-  }
-  
-  .sidenav a:hover {
-    color: #f1f1f1;
-  }
-  
-#closebtn {
-    background-color: var(--primary-color);
-    position: absolute;
-    top: 0;
-    right: 1rem;
-    font-size: 36px;
-    margin-left: 50px;
-    border-radius : var(--button-border-radius) 0 0  var(--button-border-radius)
-  }
-
-#openButton{
-    background-color: var(--primary-color);
-    position: absolute;
-    top: 10rem;
-    right: 1rem;
-    font-size: 3rem;
-    min-height: 10rem;
-    padding: 1rem;
-    color: #818181;
-    border-radius : var(--button-border-radius) 0 0  var(--button-border-radius)
-}  
-
-#openButton:hover {  
-    color: #f1f1f1;
-  }
-
-`}
-
-/*
-          
-        .my-video-container {
+        .open-button{
             position: absolute;
-            bottom: 1rem;
-            right: 25px;
-            display: flex;
-            flex-direction: row-reverse;
-            align-items: flex-end;
-        }     
-            .main-container {
-            display: flex;
-            justify-content: space-between;
-            margin: 0 25px;
-            background-color: var(--color-one);
-         }
-        
-              
-        .page-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--color-whiteish);
-            font-size: 1.2rem; 
-        }
-        
-        .logo-container {
-            width: 75px;
-            padding: var(--padding-small);
-        }
-        
-        .main-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            grid-gap: 25px;  
-            margin: 0 25px;
-            flex-grow: 1;
-        }
-     
-        
-        video {
-            max-width: 100%;
-            max-height: 75vh;
-        }
-    
-*/
+            top: 10rem;
+            right: 0rem;
+            min-height: 8rem;
+            padding: 1rem;
+            font-size: 1.5rem;
+            border-radius : var(--button-border-radius) 0 0  var(--button-border-radius);
+        }  
+
+        .close-button{
+            position: absolute;
+            top: 0px;
+            padding :0;
+            margin :0;
+            right: 0px;
+            width: 50%;
+            border-radius : var(--button-border-radius) 0 0  var(--button-border-radius);
+        }  
+`]}
+
 
     constructor() {
         super()
@@ -155,14 +85,14 @@ export class GroupChat extends LitElement {
     render() {
         return html`          
             ${this.mainGrid}     
-            <div id="myVideoContanerDiv" class="sidenav">
-                <a href="javascript:void(0)" id="closebtn"  @click="${()=>this.closeNav()}">close &times;</a>
+            <div id="myVideoContanerDiv" class="my-video-container-div">
+                <button  class="button close-button"  @click="${()=>this.closeNav()}">close &times;</button>
                 <div>
                     ${this.myVideoContainer}
                 </div>
             </div>
 
-            <span id="openButton" style="font-size:30px;cursor:pointer"  @click="${()=>this.openNav()}">o<br>p<br>e<br>n</span>
+            <span id="openButton" class="button open-button" style=""  @click="${()=>this.openNav()}">o<br>p<br>e<br>n</span>
 
          `;
     }

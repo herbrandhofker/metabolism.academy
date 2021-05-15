@@ -1,0 +1,40 @@
+
+:root {
+  --margin: 2rem;
+  --padding: 1rem;
+  --font-family: sans-serif;
+  --primary-color: #04AA6D;
+  --secundairy-color: #282A35;
+  --tertiar-color: #D9EEE1!important;
+
+  --section-background-color: var(--tertiar-color);
+  --section-color: black;
+  --section-border: 1px solid;
+  --section-border-color: var(--primary-color);
+  --section-padding: 3rem;
+  
+  --buttonbox-height: 3.5rem;
+  --buttonbox-width: 100%;
+  --button-background-color: var(--primary-color);
+  --button-background-color-hover: #08462f;
+  --button-padding: 5px 20px 5px;
+  --button-margin: 5px 20px 5px;
+  --button-border-color: var(--secundary);
+  --button-color: white;
+  --button-font-family: var(--font-family);
+  --button-font-size: 1.1rem;
+  --button-font-weight: bold;
+  --button-border-width: 0px;
+  --button-border-radius: 12px;
+  --button-height: 3rem;
+}
+
+body {
+  background-color: var(--secundairy-color) !important;
+  color: #E7E9EB;
+}
+
+.content section{ 
+  margin: 2rem;
+  padding: 2rem;
+}

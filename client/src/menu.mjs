@@ -88,6 +88,7 @@ class Menu extends LitElement {
     }
 
     activate(id) {
+      //  lbl-lbl.replace(' ','-');
         for (let tab of menuItems) {
             const el = (menuObjects.get(tab));
             if (el) el.style.display = "none";

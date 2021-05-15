@@ -24,6 +24,8 @@ export function getButtonCss() {
         height: var(--button-height);
 
         border-radius : var(--button-border-radius);
+
+        cursor:pointer
     }  
 
     .button:hover {
