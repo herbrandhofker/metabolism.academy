@@ -49,10 +49,7 @@ class Menu extends LitElement {
         tr:nth-child(odd) {
             background-color:       var(--primary-color);
         }
-
-        #buttonBox{
-            background-color: red;
-        }
+       
     `];
     }
 

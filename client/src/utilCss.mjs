@@ -7,10 +7,11 @@ export function getButtonCss() {
         flex-direction: row;
         justify-content: space-around;
         height: var(--button-box-height);  
-        width: 100%;              
+         width: 100%;              
     }
 
     .button {
+        white-space: nowrap; 
         padding: var(--button-padding);
         margin: var(--button-margin);
         background-color: var(--button-background-color);
