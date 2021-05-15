@@ -3,7 +3,6 @@ import './index.css'
 import './top-ten.mjs'
 import './details.mjs'
 import './about.mjs'
-import './nyi.mjs'
 import { LitElement, html, css } from 'lit-element';
 import dialogPolyfill from 'dialog-polyfill';
 import { getTheOthers } from './the-others.mjs';
