@@ -45,3 +45,43 @@ body {
   background-color: var(--secundairy-color) !important;
   color: #E7E9EB;
 }
+
+
+#dialogDiv{
+  display: none;
+  position : fixed;
+  z-index: 1;
+  left:0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow : auto;
+  background-color: rgba(0,0,0,0.5);
+  animation-name: open-dialog;
+  animation-duration: 1s;
+
+}
+
+@keyframes open-dialog {
+    from {opacity:0}
+    to {opacity:1}
+    
+}
+
+#dialog {
+    background-color: lightblue;
+    margin : 20% auto;
+    padding : 20px;
+    width : 70%;
+}
+
+#dialogCloseBtn{
+    color: grey;
+    float: right;
+    font-size: 30px;
+}
+
+#dialogCloseBtn:hover, #dialogCloseBtn:focus{
+    color: black;
+    cursor: pointer;
+}
