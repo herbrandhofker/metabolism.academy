@@ -5,9 +5,9 @@ import './home.mjs'
 import './top-ten.mjs'
 import './details.mjs'
 import './about.mjs'
-import dialogPolyfill from 'dialog-polyfill';
 import { getTheOthers } from './the-others.mjs';
 import { getButtonCss } from './utilCss.mjs';
+import dialogPolyfill from 'dialog-polyfill';
 
 const menuDiv = document.getElementById("menuDiv");
 const contentDiv = document.getElementById("content");
