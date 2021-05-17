@@ -24,97 +24,32 @@ const configs = new Map();
 
 
 const dialogDiv = document.getElementById("dialogDiv");
-const dialogCloseBtn = document.getElementById("dialogCloseBtn");
 const dialogHeader = document.getElementById("dialogHeader");
-//dialogHeader.innerText = "abc";
+dialogHeader.innerText = " abc"
 const dialogContent = document.getElementById("dialogContent");
-//dialogContent.innerText = "Lorem"
-const dialogFooter = document.getElementById("dialogFooter");
-//dialogFooter.innerHTML = "<h3>xyz</h3>";
 
 import { getButtonCss } from './utilCss.mjs';
 
 class YoutubeVideo extends LitElement {
 
     static get styles() {
-        return [getButtonCss(), css`
-        .container {
-            display: flex; 
-            flex-direction: column;
-            align-items: center;
-        }  
-
-       
-        .youtube-video-container {
-            display: flex;
-            flex-direction: column;
-            background-color:  lightgrey;
-            width: 100%;
-        }
-
-        .video-bottom-section {
-            display: flex;
-            flex-direction: column;
-            margin: 1rem;
-        }
-       
-        .btnbox-item {
-            margin-left: 1.2rem;
-            font-size: 1.6rem;
-         }
-         
-        .length{
-             white-space: nowrap; 
-        }
-
-        .volume-span {
-            display: flex;
-            background-color:  grey;
-            white-space: pre;
-            align-items: center;
-        }
-
-        .opaque-button {
-            border: none;
-            background-color: transparent;
-            outline: none;
-        }
-
-        .video-container>.video-bottom-section>.button-box>.close-button {
-            margin-left: auto;
-            font-size: 2rem;
-        }
-
-        .video-container>.video-bottom-section>.video-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-left: 1.2rem;
-            margin-top: .5rem;
-            text-decoration: none;
-            color: black;
-        }
-
-        .video-container>video {
-            width: 100%;
-        }
-
-        .video-container>video::-webkit-media-controls {
-            display: none;
-        }   
+        return css`
         svg {
             max-width: 1.6rem;
             max-height: 1.6rem    
-          }
-          svg path {
-            fill: blue;
-          }
+        }
+        path {
+            fill: var(--primary-color);
+        }
       
-          svg path:hover {
-            fill: #ace63c;
-          }
-        `];
+        path:hover {
+            fill: var(--secundairy-color);
+        }
+     
+        `;
     }
 
+  
     constructor() {
         super();
         this.videoData = null;
@@ -130,9 +65,9 @@ class YoutubeVideo extends LitElement {
         };
     }
 
-    getYoutubeButton() {
+    render() {
         return html`
-        <svg id="button" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="youtube-square"
+        <svg id="button" @click="${()=> this.createVideo()}" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="youtube-square"
             class="svg-inline--fa fa-youtube-square fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 448 512">
          <path d="M186.8 202.1l95.2 54.1-95.2 54.1V202.1zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48zm-42 176.3s0-59.6-7.6-88.2c-4.2-15.8-16.5-28.2-32.2-32.4C337.9 128 224 128 224 128s-113.9 0-142.2 7.7c-15.7 4.2-28 16.6-32.2 32.4-7.6 28.5-7.6 88.2-7.6 88.2s0 59.6 7.6 88.2c4.2 15.8 16.5 27.7 32.2 31.9C110.1 384 224 384 224 384s113.9 0 142.2-7.7c15.7-4.2 28-16.1 32.2-31.9 7.6-28.5 7.6-88.1 7.6-88.1z">
@@ -140,27 +75,12 @@ class YoutubeVideo extends LitElement {
         </svg>`;
     }
 
-    render() {
-        return html`${this.getYoutubeButton()}`;
-    }
-
-    firstUpdated() {
-        let btn = this.shadowRoot.getElementById("button");
-        btn.addEventListener("click", (e) => { this.createVideo(e) });
-    }
-
-
-    createVideo(e) {
-        dialogDiv.style.display = "block";
-     
+    createVideo() {
         const videoDialog = getStaticVideo(this.videoData.id);
-      
-     //   const button = e.target;
-     //   console.log("todo some problem here")
-     //   button.parentNode.appendChild(videoDialog);
-      //  dialogPolyfill.registerDialog(videoDialog);
 
-     //   videoDialog.showModal();
+        dialogDiv.style.display = "block";
+        dialogHeader.innerText = this.title;
+
         const start = getSeconds(this.videoData.start);
         const end = getSeconds(this.videoData.end);
         const config = configs.get(this.videoData.id);
@@ -168,36 +88,27 @@ class YoutubeVideo extends LitElement {
         config.data.current = start;
         config.data.start = start;
         config.data.end = end;
-        config.data.titleEl.innerText = this.title;
         config.video.play();
+        dialogContent.innerHTML = null;
         dialogContent.appendChild(videoDialog)
-     
-      //  return videoDialog;
-
-       
 
         function getStaticVideo(videoId) {
 
             if (configs.has(videoId)) {
                 return configs.get(videoId).videoDialog;
             }
-          
+
             const ytVideoContainer = document.createElement("div");
             ytVideoContainer.classList.add("youtube-video-container")
-         
+            const video = ytVideoContainer.appendChild(document.createElement("video"));
+            video.controls=false;
+      
             const config = { data: {} };
             config.videoDialog = ytVideoContainer;
-
-            const video = ytVideoContainer.appendChild(document.createElement("video"));
             config.video = video;
 
-            const bottomSection = ytVideoContainer.appendChild(document.createElement("div"));
-            bottomSection.classList.add("video-bottom-section")
-            const btnBox = bottomSection.appendChild(document.createElement("div"));
+            const btnBox = ytVideoContainer.appendChild(document.createElement("div"));
             btnBox.classList.add("button-box");
-            const titleEl = bottomSection.appendChild(document.createElement("label"));
-            titleEl.classList.add("video-title");
-            config.data.titleEl = titleEl;
 
             const source = config.video.appendChild(document.createElement("source"));
             source.src = "../videos/" + getMp4(videoId) + ".mp4";
@@ -258,7 +169,7 @@ class YoutubeVideo extends LitElement {
             closeButton.addEventListener("click", () => {
                 dialogDiv.style.display = "none";
                 video.pause();
-             });
+            });
 
             video.addEventListener('loadedmetadata', (event) => {
                 video.addEventListener("timeupdate", (event) => {
@@ -322,41 +233,38 @@ class YoutubeVideo extends LitElement {
             function getMp4(videoId) {
                 return videos.get(videoId).name;
             }
-    
-        }
 
 
-
-        
-        function showProgress(t, seconds) {
-            return showTime(t) + " / " + showTime(seconds);
-        }
-
-        function showTime(seconds) {
-            seconds = Math.round(seconds)
-            let result = "";
-            const hours = Math.floor(seconds / 3600);
-            if (hours > 1) {
-                result = hours + ":";
+            function showProgress(t, seconds) {
+                return showTime(t) + " / " + showTime(seconds);
             }
 
-            seconds = seconds - (hours * 3600);
-            const minutes = Math.floor(seconds / 60);
-            if (minutes > 0 || hours > 0) {
-                let tmp = minutes;
-                if (minutes < 10 && result != "")
-                    tmp = "0" + tmp;
-                result += tmp + ":";
-            } else
-                if (minutes == 0) {
-                    result = "0:"
+            function showTime(seconds) {
+                seconds = Math.round(seconds)
+                let result = "";
+                const hours = Math.floor(seconds / 3600);
+                if (hours > 1) {
+                    result = hours + ":";
                 }
 
-            seconds = seconds - (minutes * 60);
-            let tmp = seconds;
-            if (seconds < 10)
-                tmp = "0" + seconds;
-            return result + tmp;
+                seconds = seconds - (hours * 3600);
+                const minutes = Math.floor(seconds / 60);
+                if (minutes > 0 || hours > 0) {
+                    let tmp = minutes;
+                    if (minutes < 10 && result != "")
+                        tmp = "0" + tmp;
+                    result += tmp + ":";
+                } else
+                    if (minutes == 0) {
+                        result = "0:"
+                    }
+
+                seconds = seconds - (minutes * 60);
+                let tmp = seconds;
+                if (seconds < 10)
+                    tmp = "0" + seconds;
+                return result + tmp;
+            }
         }
 
         function getSeconds(str) {
@@ -376,234 +284,10 @@ class YoutubeVideo extends LitElement {
             total += parseInt(s[0])
             return total;
         }
+
     }
 
-    createVideo2(e) {
 
-        const videoDialog = getStaticVideo(this.videoData.id);
-        if (videoDialog.parentNode) {
-            videoDialog.remove();
-        }
-
-        const button = e.target;
-        console.log("todo some problem here")
-        button.parentNode.appendChild(videoDialog);
-        dialogPolyfill.registerDialog(videoDialog);
-
-        videoDialog.showModal();
-        const start = getSeconds(this.videoData.start);
-        const end = getSeconds(this.videoData.end);
-        const config = configs.get(this.videoData.id);
-        config.video.currentTime = start;
-        config.data.current = start;
-        config.data.start = start;
-        config.data.end = end;
-        config.data.titleEl.innerText = this.title;
-        config.video.play();
-        return videoDialog;
-
-        function getMp4(videoId) {
-            return videos.get(videoId).name;
-        }
-
-
-        function getStaticVideo(videoId) {
-
-            if (configs.has(videoId)) {
-                return configs.get(videoId).videoDialog;
-            }
-            const videoDialog = document.createElement("dialog");
-            const videoDialogForm = videoDialog.appendChild(document.createElement("form"));
-            videoDialogForm.method = "dialog";
-
-            const ytVideoContainer = videoDialogForm.appendChild(document.createElement("div"));
-            ytVideoContainer.classList.add("youtube-video-container")
-            const menu = videoDialogForm.appendChild(document.createElement('menu'));
-
-            const config = { data: {} };
-            config.videoDialog = videoDialog;
-
-            const video = ytVideoContainer.appendChild(document.createElement("video"));
-            config.video = video;
-
-            const bottomSection = ytVideoContainer.appendChild(document.createElement("div"));
-            bottomSection.classList.add("video-bottom-section")
-            const btnBox = bottomSection.appendChild(document.createElement("div"));
-            btnBox.classList.add("button-box");
-            const titleEl = bottomSection.appendChild(document.createElement("label"));
-            titleEl.classList.add("video-title");
-            config.data.titleEl = titleEl;
-
-            const source = config.video.appendChild(document.createElement("source"));
-            source.src = "../videos/" + getMp4(videoId) + ".mp4";
-            source.type = "video/mp4";
-            let promise = config.video.play();
-            if (promise !== undefined) {
-                promise.then(_ => {
-                    console.log("Autoplay started!");
-                    playButton.innerHTML = pauseSvg;
-
-                }).catch(error => {
-                    console.log("Autoplay was prevented!");
-                });
-            }
-
-            const playButton = btnBox.appendChild(document.createElement("a"));
-            playButton.classList.add('btnbox-item', 'opaque-button')
-            playButton.innerHTML = playSvg;
-
-            const seekBar = btnBox.appendChild(document.createElement("input"));
-            seekBar.classList.add('btnbox-item')
-            seekBar.type = "range"
-            seekBar.value = "0";
-
-            const lengthEl = btnBox.appendChild(document.createElement("label"));
-            lengthEl.classList.add('btnbox-item', 'length');
-
-            const volume_span = btnBox.appendChild(document.createElement("span"));
-            volume_span.classList.add('volume-span', 'btnbox-item')
-            const volume_low = volume_span.appendChild(document.createElement("i"));
-            volume_low.innerHTML = volumeDownSvg;
-
-            const volumeBar = volume_span.appendChild(document.createElement("input"));
-            volumeBar.type = "range"
-            volumeBar.min = 0;
-            volumeBar.max = 1;
-            volumeBar.step = 0.1;
-            volumeBar.value = 0.5;
-            const volume_high = volume_span.appendChild(document.createElement("i"));
-            volume_high.innerHTML = volumeOnSvg;
-
-            const fullScreenButton = btnBox.appendChild(document.createElement("a"));
-            fullScreenButton.classList.add('opaque-button', 'btnbox-item');
-            fullScreenButton.innerHTML = expandSvg;
-
-            const muteButton = btnBox.appendChild(document.createElement("a"));
-            muteButton.classList.add('opaque-button', 'btnbox-item');
-            muteButton.innerHTML = volumeOffSvg;
-
-            const youtubeButton = btnBox.appendChild(document.createElement("a"));
-            youtubeButton.classList.add('btnbox-item');
-            youtubeButton.innerHTML = "<a href=" + videos.get(videoId).youtube + "'>See all on youtube</a>";
-
-            const closeButton = btnBox.appendChild(document.createElement("button"));
-            closeButton.classList.add('opaque-button', 'btnbox-item', 'close-button');
-            closeButton.innerHTML = closeSvg;
-
-            closeButton.addEventListener("click", () => {
-                video.pause();
-            });
-
-            video.addEventListener('loadedmetadata', (event) => {
-                video.addEventListener("timeupdate", (event) => {
-                    const length = (config.data.end - config.data.start);
-                    lengthEl.innerText = showProgress(video.currentTime - config.data.start, length);
-                    const value = (100 / (length)) * (video.currentTime - config.data.start);
-                    seekBar.value = value;
-                    if (video.currentTime >= config.end) {
-                        video.pause();
-                    }
-                    event.stopPropagation();
-                });
-
-                playButton.addEventListener("click", () => {
-                    if (video.paused == true) {
-                        video.play();
-                        playButton.innerHTML = pauseSvg;
-                    } else {
-                        video.pause();
-                        playButton.innerHTML = playSvg;
-                    }
-                });
-
-                seekBar.addEventListener("change", () => {
-                    const time = (config.data.end - config.data.start) * (seekBar.value / 100);
-                    video.currentTime = (time + config.data.start);
-                });
-                seekBar.addEventListener("mousedown", () => {
-                    video.pause();
-                });
-
-                seekBar.addEventListener("mouseup", () => {
-                    video.play();
-                });
-
-                muteButton.addEventListener("click", () => {
-                    if (video.muted == false) {
-                        muteButton.innerHTML = volumeOnSvg;
-                    } else {
-                        muteButton.innerHTML = volumeOffSvg;
-                    }
-                    video.muted = !video.muted;
-                });
-                volumeBar.addEventListener("change", () => {
-                    video.volume = volumeBar.value;
-                });
-                fullScreenButton.addEventListener("click", () => {
-                    if (video.requestFullscreen) {
-                        video.requestFullscreen();
-                    } else if (video.mozRequestFullScreen) {
-                        video.mozRequestFullScreen(); // Firefox
-                    } else if (video.webkitRequestFullscreen) {
-                        video.webkitRequestFullscreen(); // Chrome and Safari
-                    }
-                });
-            });
-
-            configs.set(videoId, config);
-            return config.videoDialog;
-        }
-
-        
-        function showProgress(t, seconds) {
-            return showTime(t) + " / " + showTime(seconds);
-        }
-
-        function showTime(seconds) {
-            seconds = Math.round(seconds)
-            let result = "";
-            const hours = Math.floor(seconds / 3600);
-            if (hours > 1) {
-                result = hours + ":";
-            }
-
-            seconds = seconds - (hours * 3600);
-            const minutes = Math.floor(seconds / 60);
-            if (minutes > 0 || hours > 0) {
-                let tmp = minutes;
-                if (minutes < 10 && result != "")
-                    tmp = "0" + tmp;
-                result += tmp + ":";
-            } else
-                if (minutes == 0) {
-                    result = "0:"
-                }
-
-            seconds = seconds - (minutes * 60);
-            let tmp = seconds;
-            if (seconds < 10)
-                tmp = "0" + seconds;
-            return result + tmp;
-        }
-
-        function getSeconds(str) {
-            const s = str.split(":");
-            let total = 0;
-            if (s.length > 2) {
-                total += 60 * 60 * parseInt(s[0]);
-                total += 60 * parseInt(s[1]);
-                total += parseInt(s[2]);
-                return total
-            }
-            if (s.length > 1) {
-                total += 60 * parseInt(s[0]);
-                total += parseInt(s[1]);
-                return total
-            }
-            total += parseInt(s[0])
-            return total;
-        }
-    }
 }
 
 customElements.define("my-youtube-button", YoutubeVideo);

@@ -17,19 +17,9 @@ const ILLNESSES = [
     "Heart and blood vessel disorders"
 ];
 
-const FOODS = [
-    { name: "Carbohydrates", description: "Carbs: sugar, fructose, bread, pasta's, even apples, oranges..., Science: They can cause Insuline Resistance" },
-    { name: "Fat", description: "Eating fat causes obesitas? Science : NO, the reaction of your body on what you eat is important, see video's" },
-    { name: "Fat Unsaturated", description: "like seed oils, etc. Are they healthy> Science: NO, seed oils are harmfull!!. see video's " },
-    { name: "Fat Saturated", description: "Is saturated fat harmfull? Science : NO, see video's" },
-    { name: "Omega 3/Omega 6", description: "See video's." },
-    { name: "Proteins", description: "See video's" },
-    { name: "Salt", description: "Is too much harmfull? Science: NO, your insulin resistance causes high bloodpressure" }
-];
-
 
 import { getButtonCss, getSectionCss } from './utilCss.mjs';
-class TopTen extends LitElement {
+class TopTenMedicalIssues extends LitElement {
 
     static get styles() {
         return [getSectionCss(), getButtonCss(), css` 
@@ -70,16 +60,7 @@ class TopTen extends LitElement {
                         ${ILLNESSES.map(illness => html`<tr @mouseenter=${e => this.insertIllness(e, illness)} ><td>${illness}</td><td>${this.getIllnessDescription(illness)}</td></tr>`)}
                     </tbody>
                 </table>
-                <br/><br/>
-                 <table class="summary">
-                    <caption class="header"><h2>Top 10 generic food discussions</h2></caption>
-                    <thead>
-                        <tr><th>Food</th><th>What science tells us today</th></tr>
-                    </thead>
-                    <tbody>               
-                        ${FOODS.map(food => html`<tr @mouseenter=${e => this.insertFood(e, food.name)}><td>${food.name}</td><td>${food.description}</tr>`)}
-                    </tbody>
-                </table> 
+               
             </div>         
            </section>
     `;
@@ -176,4 +157,4 @@ insertFood(event, food) {
 
 }
 }
-customElements.define("my-top-ten", TopTen);
+customElements.define("my-top-ten-medical-issues", TopTenMedicalIssues);

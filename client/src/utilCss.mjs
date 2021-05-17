@@ -7,7 +7,7 @@ export function getButtonCss() {
         flex-direction: row;
         justify-content: space-around;
         height: var(--button-box-height);  
-         width: 100%;              
+        width: 100%;              
     }
 
     .button {
@@ -41,7 +41,7 @@ export function getSectionCss() {
         section {
             display: flex;
             flex-direction: column;     
-            background-color: var(--tertiar-color);       
+            background-color: var(--tertiair-color);       
             color: black;
             border: 3px solid ;
             border-color: var(--primary-color);

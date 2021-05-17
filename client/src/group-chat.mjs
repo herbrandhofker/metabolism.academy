@@ -18,7 +18,7 @@ export class GroupChat extends LitElement {
         }
       
         .my-video-container-div {
-            background-color : var(--tertiar-color); 
+            background-color : var(--tertiair-color); 
             position: fixed;
             z-index: 1;
             top: 10rem;

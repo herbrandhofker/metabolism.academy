@@ -32,7 +32,7 @@ class Login extends LitElement {
         section{
             display: flex;
             flex-direction: column; 
-            background-color: var(--tertiar);                    
+            background-color: var(--tertiair);                    
             color:  var(--quartair)        
         }
 

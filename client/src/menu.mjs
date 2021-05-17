@@ -2,7 +2,8 @@
 import { LitElement, html, css } from 'lit-element';
 import './index.css'
 import './home.mjs'
-import './top-ten.mjs'
+import './top-ten-medical-issues.mjs'
+import './top-ten-food-issues.mjs'
 import './details.mjs'
 import './about.mjs'
 import { getTheOthers } from './the-others.mjs';
@@ -12,7 +13,7 @@ import dialogPolyfill from 'dialog-polyfill';
 const menuDiv = document.getElementById("menuDiv");
 const contentDiv = document.getElementById("content");
 
-const menuItems = ["home", "top-ten", "details","group-chat", "about", ];
+const menuItems = ["home", "top-ten-medical-issues","top-ten-food-issues", "details","group-chat", "about", ];
 const menuObjects = new Map();
 
 let menu = null;
@@ -28,7 +29,7 @@ class Menu extends LitElement {
     static get styles() {
         return [getButtonCss(), css`  
         dialog{
-            background-color: var(--tertiar-color);
+            background-color: var(--tertiair-color);
             color: black; 
             border-width : 10px;
             border-color: var(--primary-color);
@@ -68,7 +69,7 @@ class Menu extends LitElement {
     render() {
         return html`
             <div  id="buttonBox"  class="button-box">
-                ${menuItems.map(lbl => html`<button class="button" @click=${e => this.activate(lbl)}>${lbl.toUpperCase().replace("-"," ")}</button>`)}        
+                ${menuItems.map(lbl => html`<button class="button" @click=${e => this.activate(lbl)}>${lbl.toUpperCase().replaceAll("-"," ")}</button>`)}        
                 ${this.createShowProfileButton()}
             </div>
         `;
@@ -96,6 +97,7 @@ class Menu extends LitElement {
         for (let tab of menuItems) {
             let el = (menuObjects.get(tab));
             if (el == null && tab == id) {
+                console.log("created "+"my-"+tab)
                 el = contentDiv.appendChild(document.createElement("my-" + tab));
               
                 menuObjects.set(tab, el);

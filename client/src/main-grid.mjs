@@ -8,9 +8,16 @@ export class MainGrid extends LitElement {
     constructor() {
         super()
         _mainGrid = this;
-        this.mainGrid = document.createElement("div");
+        this.mainGrid =document.createElement("div");
         this.mainGrid.classList.add("grid");
-     }
+        this.size=this.mainGrid.children.length;
+      }
+
+      static get properties() {
+        return {
+            size: Number
+        };
+    }
 
     static get styles() {
         return css`
@@ -20,14 +27,48 @@ export class MainGrid extends LitElement {
             grid-gap: 25px;  
             margin: 0 25px;
             flex: 1 0 auto;
-            background-color: red;
+        }
+        .introduction{
+             font-size: 2em;
+             width: 60%;
+             margin: 6em;
         }
         `;
     }
 
     render() {
-        return html`${this.mainGrid}`;
+         return html`
+          ${this.mainGrid}      
+          ${(this.size==0)?this.getIntro():null}
+   
+        `;
     }
+   
+    getIntro() {
+       
+        return html`
+        <div class="introduction">  
+            <h1>Here are displayed the chat connections that are online connected with you.(partly working now)</h1>
+            <p>You can join chat rooms by adding these to your registration.<br>Chat rooms can be based on :
+                <ul>
+                <li>Language</li>
+                <li>Country</li>
+                <li>Medical interest</li>
+                <li>Nutrition interests</li>
+                <li>Or any combination</li>
+                </ul>
+            </p>
+            <h1>And coming soon:</h1>
+            <p>
+                 <ul>
+                <li>To have a "one to one" private chat with someone else. (completely secure and private)</li>
+                <li>To request an online consult with an accredited medical specialist. (completely secure and private)</li>
+                <li>If you are a medical specialist, you can request to become an accredited member of the consultant group.</li>
+                </ul>
+            </p>
+        </div>`;
+    }
+
 
     removeTheOther(userId) {
         for (let i = 0; i < this.mainGrid.children.length; i++) {
@@ -36,6 +77,8 @@ export class MainGrid extends LitElement {
                 this.mainGrid.removeChild(el);
             }
         }
+        this.size=this.mainGrid.children.length;
+    
     }
 
     onOneOnOneCallback(payload) {
@@ -69,7 +112,12 @@ export class MainGrid extends LitElement {
     }
 
     addTheOther(cnt) {
+        console.log("1 "+this.mainGrid.children.length)
         this.mainGrid.appendChild(cnt);
+        console.log("2 "+this.mainGrid.children.length)
+        this.size=this.mainGrid.children.length;
+    
+       
     }
 
     getVideoContainers() {

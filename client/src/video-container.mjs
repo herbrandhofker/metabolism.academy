@@ -16,7 +16,7 @@ export class VideoContainer extends LitElement {
             display: flex;     
             flex-direction: column;
             justify-content : center;
-            background-color : var(--tertiar-color); 
+            background-color : var(--tertiair-color); 
             color: black;
             padding: 1rem;
       
