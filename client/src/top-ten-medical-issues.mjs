@@ -47,7 +47,7 @@ class TopTenMedicalIssues extends LitElement {
     render() {
         return html` 
         <section>
-            <h1>Common health issues, nutrition and what science tells us today</h1>
+            <h1>Common nutrition issues and what science tells us today</h1>
             <div class="content" >     
                 <table class="summary">
                 <caption class="header"><h2>Top 10 Health Issues and nutrition</h2></caption>

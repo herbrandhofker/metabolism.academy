@@ -97,7 +97,6 @@ class Menu extends LitElement {
         for (let tab of menuItems) {
             let el = (menuObjects.get(tab));
             if (el == null && tab == id) {
-                console.log("created "+"my-"+tab)
                 el = contentDiv.appendChild(document.createElement("my-" + tab));
               
                 menuObjects.set(tab, el);
