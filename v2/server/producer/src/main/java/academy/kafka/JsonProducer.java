@@ -20,10 +20,10 @@ public final class JsonProducer {
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         final JsonPerson person = new JsonPerson("a@bcom", "Pietje", "Pukextrea");
 
-        final Producer<String, Object> producer = new KafkaProducer<>(props);
+        final Producer<String, JsonPerson> producer = new KafkaProducer<>(props);
 
          for (int i = 0; i < 100; i++) {
-            final ProducerRecord<String, Object> rec = new ProducerRecord<String, Object>("json_persons",
+            final ProducerRecord<String, JsonPerson> rec = new ProducerRecord<String, JsonPerson>("json_persons",
                     Integer.toString(i), person);
             producer.send(rec);
             System.out.println("produced " + i + "  " + rec.toString());
