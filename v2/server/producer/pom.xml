@@ -6,7 +6,7 @@
     <version>1.0</version>
     <artifactId>netabolism.academy</artifactId>
     <properties>
-        <jar.finalName>les03</jar.finalName>
+        <jar.finalName>metabolism</jar.finalName>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
@@ -14,7 +14,9 @@
         <log4j.version>2.14.1</log4j.version>
         <undertow.version>2.2.7.Final</undertow.version>
         <academy.kafka.version>1.1</academy.kafka.version>
-        <jupiter.version>5.7.1</jupiter.version>
+        <jupiter.version>5.7.1</jupiter.version>  
+        <jackson.version>2.12.3</jackson.version>
+      
     </properties>
     <dependencies>
         <dependency>
@@ -22,7 +24,7 @@
             <artifactId>mbknor-jackson-jsonschema_2.13</artifactId>
             <version>1.0.39</version>
         </dependency>
-       <dependency>
+        <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
             <version>1.0.2</version>
@@ -37,7 +39,7 @@
             <artifactId>kafka-streams</artifactId>
             <version>${kafka.version}</version>
         </dependency>
-       <dependency>
+        <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
             <version>${log4j.version}</version>
@@ -60,11 +62,23 @@
             <version>${jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+        
         <dependency>
-            <groupId>academy.kafka</groupId>
-            <artifactId>serializers</artifactId>
-            <version>${academy.kafka.version}</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+       
     </dependencies>
     <profiles>
         <profile>

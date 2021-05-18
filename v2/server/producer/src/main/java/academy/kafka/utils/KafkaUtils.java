@@ -44,8 +44,8 @@ import org.rocksdb.RocksIterator;
 
 
 import academy.kafka.utils.AppConfig;
-import academy.kafka.serializers.JsonDeserializer;
-import academy.kafka.serializers.JsonSerializer;
+import academy.kafka.JsonDeserializer;
+import academy.kafka.JsonSerializer;
 
 public class KafkaUtils {
 

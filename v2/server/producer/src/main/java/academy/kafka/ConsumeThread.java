@@ -16,7 +16,7 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 
 import academy.kafka.utils.AppConfig;
 import academy.kafka.entities.Entity;
-import academy.kafka.serializers.JsonDeserializer;
+import academy.kafka.JsonDeserializer;
 import io.undertow.websockets.core.WebSocketChannel;
 import io.undertow.websockets.core.WebSockets;
 
