@@ -17,8 +17,8 @@ public final class SimpleProducer {
     static final public String topic="test";
       public static void main(String[] args) {
        
-    	KafkaUtils.getTopicNames();
-      /*  Properties props = new Properties();
+    //	KafkaUtils.getTopicNames();
+        Properties props = new Properties();
         props.put("bootstrap.servers", "localhost:9092");
         props.put("acks", "all");
         props.put("retries", 0);
@@ -34,7 +34,7 @@ public final class SimpleProducer {
             System.out.printf("produced %d\n",i);
         }
         producer.close();
-        */
+        
         
     } 
 }

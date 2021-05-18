@@ -21,3 +21,4 @@ videos/
 *.mp4
 dist/
 bu/
+v2/server/producer/.class_path.xml
