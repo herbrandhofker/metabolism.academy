@@ -1,21 +1,21 @@
 package academy.kafka;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serializer;
 
-public class JsonSerde<T> implements Serde<T> {
-    final static public String JSON_CLASS="JsonClass";
-    Serializer<T> serializer= new JsonSerializer<T>();
-    Deserializer<T> deserializer= new JsonDeserializer<T>();
+public class JsonSerde implements Serde<JsonNode> {
+    Serializer<JsonNode> serializer= new JsonSerializer();
+    Deserializer<JsonNode> deserializer= new JsonDeserializer();
 
     @Override
-    public Serializer<T> serializer() {
+    public Serializer<JsonNode> serializer() {
         return serializer;
     }
 
     @Override
-    public Deserializer<T> deserializer() {
+    public Deserializer<JsonNode> deserializer() {
         return deserializer;
     }
 

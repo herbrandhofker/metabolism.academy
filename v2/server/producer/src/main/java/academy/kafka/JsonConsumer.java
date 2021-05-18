@@ -1,6 +1,7 @@
 package academy.kafka;
 
 import academy.kafka.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
@@ -16,20 +17,22 @@ public final class JsonConsumer{
     public static void main(String[] args) {
         Properties props = new Properties();
         props.put("JsonClass", JsonPerson.class);
-        props=ConsumerConfig.addDeserializerToConfig(props, new StringDeserializer(), new JsonDeserializer<JsonPerson>());        
+        props=ConsumerConfig.addDeserializerToConfig(props, new StringDeserializer(), new JsonDeserializer());        
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "my_group");
-        Consumer<String, JsonPerson> consumer = new KafkaConsumer<>(props);
+        Consumer<String, JsonNode> consumer = new KafkaConsumer<>(props);
 
         try {
-            consumer.subscribe(Collections.singletonList("json_persons"));
+            consumer.subscribe(Collections.singletonList("json_person"));
             while (true) {
-                final ConsumerRecords<String, JsonPerson> consumerRecords = consumer.poll(Duration.ofMillis(100));
+                final ConsumerRecords<String, JsonNode> consumerRecords = consumer.poll(Duration.ofMillis(100));
 
                 consumerRecords.forEach(record -> {
                     System.out.println("value"+record.value());
-                    JsonPerson jsonPerson=(JsonPerson)record.value();
+                    JsonNode jsonPerson=record.value();
+                      System.out.println("value"+jsonPerson.get("email"));
+                  
                 //    System.out.printf("Consumer Record:(%s, %s, %s, %s)\n", record.key(),jsonPerson,
                   //          record.partition(), record.offset());
                 });

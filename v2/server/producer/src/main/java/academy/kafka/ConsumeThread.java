@@ -34,9 +34,8 @@ public class ConsumeThread extends Thread {
     static Random rn = new Random();// helper, remove in production
 
     public void run() {
-       
+       /*
         Properties props = new Properties();
-        props.put(JsonDeserializer.JSON_CLASS, clazz);
         props = ConsumerConfig.addDeserializerToConfig(props, new StringDeserializer(), new JsonDeserializer<Entity>());
 
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, AppConfig.BootstrapServers);
@@ -70,5 +69,6 @@ public class ConsumeThread extends Thread {
         }
         System.out.println("consumer stopped");
         consumer.close();
+*/
     }
 }

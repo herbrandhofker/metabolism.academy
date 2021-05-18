@@ -50,7 +50,7 @@ import academy.kafka.JsonSerializer;
 public class KafkaUtils {
 
     static int counter = 0;
-
+/*
     public static <T> int produceEntities(String topic, Class<?> clazz, Function<String, T> fromJson, int seconds) {
         counter = 0;
         System.out.println(topic);
@@ -123,7 +123,7 @@ public class KafkaUtils {
         consumer.close();
     }
     //
-
+*/
     public static ObjectMapper getJacksonMapper() {
         final ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
