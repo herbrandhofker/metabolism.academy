@@ -2,10 +2,8 @@ import { LitElement, html, css } from 'lit-element';
 import './youtube-button.mjs';
 
 import { content } from './chapter.mjs';
+import { getButtonCss, getSectionCss } from './utilCss.mjs';
 import topten from './data/topten.json';
-
-const illnesses = ["Obesitas", "Diabetes 2",
-    "Cancer (various forms)", "Thyroid Disorders", "Dementia", "Arthritis", "Heart and blood vessel disorders"];
 
 const ILLNESSES = [
     "Obesitas",
@@ -18,7 +16,6 @@ const ILLNESSES = [
 ];
 
 
-import { getButtonCss, getSectionCss } from './utilCss.mjs';
 class TopTenMedicalIssues extends LitElement {
 
     static get styles() {
@@ -127,34 +124,9 @@ class TopTenMedicalIssues extends LitElement {
                     myVideo.id = "myVideo";
                     myVideo.videoData = rec.advices[0].video;
                     myVideo.title = rec.problem;
-                }             
+                }
             }
         })
-}
-
-insertFood(event, food) {
-    let detailRow = this.shadowRoot.getElementById("detailFoodRow");
-    if (detailRow) {
-        detailRow.remove()
     }
-    let tr = event.target;
-    const tbody = tr.parentElement;
-    detailRow = tbody.insertRow(tr.rowIndex);
-    detailRow.id = "detailFoodRow";
-    detailRow.classList.add("temporary")
-    const cell = detailRow.insertCell();
-    cell.setAttribute("colspan", "2");
-
-    cell.innerText = food;
-    let ch = null;
-    content.map(chapter => { if (chapter.food == food) ch = chapter; })
-    if (ch) {
-        const chapterEl = cell.appendChild(document.createElement("my-chapter"));
-        chapterEl.chapter = ch;
-        chapterEl.chapterNr = 1;
-
-    }
-
-}
 }
 customElements.define("my-top-ten-medical-issues", TopTenMedicalIssues);

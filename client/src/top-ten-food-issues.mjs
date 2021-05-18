@@ -1,8 +1,7 @@
 import { LitElement, html, css } from 'lit-element';
 import './youtube-button.mjs';
-
 import { content } from './chapter.mjs';
-
+import { getButtonCss, getSectionCss } from './utilCss.mjs';
 
 const FOODS = [
     { name: "Carbohydrates", description: "Carbs: sugar, fructose, bread, pasta's, even apples, oranges..., Science: They can cause Insuline Resistance" },
@@ -14,8 +13,6 @@ const FOODS = [
     { name: "Salt", description: "Is too much harmfull? Science: NO, your insulin resistance causes high bloodpressure" }
 ];
 
-
-import { getButtonCss, getSectionCss } from './utilCss.mjs';
 class TopTenFoodIssues extends LitElement {
 
     static get styles() {
@@ -61,32 +58,27 @@ class TopTenFoodIssues extends LitElement {
     `;
     }
 
-   
+    insertFood(event, food) {
+        let detailRow = this.shadowRoot.getElementById("detailFoodRow");
+        if (detailRow) {
+            detailRow.remove()
+        }
+        let tr = event.target;
+        const tbody = tr.parentElement;
+        detailRow = tbody.insertRow(tr.rowIndex);
+        detailRow.id = "detailFoodRow";
+        detailRow.classList.add("temporary")
+        const cell = detailRow.insertCell();
+        cell.setAttribute("colspan", "2");
 
-
-insertFood(event, food) {
-    let detailRow = this.shadowRoot.getElementById("detailFoodRow");
-    if (detailRow) {
-        detailRow.remove()
+        cell.innerText = food;
+        let ch = null;
+        content.map(chapter => { if (chapter.food == food) ch = chapter; })
+        if (ch) {
+            const chapterEl = cell.appendChild(document.createElement("my-chapter"));
+            chapterEl.chapter = ch;
+            chapterEl.chapterNr = 1;
+        }
     }
-    let tr = event.target;
-    const tbody = tr.parentElement;
-    detailRow = tbody.insertRow(tr.rowIndex);
-    detailRow.id = "detailFoodRow";
-    detailRow.classList.add("temporary")
-    const cell = detailRow.insertCell();
-    cell.setAttribute("colspan", "2");
-
-    cell.innerText = food;
-    let ch = null;
-    content.map(chapter => { if (chapter.food == food) ch = chapter; })
-    if (ch) {
-        const chapterEl = cell.appendChild(document.createElement("my-chapter"));
-        chapterEl.chapter = ch;
-        chapterEl.chapterNr = 1;
-
-    }
-
-}
 }
 customElements.define("my-top-ten-food-issues", TopTenFoodIssues);
