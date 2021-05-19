@@ -100,7 +100,7 @@ class Login extends LitElement {
             const menu = createMenuWithLogoutButton(loginButon);
             login.style.display = "none"
             menu.activate("home");
-            createSocket(detail,role);        
+         //   createSocket(detail,role);        
             
         }
     }
