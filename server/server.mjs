@@ -1,5 +1,4 @@
 import WebSocketServer from 'ws';
-import kafka from 'kafka-node';
 const port = 3010;
 
 const connections = new Map();
@@ -8,18 +7,8 @@ const mapOfRooms = new Map();
 const socketRoom = new Map();
 const sockets = new Map();
 
-const client = new kafka.KafkaClient({ kafkaHost: '192.168.178.80:9092' });
-const producer = new kafka.HighLevelProducer(client);
-const consumer = new kafka.Consumer(client, [{ topic: 'login' }, { topic: 'test' }]);
-
-producer.on('error', function (err) {
-    console.error("kafka error:", err);
-})
 
 
-producer.on('ready', function () {
-
-    console.log("kafka producer on");
     const wsServer = new WebSocketServer.Server({ port: port });
     wsServer.getUniqueID = () => {
         function s4() {
@@ -39,8 +28,7 @@ producer.on('ready', function () {
             catch (err) { console.error(err + " with data:" + data); return; }
             const msgType = msg.type;
             const payload = msg.payload;
-            producer.send([{ topic: msgType, messages: new kafka.KeyedMessage(msgType, payload) }], (err, data) => { console.log(data); });
-
+      
             switch (msgType) {
 
                 case 'registrations': {
@@ -198,14 +186,8 @@ producer.on('ready', function () {
 
 
     });
-    consumer.on('message', message =>
-        wsServer.clients.forEach(client => {
-            //   console.log("from kafka",message);
-            //    client.send(message.value);
-        })
-    )
+   
 
 
     console.log(" ws listening on ws://localhost:" + port)
 
-});
