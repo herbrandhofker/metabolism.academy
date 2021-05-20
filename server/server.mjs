@@ -183,10 +183,7 @@ const sockets = new Map();
             myRoomSockets.push(ws.id);
             socketRoom.set(ws.id, roomId);
         }
-
-
-    });
-   
+    });  
 
 
     console.log(" ws listening on ws://localhost:" + port)
