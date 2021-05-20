@@ -20,7 +20,7 @@ let menu = null;
 export function createMenuWithLogoutButton(loginButton) {
     if (menu == null) {
         menu = menuDiv.appendChild(document.createElement("my-menu"));
-        menu.loginButton = loginButton;
+   //     menu.loginButton = loginButton;
     }
     return menu;
 }
@@ -82,8 +82,8 @@ class Menu extends LitElement {
   
     updated(changedProperties) {
         changedProperties.forEach((oldValue, propName) => {
-            if (propName = "loginButton")
-                this.buttonBox.appendChild(this.loginButton);
+           //if (propName = "loginButton")
+            //    this.buttonBox.appendChild(this.loginButton);
 
         });
     }
