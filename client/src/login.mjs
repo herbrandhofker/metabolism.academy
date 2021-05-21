@@ -89,14 +89,19 @@ class Login extends LitElement {
     }
 
     createLoginButton() {
-        const loginButton = document.createElement("auth0-button");
+    //    const loginButton = document.createElement("auth0-button");
+        const loginButton = document.createElement("button");
+        loginButton.innerText="To the Menu";
+        loginButton.classList.add("button");
         loginButton.domain = DOMAIN;
+
         loginButton.client_id = CLIENT_ID;
         loginButton.textLogin = "LOGIN AS VISITOR";
         loginButton.textLogout = "LOGOUT";
 
-        loginButton.addEventListener("user-logged-in", (e) => {
-                 afterAuth0Login(e.detail, "visitor", loginButton);
+      //  loginButton.addEventListener("user-logged-in", (e) => {
+            loginButton.addEventListener("click", (e) => {
+                afterAuth0Login(e.detail, "visitor", loginButton);
         });
 
         return loginButton;
@@ -104,8 +109,12 @@ class Login extends LitElement {
         function afterAuth0Login(detail, role, loginButon) {
             const menu = createMenuWithLogoutButton(loginButon);
             login.style.display = "none"
+            menu.style.display = "block"
             menu.activate("home");
-            createSocket(detail,role);        
+            console.log("hier")
+            loginButton.innerText="Login (NYI)";
+            loginButton.disabled=true;
+         //   createSocket(detail,role);        
             
         }
     }

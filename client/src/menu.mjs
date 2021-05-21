@@ -111,6 +111,7 @@ class Menu extends LitElement {
         const button = document.createElement("button");
         button.classList.add("button")
         button.innerText = "MY REGISTRATION";
+        /*
         button.addEventListener("click", e => {
             const dialog = button.appendChild(document.createElement("dialog"));
             const form = dialog.appendChild(showYourProfile());
@@ -124,7 +125,7 @@ class Menu extends LitElement {
 
             dialog.showModal();
 
-        });
+        });*/
         return button;
 
         function showYourProfile() {
