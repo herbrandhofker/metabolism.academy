@@ -4,6 +4,11 @@ import { createMenuWithLogoutButton } from './menu.mjs'
 import { } from './auth0-spa-login.mjs';
 import {createSocket} from './socket.mjs'
 
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-R99KBJJW6X');
 //for metabolism
 //const URL = "wss://ws.metabolism.academy";
 //const DOMAIN=  "dev-7yubhb2t.eu.auth0.com";
