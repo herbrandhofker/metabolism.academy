@@ -114,11 +114,9 @@ class Menu extends LitElement {
             .menu-item{          
                 font-size: 0.8rem!important;         
             } 
-            #about, #group-chat, #login{
+            #group-chat{
                 display: none;
-            } 
-                  
-                     
+            }                         
         }
 
          @media (max-width: 700px){
