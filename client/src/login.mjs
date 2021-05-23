@@ -89,8 +89,8 @@ class Login extends LitElement {
     }
 
     createLoginButton() {
-    //    const loginButton = document.createElement("auth0-button");
-        const loginButton = document.createElement("button");
+    //    const loginButton = document.createElement("auth0-anchor");
+        const loginButton = document.createElement("a");
         loginButton.innerText="To the Menu";
         loginButton.classList.add("button");
         loginButton.domain = DOMAIN;

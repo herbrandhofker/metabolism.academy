@@ -13,7 +13,7 @@ import dialogPolyfill from 'dialog-polyfill';
 const menuDiv = document.getElementById("menuDiv");
 const contentDiv = document.getElementById("content");
 
-const menuItems = ["home", "top-ten-medical-issues","top-ten-food-issues", "details","group-chat", "about", ];
+const menuItems = ["home", "top-ten-medical-issues", "top-ten-food-issues", "details", "group-chat", "about",];
 const menuObjects = new Map();
 
 let menu = null;
@@ -50,46 +50,182 @@ class Menu extends LitElement {
         tr:nth-child(odd) {
             background-color:       var(--primary-color);
         }
+
+        .navbar{
+            display: flex;
+            justify-content : space-between;
+            align-items : center;
+            background-color: var(--secundary-color); 
+        }
+
+        .brand-title{
+            font-size: 1.5rem;
+            margin: .5rem;
+            color : var(--tertiair-color)        
+        }
+
+        .navbar-links ul {
+            margin : 0;
+            padding: 0;
+            display: flex;
+            background-color: var(--secundair-color)  ;
+        }
        
+        .navbar-links li {
+           list-style: none;
+        }
+
+        .navbar-links li a {
+            text-decoration : none;
+            padding: 1rem;
+            display: block;
+         }
+
+         .toggle-button{
+             position : absolute;
+             top: 0.75rem;
+             right: 1rem;
+             display: none;
+             background-color: black;
+             flex-direction: column;
+             justify-content :space-between;
+             width : 30px;
+             height: 21px;
+         }
+
+         .toggle-button .bar{
+            width : 100%;
+            height: 3px;
+            background-color: white;
+            border-radius: 10px;
+   
+         }
+
+         @media (max-width: 600px){
+
+            .toggle-button{
+                display: flex;
+            }
+
+            .navbar-links{
+           /*     display: none;*/
+                width : 100%;
+            }
+
+            .navbar{
+                flex-direction : column;
+                align-items: flex-start;
+            }
+
+            .navbar-links ul{
+                width : 100%;
+                flex-direction : column;
+            }          
+
+            .navbar-links li{
+                text-align : center;
+            }
+
+            .navbar-links li a{
+                padding : .5rem 1rem;                
+            }
+
+            .navbar-links.active{
+                display: flex;
+            }         
+         }
+         
     `];
     }
 
     constructor() {
         super();
-        this.buttonBox=null;
+        this.navbarItems = null;
         this.loginButton = null;
+        this.toggleButton = null;
+        this.loggedIn = false;
     }
 
     static get properties() {
         return {
-            loginButton: { type: Object }
+            loginButton: { type: Object },
+            loggedIn: { type: Boolean }
         };
     }
 
     render() {
         return html`
-            <div  id="buttonBox"  class="button-box">
-                ${menuItems.map(lbl => html`<button class="button" @click=${e => this.activate(lbl)}>${lbl.toUpperCase().replaceAll("-"," ")}</button>`)}        
-                ${this.createShowProfileButton()}
-            </div>
+            <nav  class="navbar">
+                <div class="brand-title">The Mitochondrai Academy</div>
+                <a href="#" id="toggleButton" class="toggle-button">
+                  <span class="bar">xxx</span>
+                    <span class="bar">xxx</span>
+                    <span class="bar">xxx</span>
+               </a>
+                <div class="navbar-links">
+                    <ul id="navbarItems">
+                        ${menuItems.map(lbl => html`<li><a href="#" class="button" @click=${e => this.activate(lbl)}>${lbl.toUpperCase().replaceAll("-", " ")}</a></li>`)}        
+                        ${(this.loggedIn) ? this.createShowProfileLi() : null}
+                        <li>${this.createLoginAnchor()}</li>
+                    </ul>
+                </div>
+            </nav>
         `;
     }
 
-    firstUpdated(){
-        this.buttonBox=this.shadowRoot.getElementById("buttonBox");
+    firstUpdated() {
+        this.navbarItems = this.shadowRoot.getElementById("navbarItems");
+        this.toggleButton = this.shadowRoot.getElementById("toggleButton");
+        this.toggleButton.addEventListener("click", () => {
+            if (this.navbarItems.style.display == "none")
+                this.navbarItems.style.display = "block";
+            else this.navbarItems.style.display = "none";
 
+        })
     }
-  
-    updated(changedProperties) {
-        changedProperties.forEach((oldValue, propName) => {
-            if (propName = "loginButton")
-                this.buttonBox.appendChild(this.loginButton);
 
-        });
+    createLoginAnchor() {
+        const loginButton = document.createElement("a");
+
+        //  const loginButton = document.createElement("auth0-anchor");
+        //  loginButton.domain = DOMAIN;    
+        //  loginButton.client_id = CLIENT_ID;
+        // loginButton.textLogin = "LOGIN AS VISITOR";
+        // loginButton.textLogout = "LOGOUT";
+
+        loginButton.innerText = "Login";
+        loginButton.classList.add("button");
+
+        //  loginButton.addEventListener("user-logged-in", (e) => {
+        //       loginButton.addEventListener("click", (e) => {
+        //           afterAuth0Login(e.detail, "visitor", loginButton);
+        //  });
+
+        return loginButton;
+
+        function afterAuth0Login(detail, role, loginButon) {
+            const menu = createMenuWithLogoutButton(loginButon);
+            login.style.display = "none"
+            menu.style.display = "block"
+            menu.activate("home");
+            console.log("hier")
+            loginButton.innerText = "Login (NYI)";
+            loginButton.disabled = true;
+            //   createSocket(detail,role);        
+
+        }
+    }
+
+    updated(changedProperties) {
+        // changedProperties.forEach((oldValue, propName) => {
+        //      if (propName = "loginButton")
+        //          this.navbarItems.appendChild(this.loginButton);
+
+        //  });
     }
 
     activate(id) {
-      //  lbl-lbl.replace(' ','-');
+        //  lbl-lbl.replace(' ','-');
         for (let tab of menuItems) {
             const el = (menuObjects.get(tab));
             if (el) el.style.display = "none";
@@ -98,7 +234,7 @@ class Menu extends LitElement {
             let el = (menuObjects.get(tab));
             if (el == null && tab == id) {
                 el = contentDiv.appendChild(document.createElement("my-" + tab));
-              
+
                 menuObjects.set(tab, el);
             } else
                 if (tab == id) {
@@ -107,10 +243,11 @@ class Menu extends LitElement {
         }
     }
 
-    createShowProfileButton() {
-        const button = document.createElement("button");
+    createShowProfileLi() {
+        const li = document.createElement("li");
+        const button = li.appendChild(document.createElement("a"));
         button.classList.add("button")
-        button.innerText = "MY REGISTRATION";
+        button.innerText = "MY REGISTRATION (NYI)";
         /*
         button.addEventListener("click", e => {
             const dialog = button.appendChild(document.createElement("dialog"));
