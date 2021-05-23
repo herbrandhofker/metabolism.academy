@@ -96,18 +96,29 @@ class Menu extends LitElement {
             background-color: white;
             border-radius: 10px;   
          }
+               
 
-        
-         
+         @media (max-width: 1400px){           
+             #login{
+                display: none;
+            }                     
+        }
 
-         @media (max-width: 1200px){
+        @media (max-width: 1250px){           
+            #about{
+               display: none;
+           }       
+       }
+
+        @media (max-width: 1200px){
             .menu-item{          
                 font-size: 0.8rem!important;         
-            }  
-            
+            } 
             #about, #group-chat, #login{
                 display: none;
-            }           
+            } 
+                  
+                     
         }
 
          @media (max-width: 700px){
