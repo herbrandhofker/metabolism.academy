@@ -27,33 +27,26 @@ export function createMenuWithLogoutButton(loginButton) {
 
 class Menu extends LitElement {
     static get styles() {
-        return [ css`  
-          
-        
-        .button{            
-           color: #ffffff;
-           font-size: 22px;
-           font-weight: bold;
-          background-color: #282A35;
-          text-transform: uppercase;
-          font-family: 'Source Sans Pro', sans-serif;
-          white-space: nowrap; 
-          cursor:pointer;
-     
+        return [ css`   
+              
+        .menu-item{            
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background-color: #282A35;
+            text-transform: uppercase;
+            font-family: 'Source Sans Pro', sans-serif;
+            white-space: nowrap; 
+            cursor:pointer;     
         }
 
-        .button:hover {
+        .menu-item:hover {
             background-color: #000;
-          }
+        }
 
-          .button.active {
+        .menu-item.active {
             background-color: var(--primary-color);
-          }
-
-
-      
-        
-                
+        }                
 
         .navbar{
             display: flex;
@@ -66,10 +59,6 @@ class Menu extends LitElement {
             font-size: 1.5rem;
             margin: .5rem;
             color : var(--tertiair-color)        
-        }
-
-        .navbar-links{
-           /* display: none;*/
         }
 
         .navbar-links ul {
@@ -108,10 +97,27 @@ class Menu extends LitElement {
             border-radius: 10px;   
          }
 
-         @media (max-width: 600px){
+        
+         
+
+         @media (max-width: 1200px){
+            .menu-item{          
+                font-size: 0.8rem!important;         
+            }  
+            
+            #about, #group-chat, #login{
+                display: none;
+            }           
+        }
+
+         @media (max-width: 700px){
+            #about, #group-chat, #login{
+                display: block;
+            }  
+   
             .toggle-button{
                 display: flex;
-            }
+            } 
 
             .navbar-links{
                display: none;
@@ -139,8 +145,7 @@ class Menu extends LitElement {
             .navbar-links.active{
                 display: flex;
             }         
-         }
-         
+         }         
     `];
     }
 
@@ -170,7 +175,7 @@ class Menu extends LitElement {
                </a>
                 <div id="navbarLinks" class="navbar-links">
                     <ul id="navbarItems">
-                        ${menuItems.map(lbl => html`<li><a href="#" id=${lbl} class="button" @click=${e => this.activate(lbl)}>${lbl.replaceAll("-", " ")}</a></li>`)}        
+                        ${menuItems.map(lbl => html`<li><a href="#" id=${lbl} class="menu-item" @click=${e => this.activate(lbl)}>${lbl.replaceAll("-", " ")}</a></li>`)}        
                         ${(this.loggedIn) ? this.createShowProfileLi() : null}
                         <li>${this.createLoginAnchor()}</li>
                     </ul>
@@ -192,7 +197,7 @@ class Menu extends LitElement {
 
     createLoginAnchor() {
         const loginButton = document.createElement("a");
-
+        loginButton.id="login";
         //  const loginButton = document.createElement("auth0-anchor");
         //  loginButton.domain = DOMAIN;    
         //  loginButton.client_id = CLIENT_ID;
@@ -200,7 +205,7 @@ class Menu extends LitElement {
         // loginButton.textLogout = "LOGOUT";
 
         loginButton.innerText = "Login";
-        loginButton.classList.add("button");
+        loginButton.classList.add("menu-item");
 
         //  loginButton.addEventListener("user-logged-in", (e) => {
         //       loginButton.addEventListener("click", (e) => {
@@ -224,7 +229,8 @@ class Menu extends LitElement {
 
 
     activate(id) {
-        const clickeButton= this.shadowRoot.getElementById(id);        
+        const clickeButton= this.shadowRoot.getElementById(id); 
+        console.log(clickeButton.id)       
         for (var i = 0; i < this.navbarItems.children.length; i++) {
             this.navbarItems.children[i].children[0].classList.remove('active');     
         }
@@ -249,9 +255,9 @@ class Menu extends LitElement {
 
     createShowProfileLi() {
         const li = document.createElement("li");
-        const button = li.appendChild(document.createElement("a"));
-        button.classList.add("button")
-        button.innerText = "MY REGISTRATION (NYI)";
+        const menuItem = li.appendChild(document.createElement("a"));
+        menuItem.classList.add("button")
+        menuItem.innerText = "MY REGISTRATION (NYI)";
         /*
         button.addEventListener("click", e => {
             const dialog = button.appendChild(document.createElement("dialog"));
@@ -267,7 +273,7 @@ class Menu extends LitElement {
             dialog.showModal();
 
         });*/
-        return button;
+        return menuItem;
 
         function showYourProfile() {
             const profile = getTheOthers().me.profile;
