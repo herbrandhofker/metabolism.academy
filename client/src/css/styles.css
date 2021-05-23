@@ -1,10 +1,6 @@
-* {
-  box-sizing : border-box;
-  
-  --secundairy-color: #282A35 ;
-}
 
-  /*
+
+  
 @font-face {
 	font-family: 'Gotham Rounded';
 	src: url('fonts/GothamRounded-Bold.woff2') format('woff2'),
@@ -27,7 +23,13 @@
 		url('fonts/GothamRounded-Book.woff') format('woff');
 	font-weight: normal;
 	font-style: normal;
-}*/
+}
+
+* {
+  box-sizing : border-box;
+  font-family : Gotham Rounded;
+  --secundairy-color: #282A35 ;
+}
 
 body{
   background-color: white;
