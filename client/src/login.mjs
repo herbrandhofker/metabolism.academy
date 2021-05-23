@@ -83,11 +83,22 @@ class Login extends LitElement {
                     </ul>
                 </div>
             </div>
-            <div class='button-box'>${this.createLoginButton()}
-            </div>
+            <div class='button-box'><button class="button" @click="${(e)=>this.createMenu()}">To Menu</button></div>
         </section>`;
     }
 
+    createMenu(){
+        const loginButton = document.createElement("auth0-button");
+        loginButton.domain = DOMAIN;
+        loginButton.client_id = CLIENT_ID;
+        loginButton.textLogin = "LOGIN AS VISITOR";
+        loginButton.textLogout = "LOGOUT";
+
+        const menu = createMenuWithLogoutButton(loginButton);
+        login.style.display = "none"
+        menu.activate("home");
+    }
+    
     createLoginButton() {
     //    const loginButton = document.createElement("auth0-anchor");
         const loginButton = document.createElement("a");
@@ -112,7 +123,7 @@ class Login extends LitElement {
             menu.style.display = "block"
             loginButton.innerText="Login (NYI)";
             loginButton.disabled=true;
-         //   createSocket(detail,role);        
+       //   createSocket(detail,role);        
             
         }
     }
