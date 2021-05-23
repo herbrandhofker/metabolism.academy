@@ -19,13 +19,13 @@ const menuObjects = new Map();
 let menu = null;
 export function createMenuWithLogoutButton(loginButton) {
     if (menu == null) {
-        menu = header.appendChild(document.createElement("my-menu"));
+        menu = header.appendChild(document.createElement("my-header"));
    //     menu.loginButton = loginButton;
     }
     return menu;
 }
 
-class Menu extends LitElement {
+class Header extends LitElement {
     static get styles() {
         return [ css`   
               
@@ -316,4 +316,4 @@ class Menu extends LitElement {
     }
 }
 
-customElements.define("my-menu", Menu);
+customElements.define("my-header", Header);

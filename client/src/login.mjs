@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 import { getTheOthers } from './the-others.mjs';
-import { createMenuWithLogoutButton } from './menu.mjs'
+import { createMenuWithLogoutButton } from './header.mjs'
 import { } from './auth0-spa-login.mjs';
 import {createSocket} from './socket.mjs'
 
