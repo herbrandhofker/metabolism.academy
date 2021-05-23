@@ -1,6 +1,5 @@
 
 import { LitElement, html, css } from 'lit-element';
-import './index.css'
 import './home.mjs'
 import './top-ten-medical-issues.mjs'
 import './top-ten-food-issues.mjs'
@@ -27,7 +26,13 @@ export function createMenuWithLogoutButton(loginButton) {
 
 class Header extends LitElement {
     static get styles() {
-        return [ css`   
+        return [ css`  
+      
+        h1{ 
+            font-size: 1.5rem;
+            padding: 0.5rem;          
+            text-align: center;       
+       }
               
         .menu-item{            
             color: #ffffff;
@@ -46,20 +51,20 @@ class Header extends LitElement {
 
         .menu-item.active {
             background-color: var(--primary-color);
-        }                
+        }    
+        
+        .nav{
+            background-color:black;
+        }
 
         .navbar{
             display: flex;
             justify-content : space-between;
             align-items : center;
-            background-color: var(--secundary-color); 
+            background-color:black;
         }
 
-        .brand-title{
-            font-size: 1.5rem;
-            margin: .5rem;
-            color : var(--tertiair-color)        
-        }
+       
 
         .navbar-links ul {
             margin : 0;
@@ -181,8 +186,9 @@ class Header extends LitElement {
 
     render() {
         return html`
+            <h1>The Mitochondrai Academy, nutrition advice based on science</h1>
+               
             <nav class="navbar">
-                <div class="brand-title">The Mitochondrai Academy</div>
                 <a href="#" id="toggleButton" class="toggle-button">
                     <span class="bar"></span>
                     <span class="bar"></span>

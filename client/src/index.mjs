@@ -1,4 +1,5 @@
-import './index.css'
+import './css/normalize.css'
+import './css/styles.css'
 
 import './the-others.mjs';
 import './login.mjs'
