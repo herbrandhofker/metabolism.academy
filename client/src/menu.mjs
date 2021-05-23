@@ -10,7 +10,7 @@ import { getTheOthers } from './the-others.mjs';
 import { getButtonCss } from './utilCss.mjs';
 import dialogPolyfill from 'dialog-polyfill';
 
-const menuDiv = document.getElementById("menuDiv");
+const header = document.getElementById("header");
 const contentDiv = document.getElementById("content");
 
 const menuItems = ["home", "top-ten-medical-issues", "top-ten-food-issues", "details", "group-chat", "about",];
@@ -19,7 +19,7 @@ const menuObjects = new Map();
 let menu = null;
 export function createMenuWithLogoutButton(loginButton) {
     if (menu == null) {
-        menu = menuDiv.appendChild(document.createElement("my-menu"));
+        menu = header.appendChild(document.createElement("my-menu"));
    //     menu.loginButton = loginButton;
     }
     return menu;
