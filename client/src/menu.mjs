@@ -27,29 +27,33 @@ export function createMenuWithLogoutButton(loginButton) {
 
 class Menu extends LitElement {
     static get styles() {
-        return [getButtonCss(), css`  
-        dialog{
-            background-color: var(--tertiair-color);
-            color: black; 
-            border-width : 10px;
-            border-color: var(--primary-color);
-            display: flex;
-        }
-        table {          
-            width: 100%;
-            border-collapse: collapse;
-          }
-        table, th, td {
-            border: 1px grey;
+        return [ css`  
+          
+        
+        .button{            
+           color: #ffffff;
+           font-size: 22px;
+           font-weight: bold;
+          background-color: #282A35;
+          text-transform: uppercase;
+          font-family: 'Source Sans Pro', sans-serif;
+          white-space: nowrap; 
+          cursor:pointer;
+     
         }
 
-        td {
-            text-align: left;
-        }
+        .button:hover {
+            background-color: #000;
+          }
+
+          .button.active {
+            background-color: var(--primary-color);
+          }
+
+
+      
         
-        tr:nth-child(odd) {
-            background-color:       var(--primary-color);
-        }
+                
 
         .navbar{
             display: flex;
@@ -62,6 +66,10 @@ class Menu extends LitElement {
             font-size: 1.5rem;
             margin: .5rem;
             color : var(--tertiair-color)        
+        }
+
+        .navbar-links{
+           /* display: none;*/
         }
 
         .navbar-links ul {
@@ -97,18 +105,16 @@ class Menu extends LitElement {
             width : 100%;
             height: 3px;
             background-color: white;
-            border-radius: 10px;
-   
+            border-radius: 10px;   
          }
 
          @media (max-width: 600px){
-
             .toggle-button{
                 display: flex;
             }
 
             .navbar-links{
-           /*     display: none;*/
+               display: none;
                 width : 100%;
             }
 
@@ -158,13 +164,13 @@ class Menu extends LitElement {
             <nav  class="navbar">
                 <div class="brand-title">The Mitochondrai Academy</div>
                 <a href="#" id="toggleButton" class="toggle-button">
-                  <span class="bar">xxx</span>
-                    <span class="bar">xxx</span>
-                    <span class="bar">xxx</span>
+                  <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
                </a>
-                <div class="navbar-links">
+                <div id="navbarLinks" class="navbar-links">
                     <ul id="navbarItems">
-                        ${menuItems.map(lbl => html`<li><a href="#" class="button" @click=${e => this.activate(lbl)}>${lbl.toUpperCase().replaceAll("-", " ")}</a></li>`)}        
+                        ${menuItems.map(lbl => html`<li><a href="#" id=${lbl} class="button" @click=${e => this.activate(lbl)}>${lbl.replaceAll("-", " ")}</a></li>`)}        
                         ${(this.loggedIn) ? this.createShowProfileLi() : null}
                         <li>${this.createLoginAnchor()}</li>
                     </ul>
@@ -174,14 +180,14 @@ class Menu extends LitElement {
     }
 
     firstUpdated() {
-        this.navbarItems = this.shadowRoot.getElementById("navbarItems");
+        this.navbarItems = this.shadowRoot.getElementById("navbarItems");       
+        this.navbarLinks = this.shadowRoot.getElementById("navbarLinks");       
         this.toggleButton = this.shadowRoot.getElementById("toggleButton");
         this.toggleButton.addEventListener("click", () => {
-            if (this.navbarItems.style.display == "none")
-                this.navbarItems.style.display = "block";
-            else this.navbarItems.style.display = "none";
-
+            this.navbarLinks.classList.toggle('active');
         })
+
+        this.activate("home")
     }
 
     createLoginAnchor() {
@@ -216,16 +222,14 @@ class Menu extends LitElement {
         }
     }
 
-    updated(changedProperties) {
-        // changedProperties.forEach((oldValue, propName) => {
-        //      if (propName = "loginButton")
-        //          this.navbarItems.appendChild(this.loginButton);
-
-        //  });
-    }
 
     activate(id) {
-        //  lbl-lbl.replace(' ','-');
+        const clickeButton= this.shadowRoot.getElementById(id);        
+        for (var i = 0; i < this.navbarItems.children.length; i++) {
+            this.navbarItems.children[i].children[0].classList.remove('active');     
+        }
+        clickeButton.classList.add('active');     
+
         for (let tab of menuItems) {
             const el = (menuObjects.get(tab));
             if (el) el.style.display = "none";
