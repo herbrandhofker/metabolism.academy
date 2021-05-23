@@ -31,7 +31,7 @@ class Header extends LitElement {
         h1{ 
             font-size: 1.5rem;
             padding: 0.5rem;          
-            text-align: center;       
+            text-align: center;  
        }
               
         .menu-item{            
@@ -187,7 +187,7 @@ class Header extends LitElement {
     render() {
         return html`
             <h1>The Mitochondrai Academy, nutrition advice based on science</h1>
-               
+            
             <nav class="navbar">
                 <a href="#" id="toggleButton" class="toggle-button">
                     <span class="bar"></span>
@@ -251,12 +251,12 @@ class Header extends LitElement {
 
 
     activate(id) {
-        const clickeButton= this.shadowRoot.getElementById(id); 
-        console.log(clickeButton.id)       
+        console.log("id="+id)
+        const clickedButton= this.shadowRoot.getElementById(id); 
         for (var i = 0; i < this.navbarItems.children.length; i++) {
             this.navbarItems.children[i].children[0].classList.remove('active');     
         }
-        clickeButton.classList.add('active');     
+        clickedButton.classList.add('active');     
 
         for (let tab of menuItems) {
             const el = (menuObjects.get(tab));
