@@ -96,7 +96,12 @@ class Menu extends LitElement {
             background-color: white;
             border-radius: 10px;   
          }
-               
+             
+        .not-active {
+            pointer-events: none;
+            cursor: default;
+            color: grey;
+        }
 
          @media (max-width: 1400px){           
              #login{
@@ -215,6 +220,7 @@ class Menu extends LitElement {
 
         loginButton.innerText = "Login";
         loginButton.classList.add("menu-item");
+        loginButton.classList.add("not-active");
 
         //  loginButton.addEventListener("user-logged-in", (e) => {
         //       loginButton.addEventListener("click", (e) => {
