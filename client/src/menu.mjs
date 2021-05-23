@@ -65,6 +65,7 @@ class Menu extends LitElement {
             margin : 0;
             padding: 0;
             display: flex;
+            flex-wrap: nowrap;
             background-color: var(--secundair-color)  ;
         }
        
@@ -97,7 +98,7 @@ class Menu extends LitElement {
             border-radius: 10px;   
          }
              
-        .not-active {
+        #login, #group-chat  {
             pointer-events: none;
             cursor: default;
             color: grey;
@@ -180,10 +181,10 @@ class Menu extends LitElement {
 
     render() {
         return html`
-            <nav  class="navbar">
+            <nav class="navbar">
                 <div class="brand-title">The Mitochondrai Academy</div>
                 <a href="#" id="toggleButton" class="toggle-button">
-                  <span class="bar"></span>
+                    <span class="bar"></span>
                     <span class="bar"></span>
                     <span class="bar"></span>
                </a>
@@ -220,7 +221,7 @@ class Menu extends LitElement {
 
         loginButton.innerText = "Login";
         loginButton.classList.add("menu-item");
-        loginButton.classList.add("not-active");
+    //    loginButton.classList.add("not-active");
 
         //  loginButton.addEventListener("user-logged-in", (e) => {
         //       loginButton.addEventListener("click", (e) => {
