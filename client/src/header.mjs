@@ -1,4 +1,3 @@
-
 import { LitElement, html, css } from 'lit-element';
 import './home.mjs'
 import './top-ten-medical-issues.mjs'
@@ -12,21 +11,19 @@ import dialogPolyfill from 'dialog-polyfill';
 const header = document.getElementById("header");
 const contentDiv = document.getElementById("content");
 
-const menuItems = ["home", "top-ten-medical-issues", "top-ten-food-issues", "details", "group-chat", "about",];
-const menuObjects = new Map();
-
-let menu = null;
+const tabs = ["home", "top-ten-medical-issues", "top-ten-food-issues", "details", "group-chat", "about",];
 
 
 class Header extends LitElement {
     static get styles() {
-        return [ css`        
+        return [ css`
+           
         h1{ 
             font-size: 1.5rem;
             padding: 0.5rem;          
             text-align: center;  
        }
-              
+             
        .menu-item{            
             color: #ffffff;
             font-size: 1.5rem;
@@ -39,8 +36,8 @@ class Header extends LitElement {
         }
 
         .menu-item:hover {
-            background-color: #000;
-        }
+            background-color: var(--primary-color);
+       }
 
         .menu-item.active {
             background-color: var(--primary-color);
@@ -112,7 +109,7 @@ class Header extends LitElement {
            }       
        }
 
-        @media (max-width: 1200px){
+        @media (max-width: 1000px){
             .menu-item{          
                 font-size: 0.8rem!important;         
             } 
@@ -162,21 +159,11 @@ class Header extends LitElement {
 
     constructor() {
         super();
-        this.navbarItems = null;
-        this.loginButton = null;
-        this.toggleButton = null;
-        this.loggedIn = false;
-    }
-
-    static get properties() {
-        return {
-            loginButton: { type: Object },
-            loggedIn: { type: Boolean }
-        }
+         this.toggleButton = null;
+        this.menuObjects = new Map();
     }
 
     render() {
-        console.log("render")
         return html`
             <h1>The Mitochondrai Academy, nutrition advice based on science</h1>
             
@@ -187,18 +174,15 @@ class Header extends LitElement {
                     <span class="bar"></span>
                </a>
                 <div id="navbarLinks" class="navbar-links">
-                    <ul id="navbarItems">
-                        ${menuItems.map(lbl => html`<li><a href="#" id=${lbl} class="menu-item" @click=${e => this.activate(lbl)}>${lbl.replaceAll("-", " ")}</a></li>`)}        
-                        ${(this.loggedIn) ? this.createShowProfileLi() : null}
-                        <li>${this.createLoginAnchor()}</li>
-                    </ul>
+                    <ul>
+                        ${tabs.map(lbl => html`<li><a href="#" id=${lbl} class="menu-item" @click=${e => this.activate(lbl)}>${lbl.replaceAll("-", " ")}</a></li>`)}        
+                     </ul>
                 </div>
             </nav>
         `;
     }
 
     firstUpdated() {
-        this.navbarItems = this.shadowRoot.getElementById("navbarItems");       
         this.navbarLinks = this.shadowRoot.getElementById("navbarLinks");       
         this.toggleButton = this.shadowRoot.getElementById("toggleButton");
         this.toggleButton.addEventListener("click", () => {
@@ -208,110 +192,31 @@ class Header extends LitElement {
         this.activate("home")
     }
 
-    createLoginAnchor() {
-        const loginButton = document.createElement("a");
-        loginButton.id="login";
-        //  const loginButton = document.createElement("auth0-anchor");
-        //  loginButton.domain = DOMAIN;    
-        //  loginButton.client_id = CLIENT_ID;
-        // loginButton.textLogin = "LOGIN AS VISITOR";
-        // loginButton.textLogout = "LOGOUT";
-
-        loginButton.innerText = "Login";
-        loginButton.classList.add("menu-item");
-    //    loginButton.classList.add("not-active");
-
-        //  loginButton.addEventListener("user-logged-in", (e) => {
-        //       loginButton.addEventListener("click", (e) => {
-        //           afterAuth0Login(e.detail, "visitor", loginButton);
-        //  });
-
-        return loginButton;
-
-        function afterAuth0Login(detail, role, loginButon) {
-            const menu = createMenuWithLogoutButton(loginButon);
-            login.style.display = "none"
-            menu.style.display = "block"
-            menu.activate("home");
-            console.log("hier")
-            loginButton.innerText = "Login (NYI)";
-            loginButton.disabled = true;
-            //   createSocket(detail,role);        
-
-        }
-    }
-
-
     activate(id) {
-        console.log("id="+id)
-        const clickedButton= this.shadowRoot.getElementById(id); 
-        for (var i = 0; i < this.navbarItems.children.length; i++) {
-            this.navbarItems.children[i].children[0].classList.remove('active');     
+        const clickedMenuItem= this.shadowRoot.getElementById(id); 
+        const menuItems = this.shadowRoot.querySelectorAll(".menu-item");       
+      
+        for (var i = 0; i < menuItems.length; i++) {
+            console.log(i)
+            menuItems[i].classList.remove('active');    
         }
-        clickedButton.classList.add('active');     
+        clickedMenuItem.classList.add('active');     
 
-        for (let tab of menuItems) {
-            const el = (menuObjects.get(tab));
+        for (let tab of tabs) {
+            const el = this.menuObjects.get(tab);
             if (el) el.style.display = "none";
         }
-        for (let tab of menuItems) {
-            let el = (menuObjects.get(tab));
+        for (let tab of tabs) {
+            let el = this.menuObjects.get(tab);
             if (el == null && tab == id) {
                 el = contentDiv.appendChild(document.createElement("my-" + tab));
-
-                menuObjects.set(tab, el);
+                this.menuObjects.set(tab, el);
             } else
                 if (tab == id) {
                     el.style.display = "block";
                 }
         }
-    }
-
-    createShowProfileLi() {
-        const li = document.createElement("li");
-        const menuItem = li.appendChild(document.createElement("a"));
-        menuItem.classList.add("button")
-        menuItem.innerText = "MY REGISTRATION (NYI)";
-        /*
-        button.addEventListener("click", e => {
-            const dialog = button.appendChild(document.createElement("dialog"));
-            const form = dialog.appendChild(showYourProfile());
-            const menu = form.appendChild(document.createElement("menu"));
-            const btn = menu.appendChild(document.createElement("button"));
-            btn.classList.add("button")
-
-            btn.innerText = "OK";
-            btn.value = "cancel";
-            dialogPolyfill.registerDialog(dialog);
-
-            dialog.showModal();
-
-        });*/
-        return menuItem;
-
-        function showYourProfile() {
-            const profile = getTheOthers().me.profile;
-            if (profile == null)
-                return;
-            const form = document.createElement("form");
-            const title = form.appendChild(document.createElement("h1"));
-            title.innerText = "Registered as:";
-
-            const divtbl = form.appendChild(document.createElement("table"));
-            Object.keys(profile).forEach(function (key) {
-                const row = divtbl.insertRow();
-                let cell = row.insertCell();
-                cell.innerText = key;
-                cell = row.insertCell();
-                if (key == 'picture') {
-                    const img = cell.appendChild(document.createElement("img"));
-                    img.src = profile[key]
-                } else
-                    cell.innerText = profile[key]
-            });
-            return form;
-        }
-    }
+    }    
 }
 
 customElements.define("my-header", Header);
