@@ -5,11 +5,8 @@ import './top-ten-food-issues.mjs'
 import './details.mjs'
 import './about.mjs'
 
-const header = document.getElementById("header");
-const contentDiv = document.getElementById("content");
-
-const tabs = ["home", "top-ten-medical-issues", "top-ten-food-issues", "details", "group-chat", "about",];
-
+const mainDiv = document.getElementById("main");
+const tabs = ["home", "top-ten-medical-issues", "top-ten-food-issues", "details", "group-chat", "about"];
 
 class Header extends LitElement {
     static get styles() {
@@ -206,7 +203,7 @@ class Header extends LitElement {
         for (let tab of tabs) {
             let el = this.menuObjects.get(tab);
             if (el == null && tab == id) {
-                el = contentDiv.appendChild(document.createElement("my-" + tab));
+                el = mainDiv.appendChild(document.createElement("my-" + tab));
                 this.menuObjects.set(tab, el);
             } else
                 if (tab == id) {
