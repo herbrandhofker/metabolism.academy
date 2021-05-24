@@ -4,9 +4,6 @@ import './top-ten-medical-issues.mjs'
 import './top-ten-food-issues.mjs'
 import './details.mjs'
 import './about.mjs'
-import { getTheOthers } from './the-others.mjs';
-import { getButtonCss } from './utilCss.mjs';
-import dialogPolyfill from 'dialog-polyfill';
 
 const header = document.getElementById("header");
 const contentDiv = document.getElementById("content");
@@ -165,7 +162,7 @@ class Header extends LitElement {
 
     render() {
         return html`
-            <h1>The Mitochondrai Academy, nutrition advice based on science</h1>
+            <h1>The Metabolism Academy: nutrition advice based on science</h1>
             
             <nav class="navbar">
                 <a href="#" id="toggleButton" class="toggle-button">
