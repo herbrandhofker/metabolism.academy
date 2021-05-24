@@ -198,7 +198,6 @@ class Header extends LitElement {
         const menuItems = this.shadowRoot.querySelectorAll(".menu-item");       
       
         for (var i = 0; i < menuItems.length; i++) {
-            console.log(i)
             menuItems[i].classList.remove('active');    
         }
         clickedMenuItem.classList.add('active');     

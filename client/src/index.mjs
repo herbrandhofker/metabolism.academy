@@ -1,6 +1,6 @@
 import './css/normalize.css'
 import './css/styles.css'
-
+import './youtube-dialog.mjs'
 import './header.mjs'
 import './footer.mjs'
 

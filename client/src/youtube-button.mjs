@@ -44,14 +44,11 @@ class YoutubeVideo extends LitElement {
         `;
     }
 
-  
     constructor() {
         super();
         this.videoData = null;
         this.title = "";
-        console.log("video constructor")
     }
-
 
     static get properties() {
         return {
@@ -253,7 +250,6 @@ class YoutubeVideo extends LitElement {
                     if (minutes == 0) {
                         result = "0:"
                     }
-
                 seconds = seconds - (minutes * 60);
                 let tmp = seconds;
                 if (seconds < 10)
@@ -279,10 +275,7 @@ class YoutubeVideo extends LitElement {
             total += parseInt(s[0])
             return total;
         }
-
     }
-
-
 }
 
 customElements.define("my-youtube-button", YoutubeVideo);
