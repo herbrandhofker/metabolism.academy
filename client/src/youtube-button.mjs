@@ -20,15 +20,10 @@ videos.set(5, { name: "How low carbohydrate diets can help you avoid surgery for
 videos.set(6, { name: "Dr. Paul Mason - -Saturated fat is not dangerous-", youtube: "https://www.youtube.com/watch?v=NUY_SDhxf4k" });
 const configs = new Map();
 
-
-
-
 const dialogDiv = document.getElementById("dialogDiv");
 const dialogHeader = document.getElementById("dialogHeader");
 dialogHeader.innerText = " abc"
 const dialogContent = document.getElementById("dialogContent");
-
-import { getButtonCss } from './utilCss.mjs';
 
 class YoutubeVideo extends LitElement {
 

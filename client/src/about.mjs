@@ -1,14 +1,13 @@
 import { LitElement, html, css } from 'lit-element';
 
+import {getButtonCss,getSectionCss} from './utilCss.mjs';
 import hofker from './images/herbrand-hofker.png';
 
 class About extends LitElement {
 
     static get styles() {
-        return css`
-        section {
-            display: flex; 
-        }
+        return [getSectionCss(),css`
+       
         
         .details{
             margin : 2rem 4rem 4rem 4rem;
@@ -18,7 +17,7 @@ class About extends LitElement {
             width: 20rem;
             margin : 6rem 4rem 4rem 4rem;
         }
-     `};
+     `]};
 
     render() {
         return html`

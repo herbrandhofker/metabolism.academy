@@ -24,16 +24,168 @@
 
 * {
   box-sizing : border-box;
-  --font-family : Gotham Rounded;      
+  --font-family : Gotham Rounded, sans-serif;      
   --secundairy-color: #282A35 ;
   --primary-color: #04AA6D;
   font-family: var(--font-family);
 }
 
 body{
-  background-color: yellow;
+	margin : 0 auto;
+	padding-bottom : 50px;
+  	background-color: yellow;
 }
 
 header{
-  background-color: white;
+  	background-color: white;
 }
+
+main{
+	max-width : 1000px;
+	width : 100%;
+	margin: 1rem auto;	
+	padding: 0px;
+	border: 1px solid #73AD21;
+}
+
+#dialogDiv{
+	display: none;
+	position : fixed;
+	z-index: 1;
+	left: 2rem;
+	top: 4rem;
+	width: 100%;
+	height: 100%;
+	margin: 1rem auto;	
+	padding: 0px;	
+
+	overflow : auto;
+	background-color: var(--secundairy-color);
+	animation-name: open-dialog;
+	animation-duration: 1s;
+  }
+  
+  @keyframes open-dialog {
+	  from {opacity:0}
+	  to {opacity:1}
+  }
+  
+  #dialog {
+	  background-color: var(--tertiair-color);
+	  margin : 20% auto;
+	  padding : 20px;
+	  width : 90%;
+  }
+  
+  #dialogHeader {
+	color: var(--secundairy-color) ;
+	background: white;
+	
+  }
+  
+  svg {
+	max-width: 1.6rem;
+	max-height: 1.6rem    
+  }
+  path {
+	fill: var(--secundairy-color);
+  }
+  
+  path:hover {
+	fill: var(--primary-color);
+  }
+  
+  .opaque-button {
+	border: none;
+	background-color: transparent;
+	outline: none;
+  }
+  
+  .close-button {
+	margin-left: auto;
+	font-size: 2rem;
+  }
+  
+  .button-box{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	height: var(--button-box-height);  
+	width: 100%;              
+  }
+  
+  
+  .button {
+	white-space: nowrap; 
+	padding: var(--button-padding);
+	margin: var(--button-margin);
+	background-color: var(--button-background-color);
+	border-color: var(--button-border-color);
+	color: var(--button-color);
+	border-width: var(--button-border-width);
+	font-family: var(--button-font-family);
+	font-size: var(--button-font-size);
+	font-weight: var(--button-font-weight);
+	height: var(--button-height);
+  
+	border-radius : var(--button-border-radius);
+  
+	cursor:pointer
+  }
+  
+  /**youtube section */
+  
+  .youtube-video-container {
+	display: flex;
+	flex-direction: column;
+	background-color:  lightgrey;
+	width: 100%;
+  }
+  
+  .button-box{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	height: var(--button-box-height);  
+	width: 100%;  
+	padding-bottom : 1em;   
+  }
+  
+  
+  .btnbox-item {
+	margin-left: 1.2em;
+	margin-top : 1em;
+	font-size: 1.6rem;        
+  }
+  
+  .length{
+	 white-space: nowrap; 
+	 color: black;
+  }
+  
+  .volume-span {
+	display: flex;
+	background-color:  grey;
+	white-space: pre;
+	align-items: center;
+  }
+  
+  .opaque-button {
+	border: none;
+	background-color: transparent;
+	outline: none;
+  }
+  
+  .close-button {
+	 font-size: 2em;
+	 margin-top: 0.5em;
+  }
+  
+  video {
+	width: 100%;
+	pointer-events: none;
+  }
+  
+  video::-webkit-media-controls {
+	display: none;
+  } 

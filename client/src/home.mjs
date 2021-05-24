@@ -5,19 +5,12 @@ import {getSectionCss} from './utilCss.mjs';
 class Home2 extends LitElement {
 
     static get styles() {
-        return [css`          
-           
-
-        section{
-            padding :30px;
-            font-family: var(--font-family);
-            background-color:  #D9EEE1!important;
-        }
+        return [getSectionCss(),css`          
+        
    `]};
 
 
     render() {
-        // return html`<section><h1>hhhhhhhhhhhh</h1></section>`;
          return html`
         <section>
         <h1>WHERE SCIENCE MEETS MEDICINE</h1>

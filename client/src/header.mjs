@@ -12,12 +12,18 @@ class Header extends LitElement {
     static get styles() {
         return [ css`
            
-        h1{ 
+        .title{ 
             font-size: 1.5rem;
             margin: 0;
             padding: 1rem;          
             text-align: center;  
-       }
+       }  
+       .subtitle{ 
+            font-size: 1rem;
+            margin: 0;
+            padding: 1rem;          
+            text-align: center;  
+   }
              
        .menu-item{            
             color: #ffffff;
@@ -160,8 +166,8 @@ class Header extends LitElement {
 
     render() {
         return html`
-            <h1>The Metabolism Academy: nutrition advice based on science</h1>
-            
+            <h1 class="title">The Metabolism Academy: <em>nutrition advice based on science</em></h1>
+            <h3 class="subtitle">subtitle</h3>
             <nav class="navbar">
                 <a href="#" id="toggleButton" class="toggle-button">
                     <span class="bar"></span>

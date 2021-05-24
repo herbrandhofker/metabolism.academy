@@ -38,22 +38,11 @@ export function getButtonCss() {
 
 export function getSectionCss() {
     return css`
-        section {
-            display: flex;
-            flex-direction: column;     
-            background-color: var(--tertiair-color);       
-            color: black;
-            border: 3px solid ;
-            border-color: var(--primary-color);
-            padding-left: 10rem;
-        }
-        h1 {
-            font-size: 2.5rem;
-        }
-        .content{
-            margin-left : 0px;
-            margin-right : 4rem;
-        }
+    section{
+        padding :30px;
+        font-family: var(--font-family);
+        background-color:  #D9EEE1!important;
+    }
 ` ;
 }
 

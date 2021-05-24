@@ -13,7 +13,7 @@ class Footer extends LitElement {
            
     `];
     }
-
+ 
     constructor() {
         super();
     }
