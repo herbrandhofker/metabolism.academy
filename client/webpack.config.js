@@ -7,10 +7,9 @@ module.exports = {
  devServer: {
     https: true,
     port: 3020
-
-},
-devtool: 'inline-source-map',
-
+  },
+  devtool: 'inline-source-map',
+  
   devtool: 'inline-source-map',
   entry: './src/index.mjs',
   plugins: [

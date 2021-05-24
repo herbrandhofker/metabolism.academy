@@ -86,3 +86,8 @@ export function muteIcon(){
 export function unMuteIcon(){
     return html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28.16 46.5"><defs><style>.cls-1,.cls-2{fill:none;stroke:#010101;stroke-miterlimit:10;}.cls-1{stroke-width:3.73px;}.cls-2{stroke-width:2.8px;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M1.49,31.32a16.36,16.36,0,0,0,12.59,6.3,16.39,16.39,0,0,0,12.59-6.3"/><rect class="cls-1" x="4.64" y="1.86" width="18.88" height="28.32" rx="9.23"/><line class="cls-1" x1="7.09" y1="44.64" x2="21.07" y2="44.64"/><line class="cls-2" x1="14.08" y1="36.04" x2="14.08" y2="45.86"/></g></g></svg>`;  
 }
+
+export function homeIcon(){
+    return html`
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24"><path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z" /></svg>`;
+}

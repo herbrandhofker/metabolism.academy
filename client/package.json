@@ -4,8 +4,8 @@
   "description": "",
   "scripts": {
     "build": "webpack",
-    "dev": "webpack-dev-server --open",
-    "start": "webpack serve  --open"
+    "watch": "webpack --watch",
+    "start": "webpack-dev-server --open"
   },
   "keywords": [],
   "author": "",

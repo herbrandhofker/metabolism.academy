@@ -16,25 +16,18 @@ const menuItems = ["home", "top-ten-medical-issues", "top-ten-food-issues", "det
 const menuObjects = new Map();
 
 let menu = null;
-export function createMenuWithLogoutButton(loginButton) {
-    if (menu == null) {
-        menu = header.appendChild(document.createElement("my-header"));
-   //     menu.loginButton = loginButton;
-    }
-    return menu;
-}
+
 
 class Header extends LitElement {
     static get styles() {
-        return [ css`  
-      
+        return [ css`        
         h1{ 
             font-size: 1.5rem;
             padding: 0.5rem;          
             text-align: center;  
        }
               
-        .menu-item{            
+       .menu-item{            
             color: #ffffff;
             font-size: 1.5rem;
             font-weight: bold;
@@ -63,8 +56,6 @@ class Header extends LitElement {
             align-items : center;
             background-color:black;
         }
-
-       
 
         .navbar-links ul {
             margin : 0;
@@ -181,10 +172,11 @@ class Header extends LitElement {
         return {
             loginButton: { type: Object },
             loggedIn: { type: Boolean }
-        };
+        }
     }
 
     render() {
+        console.log("render")
         return html`
             <h1>The Mitochondrai Academy, nutrition advice based on science</h1>
             
