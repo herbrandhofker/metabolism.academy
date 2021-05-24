@@ -5,12 +5,14 @@ import {getSectionCss} from './utilCss.mjs';
 class Home2 extends LitElement {
 
     static get styles() {
-        return [getSectionCss(),css`          
-            p{
-                font-size: var(--font-size);
-                font-family: var(--font-family);        
-            }
-         
+        return [css`          
+           
+
+        section{
+            padding :30px;
+            font-family: var(--font-family);
+            background-color:  #D9EEE1!important;
+        }
    `]};
 
 

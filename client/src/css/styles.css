@@ -24,13 +24,14 @@
 
 * {
   box-sizing : border-box;
-  font-family : Gotham Rounded;
+  --font-family : Gotham Rounded;      
   --secundairy-color: #282A35 ;
   --primary-color: #04AA6D;
+  font-family: var(--font-family);
 }
 
 body{
-  background-color: white;
+  background-color: yellow;
 }
 
 header{

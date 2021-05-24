@@ -14,7 +14,8 @@ class Header extends LitElement {
            
         h1{ 
             font-size: 1.5rem;
-            padding: 0.5rem;          
+            margin: 0;
+            padding: 1rem;          
             text-align: center;  
        }
              
@@ -24,7 +25,7 @@ class Header extends LitElement {
             font-weight: bold;
             background-color: #282A35;
             text-transform: uppercase;
-            font-family: 'Source Sans Pro', sans-serif;
+            font-family: var(--font-family);
             white-space: nowrap; 
             cursor:pointer;     
         }

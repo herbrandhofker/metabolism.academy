@@ -6,8 +6,10 @@ import { LitElement, html, css } from 'lit-element';
 class Footer extends LitElement {
     static get styles() {
         return [ css`   
-  
-
+        section{
+            background-color: black;
+            margin : 0px;
+        }
            
     `];
     }
@@ -23,9 +25,9 @@ class Footer extends LitElement {
 
     render() {
         return html`
-            <div>
+            <section>
               Footer
-            </div>
+            </section>
         `;
     }    
 }
