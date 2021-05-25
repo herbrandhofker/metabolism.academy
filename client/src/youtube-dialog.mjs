@@ -150,7 +150,7 @@ class YoutubeDialog extends LitElement {
          <div id="dialog">
             <div><h2 id="header">${this.title}</h2></div>
             <div id="content">content</div>
-            <div id="footer">footer</div>
+            <div id="footer"></div>
         </div>  
         `;
     }
