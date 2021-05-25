@@ -57,46 +57,12 @@ export class YoutubeDialog extends LitElement {
         fill: var(--primary-color);
     }
 
-    .opaque-button {
-        border: none;
-        background-color: transparent;
-        outline: none;
-    }
-
-    .close-button {
-        margin-left: auto;
-        font-size: 2rem;
-    }
-
-    .button-box{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        height: var(--button-box-height);  
-        width: 100%;              
-    }
-
-    .button {
-        white-space: nowrap; 
-        padding: var(--button-padding);
-        margin: var(--button-margin);
-        background-color: var(--button-background-color);
-        border-color: var(--button-border-color);
-        color: var(--button-color);
-        border-width: var(--button-border-width);
-        font-family: var(--button-font-family);
-        font-size: var(--button-font-size);
-        font-weight: var(--button-font-weight);
-        height: var(--button-height);
-
-        border-radius : var(--button-border-radius);
-
-        cursor:pointer
-    }
+   
+    
 
     /**youtube section */
 
-    .youtube-video-container {
+    .container {
         display: flex;
         flex-direction: column;
         background-color:  lightgrey;
@@ -109,34 +75,36 @@ export class YoutubeDialog extends LitElement {
         justify-content: space-around;
         height: var(--button-box-height);  
         width: 100%;  
-        padding-bottom : 1em;   
+        padding-bottom : 1em;  
+             
     }
+  
 
-    .btnbox-item {
+    .button-box > .btnbox-item {
         margin-left: 1.2em;
         margin-top : 1em;
         font-size: 1.6rem;        
     }
 
-    .length{
+    .button-box > .length{
         white-space: nowrap; 
         color: black;
     }
 
-    .volume-span {
+    .button-box > .volume-span {
         display: flex;
         background-color:  grey;
         white-space: pre;
         align-items: center;
     }
 
-    .opaque-button {
+    .button-box >.opaque-button {
         border: none;
         background-color: transparent;
         outline: none;
     }
 
-    .close-button {
+    .button-box > .close-button {
         font-size: 2em;
         margin-top: 0.5em;
     }
@@ -155,14 +123,12 @@ export class YoutubeDialog extends LitElement {
 
     constructor() {
         super();
-        console.log("yt-dialog()")
         youtubeDialog = this;
         this.title = null;
         this.content = null;
         this.footer = null;
         this.configuration = null;
     }
-
 
     static get properties() {
         return {
@@ -175,7 +141,9 @@ export class YoutubeDialog extends LitElement {
         return html`
          <div class="dialog">
             <div><h2 class="header">${this.title}</h2></div>
-            <div id="content">content</div>
+            <div id="content">
+                
+            </div>
             <div class="footer"></div>
         </div>  
         `;
@@ -204,7 +172,7 @@ export class YoutubeDialog extends LitElement {
 
     static addVideoToConfiguration(videoId) {
         const ytVideoContainer = document.createElement("div");
-        ytVideoContainer.classList.add("youtube-video-container")
+        ytVideoContainer.classList.add("container")
         const video = ytVideoContainer.appendChild(document.createElement("video"));
         video.controls = false;
 
