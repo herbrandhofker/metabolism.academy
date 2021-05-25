@@ -56,30 +56,16 @@ export class YoutubeDialog extends LitElement {
     path:hover {
         fill: var(--primary-color);
     }
-
    
-    
-
-    /**youtube section */
-
-    .container {
-        display: flex;
-        flex-direction: column;
-        background-color:  lightgrey;
-        width: 100%;
-    }
-
     .button-box{
         display: flex;
         flex-direction: row;
         justify-content: space-around;
         height: var(--button-box-height);  
         width: 100%;  
-        padding-bottom : 1em;  
-             
+        padding-bottom : 1em;               
     }
   
-
     .button-box > .btnbox-item {
         margin-left: 1.2em;
         margin-top : 1em;
@@ -142,11 +128,8 @@ export class YoutubeDialog extends LitElement {
         return html`
          <div class="dialog">
             <div><h2 class="header">${this.title}</h2></div>
-            <div id="content">
             <div id="video"></div>
-            <div id="buttonBox"></div>
-                
-            </div>
+            <div id="buttonBox"></div> 
             <div class="footer"></div>
         </div>  
         `;
