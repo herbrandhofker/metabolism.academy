@@ -1,5 +1,5 @@
 import { LitElement, html, css, svg } from 'lit-element';
-import {YoutubeDialog, youtubeDialog,  configs } from './youtube-dialog.mjs'
+import {YoutubeDialog, youtubeDialog } from './youtube-dialog.mjs'
 
 class YoutubeVideo extends LitElement {
 
@@ -44,41 +44,9 @@ class YoutubeVideo extends LitElement {
 
     createVideo() {
         youtubeDialog.title = this.title;
-        youtubeDialog.configuration= getConfiguration(this.videoData);
+        youtubeDialog.configuration= YoutubeDialog.getConfiguration(this.videoData);
         youtubeDialog.style.display = "block";
-        youtubeDialog.play();
-
-        function getConfiguration(videoData) {
-            if (!configs.has(videoData.id))
-            YoutubeDialog.addVideoToConfiguration(videoData.id);
-            const config = configs.get(videoData.id);
-            const start = getSeconds(videoData.start);
-            const end = getSeconds(videoData.end);
-            config.video.currentTime = start;
-            config.data.current = start;
-            config.data.start = start;
-            config.data.end = end;
-            return config;
-
-
-            function getSeconds(str) {
-                const s = str.split(":");
-                let total = 0;
-                if (s.length > 2) {
-                    total += 60 * 60 * parseInt(s[0]);
-                    total += 60 * parseInt(s[1]);
-                    total += parseInt(s[2]);
-                    return total
-                }
-                if (s.length > 1) {
-                    total += 60 * parseInt(s[0]);
-                    total += parseInt(s[1]);
-                    return total
-                }
-                total += parseInt(s[0])
-                return total;
-            }
-        }
+        youtubeDialog.play();    
     }
 }
 

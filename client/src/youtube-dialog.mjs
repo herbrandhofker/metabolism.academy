@@ -2,7 +2,7 @@ import { LitElement, html, css, svg } from 'lit-element';
 
 export let youtubeDialog = null;
 
-export const configs = new Map();
+const configs = new Map();
 
 const svgWidth = 30;
 const svgHeight = svgWidth;
@@ -203,7 +203,6 @@ export class YoutubeDialog extends LitElement {
         });
     }
 
-
     static addVideoToConfiguration(videoId) {
         const ytVideoContainer = document.createElement("div");
         ytVideoContainer.classList.add("youtube-video-container")
@@ -369,6 +368,38 @@ export class YoutubeDialog extends LitElement {
             if (seconds < 10)
                 tmp = "0" + seconds;
             return result + tmp;
+        }
+    }
+
+    static getConfiguration(videoData) {
+        if (!configs.has(videoData.id))
+        YoutubeDialog.addVideoToConfiguration(videoData.id);
+        const config = configs.get(videoData.id);
+        const start = getSeconds(videoData.start);
+        const end = getSeconds(videoData.end);
+        config.video.currentTime = start;
+        config.data.current = start;
+        config.data.start = start;
+        config.data.end = end;
+        return config;
+    
+    
+        function getSeconds(str) {
+            const s = str.split(":");
+            let total = 0;
+            if (s.length > 2) {
+                total += 60 * 60 * parseInt(s[0]);
+                total += 60 * parseInt(s[1]);
+                total += parseInt(s[2]);
+                return total
+            }
+            if (s.length > 1) {
+                total += 60 * parseInt(s[0]);
+                total += parseInt(s[1]);
+                return total
+            }
+            total += parseInt(s[0])
+            return total;
         }
     }
 }
