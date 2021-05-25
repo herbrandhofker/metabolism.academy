@@ -1,5 +1,5 @@
 import { LitElement, html, css, svg } from 'lit-element';
-import { youtubeDialog, getStaticVideo,configs } from './youtube-dialog.mjs'
+import { youtubeDialog, addVideoToConfiguration, configs } from './youtube-dialog.mjs'
 
 class YoutubeVideo extends LitElement {
 
@@ -43,43 +43,45 @@ class YoutubeVideo extends LitElement {
     }
 
     createVideo() {
-        let videoDialog = null;
-        if (configs.has(this.videoData.id)) {
-            videoDialog = configs.get(this.videoData.id).videoDialog;
-        }
-        else
-            videoDialog = getStaticVideo(this.videoData.id);
+
+        const config = getConfiguration(this.videoData);
 
         youtubeDialog.style.display = "block";
         youtubeDialog.title = this.title;
-
-        const start = getSeconds(this.videoData.start);
-        const end = getSeconds(this.videoData.end);
-        const config = configs.get(this.videoData.id);
-        config.video.currentTime = start;
-        config.data.current = start;
-        config.data.start = start;
-        config.data.end = end;
-        config.video.play();
         youtubeDialog.content.innerHTML = null;
-        youtubeDialog.content.appendChild(videoDialog)     
+        youtubeDialog.content.appendChild(config.videoDialog)
+        config.video.play();
 
-        function getSeconds(str) {
-            const s = str.split(":");
-            let total = 0;
-            if (s.length > 2) {
-                total += 60 * 60 * parseInt(s[0]);
-                total += 60 * parseInt(s[1]);
-                total += parseInt(s[2]);
-                return total
+        function getConfiguration(videoData) {
+            if (!configs.has(videoData.id))
+                addVideoToConfiguration(videoData.id);
+            const config = configs.get(videoData.id);
+            const start = getSeconds(videoData.start);
+            const end = getSeconds(videoData.end);
+            config.video.currentTime = start;
+            config.data.current = start;
+            config.data.start = start;
+            config.data.end = end;
+            return config;
+
+
+            function getSeconds(str) {
+                const s = str.split(":");
+                let total = 0;
+                if (s.length > 2) {
+                    total += 60 * 60 * parseInt(s[0]);
+                    total += 60 * parseInt(s[1]);
+                    total += parseInt(s[2]);
+                    return total
+                }
+                if (s.length > 1) {
+                    total += 60 * parseInt(s[0]);
+                    total += parseInt(s[1]);
+                    return total
+                }
+                total += parseInt(s[0])
+                return total;
             }
-            if (s.length > 1) {
-                total += 60 * parseInt(s[0]);
-                total += parseInt(s[1]);
-                return total
-            }
-            total += parseInt(s[0])
-            return total;
         }
     }
 }

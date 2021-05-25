@@ -187,7 +187,8 @@ class YoutubeDialog extends LitElement {
         console.log("yt-firstupdate")
     }
 }
-export function getStaticVideo(videoId) {
+
+export function addVideoToConfiguration(videoId) {
     const ytVideoContainer = document.createElement("div");
     ytVideoContainer.classList.add("youtube-video-container")
     const video = ytVideoContainer.appendChild(document.createElement("video"));
@@ -318,12 +319,10 @@ export function getStaticVideo(videoId) {
     });
 
     configs.set(videoId, config);
-    return config.videoDialog;
 
     function getMp4(videoId) {
         return videos.get(videoId).name;
     }
-
 
     function showProgress(t, seconds) {
         return showTime(t) + " / " + showTime(seconds);
