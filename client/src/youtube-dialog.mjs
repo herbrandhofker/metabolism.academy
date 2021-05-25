@@ -156,21 +156,15 @@ export class YoutubeDialog extends LitElement {
     }
 
     static addVideoToConfiguration(videoId) {
-        const video = document.createElement("video");
-      
-        const config = { data: {} };
-       
+        const config = { data: {} };       
+        const video = document.createElement("video");      
         const btnBox = document.createElement("div");
         btnBox.classList.add("button-box");
-
-        config.video = video;
-        config.buttonBox = btnBox;
-
-        const source = config.video.appendChild(document.createElement("source"));
+        const source = video.appendChild(document.createElement("source"));
         source.src = "../videos/" + getMp4(videoId) + ".mp4";
         source.type = "video/mp4";
       
-        let promise = config.video.play();
+        let promise = video.play();
         if (promise !== undefined) {
             promise.then(_ => {
                 console.log("Autoplay started!");
@@ -283,7 +277,10 @@ export class YoutubeDialog extends LitElement {
                 }
             });
         });
+        config.video = video;
+        config.buttonBox = btnBox;
 
+     
         configs.set(videoId, config);
 
         function getMp4(videoId) {
