@@ -58,41 +58,40 @@ export class YoutubeDialog extends LitElement {
     }
 
     .opaque-button {
-    border: none;
-    background-color: transparent;
-    outline: none;
+        border: none;
+        background-color: transparent;
+        outline: none;
     }
 
     .close-button {
-    margin-left: auto;
-    font-size: 2rem;
+        margin-left: auto;
+        font-size: 2rem;
     }
 
     .button-box{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    height: var(--button-box-height);  
-    width: 100%;              
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        height: var(--button-box-height);  
+        width: 100%;              
     }
 
-
     .button {
-    white-space: nowrap; 
-    padding: var(--button-padding);
-    margin: var(--button-margin);
-    background-color: var(--button-background-color);
-    border-color: var(--button-border-color);
-    color: var(--button-color);
-    border-width: var(--button-border-width);
-    font-family: var(--button-font-family);
-    font-size: var(--button-font-size);
-    font-weight: var(--button-font-weight);
-    height: var(--button-height);
+        white-space: nowrap; 
+        padding: var(--button-padding);
+        margin: var(--button-margin);
+        background-color: var(--button-background-color);
+        border-color: var(--button-border-color);
+        color: var(--button-color);
+        border-width: var(--button-border-width);
+        font-family: var(--button-font-family);
+        font-size: var(--button-font-size);
+        font-weight: var(--button-font-weight);
+        height: var(--button-height);
 
-    border-radius : var(--button-border-radius);
+        border-radius : var(--button-border-radius);
 
-    cursor:pointer
+        cursor:pointer
     }
 
     /**youtube section */
