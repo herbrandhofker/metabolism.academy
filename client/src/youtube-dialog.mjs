@@ -142,8 +142,6 @@ export class YoutubeDialog extends LitElement {
         console.log("yt-firstupdate")
     }
 
-    
-
     updated(changedProperties) {
         changedProperties.forEach((oldValue, propName) => {
             if (propName == "configuration") {
@@ -287,7 +285,6 @@ export class YoutubeDialog extends LitElement {
         });
 
         configs.set(videoId, config);
-
 
         function getMp4(videoId) {
             return videos.get(videoId).name;
