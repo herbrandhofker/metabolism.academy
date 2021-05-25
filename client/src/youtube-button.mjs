@@ -1,4 +1,5 @@
-import { LitElement, html, css, svg } from 'lit-element'
+import { LitElement, html, css, svg } from 'lit-element';
+import {youtubeDialog} from './youtube-dialog.mjs'
 const svgWidth = 30;
 const svgHeight = svgWidth;
 const closeSvg = `<svg width="` + svgWidth + `" height="` + svgHeight + `" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1490 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z"/></svg>`;
@@ -20,10 +21,7 @@ videos.set(5, { name: "How low carbohydrate diets can help you avoid surgery for
 videos.set(6, { name: "Dr. Paul Mason - -Saturated fat is not dangerous-", youtube: "https://www.youtube.com/watch?v=NUY_SDhxf4k" });
 const configs = new Map();
 
-const dialogDiv = document.getElementById("dialogDiv");
-const dialogHeader = document.getElementById("dialogHeader");
-dialogHeader.innerText = " abc"
-const dialogContent = document.getElementById("dialogContent");
+const dialogDiv = youtubeDialog;
 
 class YoutubeVideo extends LitElement {
 
@@ -71,7 +69,7 @@ class YoutubeVideo extends LitElement {
         const videoDialog = getStaticVideo(this.videoData.id);
 
         dialogDiv.style.display = "block";
-        dialogHeader.innerText = this.title;
+        dialogDiv.title = this.title;
 
         const start = getSeconds(this.videoData.start);
         const end = getSeconds(this.videoData.end);
@@ -81,8 +79,8 @@ class YoutubeVideo extends LitElement {
         config.data.start = start;
         config.data.end = end;
         config.video.play();
-        dialogContent.innerHTML = null;
-        dialogContent.appendChild(videoDialog)
+        dialogDiv.content.innerHTML = null;
+        dialogDiv.content.appendChild(videoDialog)
 
         function getStaticVideo(videoId) {
 
