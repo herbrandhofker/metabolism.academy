@@ -110,17 +110,21 @@ export class YoutubeDialog extends LitElement {
        }       
    }
 
-   @media (max-width: 730px){           
+   @media (max-width: 780px){           
     label {
       display: none;
   }    
- /* 
+ 
   @media (max-width: 630px){           
-    span {
+    #fullScreenButton{
       display: none;
-  }   */
-}
+  }   
 
+  @media (max-width: 600px){           
+ #volumeSpan {
+      display: none;
+  }   
+}
   
 `;
     }
@@ -207,6 +211,7 @@ export class YoutubeDialog extends LitElement {
         lengthEl.classList.add('btnbox-item', 'length');
 
         const volume_span = btnBox.appendChild(document.createElement("span"));
+        volume_span.id="volumeSpan";
         volume_span.classList.add('btnbox-item', 'volume-span')
         const volume_low = volume_span.appendChild(document.createElement("i"));
         volume_low.innerHTML = volumeDownSvg;
@@ -222,8 +227,9 @@ export class YoutubeDialog extends LitElement {
 
         const fullScreenButton = btnBox.appendChild(document.createElement("a"));
         fullScreenButton.classList.add('btnbox-item', 'opaque-button');
-        fullScreenButton.innerHTML = expandSvg;
 
+        fullScreenButton.innerHTML = expandSvg;
+        fullScreenButton.id="fullScreenButton";
         const muteButton = btnBox.appendChild(document.createElement("a"));
         muteButton.classList.add('btnbox-item','opaque-button' );
         muteButton.innerHTML = volumeOffSvg;
