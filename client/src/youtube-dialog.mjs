@@ -125,7 +125,8 @@ export class YoutubeDialog extends LitElement {
         super();
         youtubeDialog = this;
         this.title = null;
-        this.content = null;
+        this.video = null;
+        this.buttonBox = null;
         this.footer = null;
         this.configuration = null;
     }
@@ -142,6 +143,8 @@ export class YoutubeDialog extends LitElement {
          <div class="dialog">
             <div><h2 class="header">${this.title}</h2></div>
             <div id="content">
+            <div id="video"></div>
+            <div id="buttonBox"></div>
                 
             </div>
             <div class="footer"></div>
@@ -150,7 +153,8 @@ export class YoutubeDialog extends LitElement {
     }
 
     firstUpdated() {
-        this.content = this.shadowRoot.getElementById("content");
+        this.buttonBox = this.shadowRoot.getElementById("buttonBox");
+        this.video = this.shadowRoot.getElementById("video");
         this.footer = this.shadowRoot.getElementById("footer");
         console.log("yt-firstupdate")
     }
@@ -162,9 +166,9 @@ export class YoutubeDialog extends LitElement {
     updated(changedProperties) {
         changedProperties.forEach((oldValue, propName) => {
             if (propName == "configuration") {
-                this.content.innerHTML = null;
-                if (this.configuration) {
-                    this.content.appendChild(this.configuration.videoDialog)
+                 if (this.configuration) {
+                    this.video.appendChild(this.configuration.video)
+                    this.buttonBox.appendChild(this.configuration.buttonBox)
                 }
             }
         });
@@ -178,10 +182,12 @@ export class YoutubeDialog extends LitElement {
 
         const config = { data: {} };
         config.videoDialog = ytVideoContainer;
-        config.video = video;
-
+        
         const btnBox = ytVideoContainer.appendChild(document.createElement("div"));
         btnBox.classList.add("button-box");
+
+        config.video = video;
+        config.buttonBox = btnBox;
 
         const source = config.video.appendChild(document.createElement("source"));
         source.src = "../videos/" + getMp4(videoId) + ".mp4";
