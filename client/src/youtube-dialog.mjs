@@ -26,7 +26,7 @@ videos.set(5, { name: "How low carbohydrate diets can help you avoid surgery for
 videos.set(6, { name: "Dr. Paul Mason - -Saturated fat is not dangerous-", youtube: "https://www.youtube.com/watch?v=NUY_SDhxf4k" });
 
 
-class YoutubeDialog extends LitElement {
+export class YoutubeDialog extends LitElement {
 
     static get styles() {
         return css`
@@ -192,7 +192,7 @@ class YoutubeDialog extends LitElement {
     play() {
         this.configuration.video.play();
     }
-    
+
     updated(changedProperties) {
         changedProperties.forEach((oldValue, propName) => {
             if (propName == "configuration") {
@@ -203,172 +203,174 @@ class YoutubeDialog extends LitElement {
             }
         });
     }
-}
 
-export function addVideoToConfiguration(videoId) {
-    const ytVideoContainer = document.createElement("div");
-    ytVideoContainer.classList.add("youtube-video-container")
-    const video = ytVideoContainer.appendChild(document.createElement("video"));
-    video.controls = false;
 
-    const config = { data: {} };
-    config.videoDialog = ytVideoContainer;
-    config.video = video;
+    static addVideoToConfiguration(videoId) {
+        const ytVideoContainer = document.createElement("div");
+        ytVideoContainer.classList.add("youtube-video-container")
+        const video = ytVideoContainer.appendChild(document.createElement("video"));
+        video.controls = false;
 
-    const btnBox = ytVideoContainer.appendChild(document.createElement("div"));
-    btnBox.classList.add("button-box");
+        const config = { data: {} };
+        config.videoDialog = ytVideoContainer;
+        config.video = video;
 
-    const source = config.video.appendChild(document.createElement("source"));
-    source.src = "../videos/" + getMp4(videoId) + ".mp4";
-    source.type = "video/mp4";
-    let promise = config.video.play();
-    if (promise !== undefined) {
-        promise.then(_ => {
-            console.log("Autoplay started!");
-            playButton.innerHTML = pauseSvg;
+        const btnBox = ytVideoContainer.appendChild(document.createElement("div"));
+        btnBox.classList.add("button-box");
 
-        }).catch(error => {
-            console.log("Autoplay was prevented!");
-        });
-    }
-
-    const playButton = btnBox.appendChild(document.createElement("a"));
-    playButton.classList.add('btnbox-item', 'opaque-button')
-    playButton.innerHTML = playSvg;
-
-    const seekBar = btnBox.appendChild(document.createElement("input"));
-    seekBar.classList.add('btnbox-item')
-    seekBar.type = "range"
-    seekBar.value = "0";
-
-    const lengthEl = btnBox.appendChild(document.createElement("label"));
-    lengthEl.classList.add('btnbox-item', 'length');
-
-    const volume_span = btnBox.appendChild(document.createElement("span"));
-    volume_span.classList.add('volume-span', 'btnbox-item')
-    const volume_low = volume_span.appendChild(document.createElement("i"));
-    volume_low.innerHTML = volumeDownSvg;
-
-    const volumeBar = volume_span.appendChild(document.createElement("input"));
-    volumeBar.type = "range"
-    volumeBar.min = 0;
-    volumeBar.max = 1;
-    volumeBar.step = 0.1;
-    volumeBar.value = 0.5;
-    const volume_high = volume_span.appendChild(document.createElement("i"));
-    volume_high.innerHTML = volumeOnSvg;
-
-    const fullScreenButton = btnBox.appendChild(document.createElement("a"));
-    fullScreenButton.classList.add('opaque-button', 'btnbox-item');
-    fullScreenButton.innerHTML = expandSvg;
-
-    const muteButton = btnBox.appendChild(document.createElement("a"));
-    muteButton.classList.add('opaque-button', 'btnbox-item');
-    muteButton.innerHTML = volumeOffSvg;
-
-    const youtubeButton = btnBox.appendChild(document.createElement("a"));
-    youtubeButton.classList.add('btnbox-item');
-    youtubeButton.innerHTML = "<a href=" + videos.get(videoId).youtube + "'>See all on youtube</a>";
-
-    const closeButton = btnBox.appendChild(document.createElement("button"));
-    closeButton.classList.add('opaque-button', 'btnbox-item', 'close-button');
-    closeButton.innerHTML = closeSvg;
-
-    closeButton.addEventListener("click", () => {
-        youtubeDialog.style.display = "none";
-        video.pause();
-    });
-
-    video.addEventListener('loadedmetadata', (event) => {
-        video.addEventListener("timeupdate", (event) => {
-            const length = (config.data.end - config.data.start);
-            lengthEl.innerText = showProgress(video.currentTime - config.data.start, length);
-            const value = (100 / (length)) * (video.currentTime - config.data.start);
-            seekBar.value = value;
-            if (video.currentTime >= config.end) {
-                video.pause();
-            }
-            event.stopPropagation();
-        });
-
-        playButton.addEventListener("click", () => {
-            if (video.paused == true) {
-                video.play();
+        const source = config.video.appendChild(document.createElement("source"));
+        source.src = "../videos/" + getMp4(videoId) + ".mp4";
+        source.type = "video/mp4";
+        let promise = config.video.play();
+        if (promise !== undefined) {
+            promise.then(_ => {
+                console.log("Autoplay started!");
                 playButton.innerHTML = pauseSvg;
-            } else {
-                video.pause();
-                playButton.innerHTML = playSvg;
-            }
-        });
 
-        seekBar.addEventListener("change", () => {
-            const time = (config.data.end - config.data.start) * (seekBar.value / 100);
-            video.currentTime = (time + config.data.start);
-        });
-        seekBar.addEventListener("mousedown", () => {
+            }).catch(error => {
+                console.log("Autoplay was prevented!");
+            });
+        }
+
+        const playButton = btnBox.appendChild(document.createElement("a"));
+        playButton.classList.add('btnbox-item', 'opaque-button')
+        playButton.innerHTML = playSvg;
+
+        const seekBar = btnBox.appendChild(document.createElement("input"));
+        seekBar.classList.add('btnbox-item')
+        seekBar.type = "range"
+        seekBar.value = "0";
+
+        const lengthEl = btnBox.appendChild(document.createElement("label"));
+        lengthEl.classList.add('btnbox-item', 'length');
+
+        const volume_span = btnBox.appendChild(document.createElement("span"));
+        volume_span.classList.add('volume-span', 'btnbox-item')
+        const volume_low = volume_span.appendChild(document.createElement("i"));
+        volume_low.innerHTML = volumeDownSvg;
+
+        const volumeBar = volume_span.appendChild(document.createElement("input"));
+        volumeBar.type = "range"
+        volumeBar.min = 0;
+        volumeBar.max = 1;
+        volumeBar.step = 0.1;
+        volumeBar.value = 0.5;
+        const volume_high = volume_span.appendChild(document.createElement("i"));
+        volume_high.innerHTML = volumeOnSvg;
+
+        const fullScreenButton = btnBox.appendChild(document.createElement("a"));
+        fullScreenButton.classList.add('opaque-button', 'btnbox-item');
+        fullScreenButton.innerHTML = expandSvg;
+
+        const muteButton = btnBox.appendChild(document.createElement("a"));
+        muteButton.classList.add('opaque-button', 'btnbox-item');
+        muteButton.innerHTML = volumeOffSvg;
+
+        const youtubeButton = btnBox.appendChild(document.createElement("a"));
+        youtubeButton.classList.add('btnbox-item');
+        youtubeButton.innerHTML = "<a href=" + videos.get(videoId).youtube + "'>See all on youtube</a>";
+
+        const closeButton = btnBox.appendChild(document.createElement("button"));
+        closeButton.classList.add('opaque-button', 'btnbox-item', 'close-button');
+        closeButton.innerHTML = closeSvg;
+
+        closeButton.addEventListener("click", () => {
+            youtubeDialog.style.display = "none";
             video.pause();
         });
 
-        seekBar.addEventListener("mouseup", () => {
-            video.play();
+        video.addEventListener('loadedmetadata', (event) => {
+            video.addEventListener("timeupdate", (event) => {
+                const length = (config.data.end - config.data.start);
+                lengthEl.innerText = showProgress(video.currentTime - config.data.start, length);
+                const value = (100 / (length)) * (video.currentTime - config.data.start);
+                seekBar.value = value;
+                if (video.currentTime >= config.end) {
+                    video.pause();
+                }
+                event.stopPropagation();
+            });
+
+            playButton.addEventListener("click", () => {
+                if (video.paused == true) {
+                    video.play();
+                    playButton.innerHTML = pauseSvg;
+                } else {
+                    video.pause();
+                    playButton.innerHTML = playSvg;
+                }
+            });
+
+            seekBar.addEventListener("change", () => {
+                const time = (config.data.end - config.data.start) * (seekBar.value / 100);
+                video.currentTime = (time + config.data.start);
+            });
+            seekBar.addEventListener("mousedown", () => {
+                video.pause();
+            });
+
+            seekBar.addEventListener("mouseup", () => {
+                video.play();
+            });
+
+            muteButton.addEventListener("click", () => {
+                if (video.muted == false) {
+                    muteButton.innerHTML = volumeOnSvg;
+                } else {
+                    muteButton.innerHTML = volumeOffSvg;
+                }
+                video.muted = !video.muted;
+            });
+            volumeBar.addEventListener("change", () => {
+                video.volume = volumeBar.value;
+            });
+            fullScreenButton.addEventListener("click", () => {
+                if (video.requestFullscreen) {
+                    video.requestFullscreen();
+                } else if (video.mozRequestFullScreen) {
+                    video.mozRequestFullScreen(); // Firefox
+                } else if (video.webkitRequestFullscreen) {
+                    video.webkitRequestFullscreen(); // Chrome and Safari
+                }
+            });
         });
 
-        muteButton.addEventListener("click", () => {
-            if (video.muted == false) {
-                muteButton.innerHTML = volumeOnSvg;
-            } else {
-                muteButton.innerHTML = volumeOffSvg;
-            }
-            video.muted = !video.muted;
-        });
-        volumeBar.addEventListener("change", () => {
-            video.volume = volumeBar.value;
-        });
-        fullScreenButton.addEventListener("click", () => {
-            if (video.requestFullscreen) {
-                video.requestFullscreen();
-            } else if (video.mozRequestFullScreen) {
-                video.mozRequestFullScreen(); // Firefox
-            } else if (video.webkitRequestFullscreen) {
-                video.webkitRequestFullscreen(); // Chrome and Safari
-            }
-        });
-    });
+        configs.set(videoId, config);
 
-    configs.set(videoId, config);
 
-    function getMp4(videoId) {
-        return videos.get(videoId).name;
-    }
-
-    function showProgress(t, seconds) {
-        return showTime(t) + " / " + showTime(seconds);
-    }
-
-    function showTime(seconds) {
-        seconds = Math.round(seconds)
-        let result = "";
-        const hours = Math.floor(seconds / 3600);
-        if (hours > 1) {
-            result = hours + ":";
+        function getMp4(videoId) {
+            return videos.get(videoId).name;
         }
 
-        seconds = seconds - (hours * 3600);
-        const minutes = Math.floor(seconds / 60);
-        if (minutes > 0 || hours > 0) {
-            let tmp = minutes;
-            if (minutes < 10 && result != "")
-                tmp = "0" + tmp;
-            result += tmp + ":";
-        } else
-            if (minutes == 0) {
-                result = "0:"
+        function showProgress(t, seconds) {
+            return showTime(t) + " / " + showTime(seconds);
+        }
+
+        function showTime(seconds) {
+            seconds = Math.round(seconds)
+            let result = "";
+            const hours = Math.floor(seconds / 3600);
+            if (hours > 1) {
+                result = hours + ":";
             }
-        seconds = seconds - (minutes * 60);
-        let tmp = seconds;
-        if (seconds < 10)
-            tmp = "0" + seconds;
-        return result + tmp;
+
+            seconds = seconds - (hours * 3600);
+            const minutes = Math.floor(seconds / 60);
+            if (minutes > 0 || hours > 0) {
+                let tmp = minutes;
+                if (minutes < 10 && result != "")
+                    tmp = "0" + tmp;
+                result += tmp + ":";
+            } else
+                if (minutes == 0) {
+                    result = "0:"
+                }
+            seconds = seconds - (minutes * 60);
+            let tmp = seconds;
+            if (seconds < 10)
+                tmp = "0" + seconds;
+            return result + tmp;
+        }
     }
 }
 

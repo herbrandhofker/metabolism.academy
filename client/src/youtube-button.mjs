@@ -1,5 +1,5 @@
 import { LitElement, html, css, svg } from 'lit-element';
-import { youtubeDialog, addVideoToConfiguration, configs } from './youtube-dialog.mjs'
+import {YoutubeDialog, youtubeDialog,  configs } from './youtube-dialog.mjs'
 
 class YoutubeVideo extends LitElement {
 
@@ -43,17 +43,14 @@ class YoutubeVideo extends LitElement {
     }
 
     createVideo() {
-
-        const configuration = getConfiguration(this.videoData);
-
         youtubeDialog.title = this.title;
-        youtubeDialog.configuration=configuration;
+        youtubeDialog.configuration= getConfiguration(this.videoData);
         youtubeDialog.style.display = "block";
         youtubeDialog.play();
 
         function getConfiguration(videoData) {
             if (!configs.has(videoData.id))
-                addVideoToConfiguration(videoData.id);
+            YoutubeDialog.addVideoToConfiguration(videoData.id);
             const config = configs.get(videoData.id);
             const start = getSeconds(videoData.start);
             const end = getSeconds(videoData.end);
@@ -84,7 +81,5 @@ class YoutubeVideo extends LitElement {
         }
     }
 }
-
-
 
 customElements.define("my-youtube-button", YoutubeVideo);
