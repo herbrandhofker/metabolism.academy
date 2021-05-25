@@ -44,13 +44,11 @@ class YoutubeVideo extends LitElement {
 
     createVideo() {
 
-        const config = getConfiguration(this.videoData);
+        const configuration = getConfiguration(this.videoData);
 
-        youtubeDialog.style.display = "block";
         youtubeDialog.title = this.title;
-        youtubeDialog.content.innerHTML = null;
-        youtubeDialog.content.appendChild(config.videoDialog)
-        youtubeDialog.configuration=config;
+        youtubeDialog.configuration=configuration;
+        youtubeDialog.style.display = "block";
         youtubeDialog.play();
 
         function getConfiguration(videoData) {
