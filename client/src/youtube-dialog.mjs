@@ -103,6 +103,25 @@ export class YoutubeDialog extends LitElement {
     video::-webkit-media-controls {
         display: none;
     } 
+
+    @media (max-width: 1250px){           
+         #youtubeButton {
+           display: none;
+       }       
+   }
+
+   @media (max-width: 730px){           
+    label {
+      display: none;
+  }    
+ /* 
+  @media (max-width: 630px){           
+    span {
+      display: none;
+  }   */
+}
+
+  
 `;
     }
 
@@ -188,7 +207,7 @@ export class YoutubeDialog extends LitElement {
         lengthEl.classList.add('btnbox-item', 'length');
 
         const volume_span = btnBox.appendChild(document.createElement("span"));
-        volume_span.classList.add('volume-span', 'btnbox-item')
+        volume_span.classList.add('btnbox-item', 'volume-span')
         const volume_low = volume_span.appendChild(document.createElement("i"));
         volume_low.innerHTML = volumeDownSvg;
 
@@ -202,19 +221,21 @@ export class YoutubeDialog extends LitElement {
         volume_high.innerHTML = volumeOnSvg;
 
         const fullScreenButton = btnBox.appendChild(document.createElement("a"));
-        fullScreenButton.classList.add('opaque-button', 'btnbox-item');
+        fullScreenButton.classList.add('btnbox-item', 'opaque-button');
         fullScreenButton.innerHTML = expandSvg;
 
         const muteButton = btnBox.appendChild(document.createElement("a"));
-        muteButton.classList.add('opaque-button', 'btnbox-item');
+        muteButton.classList.add('btnbox-item','opaque-button' );
         muteButton.innerHTML = volumeOffSvg;
 
         const youtubeButton = btnBox.appendChild(document.createElement("a"));
         youtubeButton.classList.add('btnbox-item');
+        youtubeButton.id="youtubeButton";
+    
         youtubeButton.innerHTML = "<a href=" + videos.get(videoId).youtube + "'>See all on youtube</a>";
 
         const closeButton = btnBox.appendChild(document.createElement("button"));
-        closeButton.classList.add('opaque-button', 'btnbox-item', 'close-button');
+        closeButton.classList.add( 'btnbox-item','opaque-button', 'close-button');
         closeButton.innerHTML = closeSvg;
 
         closeButton.addEventListener("click", () => {
@@ -277,10 +298,9 @@ export class YoutubeDialog extends LitElement {
                 }
             });
         });
-        config.video = video;
-        config.buttonBox = btnBox;
 
-     
+        config.video = video;
+        config.buttonBox = btnBox;     
         configs.set(videoId, config);
 
         function getMp4(videoId) {
