@@ -98,58 +98,57 @@ export class YoutubeDialog extends LitElement {
     /**youtube section */
 
     .youtube-video-container {
-    display: flex;
-    flex-direction: column;
-    background-color:  lightgrey;
-    width: 100%;
+        display: flex;
+        flex-direction: column;
+        background-color:  lightgrey;
+        width: 100%;
     }
 
     .button-box{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    height: var(--button-box-height);  
-    width: 100%;  
-    padding-bottom : 1em;   
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        height: var(--button-box-height);  
+        width: 100%;  
+        padding-bottom : 1em;   
     }
 
-
     .btnbox-item {
-    margin-left: 1.2em;
-    margin-top : 1em;
-    font-size: 1.6rem;        
+        margin-left: 1.2em;
+        margin-top : 1em;
+        font-size: 1.6rem;        
     }
 
     .length{
-    white-space: nowrap; 
-    color: black;
+        white-space: nowrap; 
+        color: black;
     }
 
     .volume-span {
-    display: flex;
-    background-color:  grey;
-    white-space: pre;
-    align-items: center;
+        display: flex;
+        background-color:  grey;
+        white-space: pre;
+        align-items: center;
     }
 
     .opaque-button {
-    border: none;
-    background-color: transparent;
-    outline: none;
+        border: none;
+        background-color: transparent;
+        outline: none;
     }
 
     .close-button {
-    font-size: 2em;
-    margin-top: 0.5em;
+        font-size: 2em;
+        margin-top: 0.5em;
     }
 
     video {
-    width: 100%;
-    pointer-events: none;
+        width: 100%;
+        pointer-events: none;
     }
 
     video::-webkit-media-controls {
-    display: none;
+        display: none;
     } 
 `;
     }
