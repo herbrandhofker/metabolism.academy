@@ -50,7 +50,8 @@ class YoutubeVideo extends LitElement {
         youtubeDialog.title = this.title;
         youtubeDialog.content.innerHTML = null;
         youtubeDialog.content.appendChild(config.videoDialog)
-        config.video.play();
+        youtubeDialog.configuration=config;
+        youtubeDialog.play();
 
         function getConfiguration(videoData) {
             if (!configs.has(videoData.id))

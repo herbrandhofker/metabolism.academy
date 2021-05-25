@@ -162,12 +162,14 @@ class YoutubeDialog extends LitElement {
         this.title = null;
         this.content = null;
         this.footer = null;
+        this.configuration=null;
     }
 
 
     static get properties() {
         return {
-            title: {type: String}
+            title: {type: String},
+            configuration: {type: Object}
         };
     }
 
@@ -185,6 +187,17 @@ class YoutubeDialog extends LitElement {
         this.content = this.shadowRoot.getElementById("content");
         this.footer = this.shadowRoot.getElementById("footer");
         console.log("yt-firstupdate")
+    }
+
+    play(){
+        this.configuration.video.play();
+    }
+    updated(changedProperties) {
+        changedProperties.forEach((oldValue, propName) => {
+            if (propName == "configuration") { 
+                console.log("configuation changed")
+             }
+        });
     }
 }
 
