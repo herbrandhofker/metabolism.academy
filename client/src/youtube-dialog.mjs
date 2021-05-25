@@ -167,7 +167,9 @@ export class YoutubeDialog extends LitElement {
         changedProperties.forEach((oldValue, propName) => {
             if (propName == "configuration") {
                  if (this.configuration) {
+                     this.video.innerHTML="";
                     this.video.appendChild(this.configuration.video)
+                    this.buttonBox.innerHTML="";
                     this.buttonBox.appendChild(this.configuration.buttonBox)
                 }
             }
@@ -192,6 +194,7 @@ export class YoutubeDialog extends LitElement {
         const source = config.video.appendChild(document.createElement("source"));
         source.src = "../videos/" + getMp4(videoId) + ".mp4";
         source.type = "video/mp4";
+      
         let promise = config.video.play();
         if (promise !== undefined) {
             promise.then(_ => {
