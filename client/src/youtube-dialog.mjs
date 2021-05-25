@@ -7,28 +7,30 @@ class YoutubeDialog extends LitElement {
     static get styles() {
         return css`
         
-    #dialog {
-        background-color: var(--tertiair-color);
+    .dialog {        
+        background-color: var(--primary-color);
         margin : 20% auto;
         padding : 20px;
         width : 90%;
     }
 
-    #dialogHeader {
-    color: var(--secundairy-color) ;
-    background: white;  
-    }
+    .header {
+        margin-botton: 10px;
+        color: white;
+        text-align: center;
+     }
 
     svg {
-    max-width: 1.6rem;
-    max-height: 1.6rem    
+        max-width: 1.6rem;
+        max-height: 1.6rem    
     }
+
     path {
-    fill: var(--secundairy-color);
+        fill: var(--secundairy-color);
     }
 
     path:hover {
-    fill: var(--primary-color);
+        fill: var(--primary-color);
     }
 
     .opaque-button {
@@ -147,10 +149,10 @@ class YoutubeDialog extends LitElement {
 
     render() {
         return html`
-         <div id="dialog">
-            <div><h2 id="header">${this.title}</h2></div>
+         <div class="dialog">
+            <div><h2 class="header">${this.title}</h2></div>
             <div id="content">content</div>
-            <div id="footer"></div>
+            <div class="footer"></div>
         </div>  
         `;
     }
