@@ -160,15 +160,11 @@ export class YoutubeDialog extends LitElement {
     }
 
     static addVideoToConfiguration(videoId) {
-        const ytVideoContainer = document.createElement("div");
-        ytVideoContainer.classList.add("container")
-        const video = ytVideoContainer.appendChild(document.createElement("video"));
-        video.controls = false;
-
+        const video = document.createElement("video");
+      
         const config = { data: {} };
-        config.videoDialog = ytVideoContainer;
-        
-        const btnBox = ytVideoContainer.appendChild(document.createElement("div"));
+       
+        const btnBox = document.createElement("div");
         btnBox.classList.add("button-box");
 
         config.video = video;
