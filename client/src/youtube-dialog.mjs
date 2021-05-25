@@ -142,9 +142,7 @@ export class YoutubeDialog extends LitElement {
         console.log("yt-firstupdate")
     }
 
-    play() {
-        this.configuration.video.play();
-    }
+    
 
     updated(changedProperties) {
         changedProperties.forEach((oldValue, propName) => {
@@ -328,7 +326,7 @@ export class YoutubeDialog extends LitElement {
 
     static getConfiguration(videoData) {
         if (!configs.has(videoData.id))
-        YoutubeDialog.addVideoToConfiguration(videoData.id);
+            YoutubeDialog.addVideoToConfiguration(videoData.id);
         const config = configs.get(videoData.id);
         const start = getSeconds(videoData.start);
         const end = getSeconds(videoData.end);
@@ -336,8 +334,7 @@ export class YoutubeDialog extends LitElement {
         config.data.current = start;
         config.data.start = start;
         config.data.end = end;
-        return config;
-    
+        return config;    
     
         function getSeconds(str) {
             const s = str.split(":");

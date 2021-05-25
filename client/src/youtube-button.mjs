@@ -46,7 +46,6 @@ class YoutubeVideo extends LitElement {
         youtubeDialog.title = this.title;
         youtubeDialog.configuration= YoutubeDialog.getConfiguration(this.videoData);
         youtubeDialog.style.display = "block";
-        youtubeDialog.play();    
     }
 }
 
