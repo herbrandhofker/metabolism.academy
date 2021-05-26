@@ -28,15 +28,11 @@ class Footer extends LitElement {
         
         padding: 55px 50px;
         margin-top: 80px;       
-    }
-
-    p, a {
-        color: white;
-    }       
+    }      
     
     .footer-left,.footer-center,.footer-right{
-            display: inline-block;
-            vertical-align: top;
+        display: inline-block;
+        vertical-align: top;
     }
     
     .footer-left{
@@ -74,11 +70,7 @@ class Footer extends LitElement {
    .email{
         color: var(--primary-color);
         text-decoration: none;
-   }
-    
-   .footer-company-about span{
-        font-size: var(--font-size-big);
-    }
+   } 
     
    .footer-icons{
         margin-top: 25px;
@@ -95,20 +87,18 @@ class Footer extends LitElement {
         line-height: 35px;    
         margin-right: 3px;
         margin-bottom: 5px;
-   }
-    
+   }    
     
    @media (max-width: 880px) {    
-    section{
-        font-size: var(--font-size-small);
+    *{
+        font-size: var(--font-size-default);
     }
     
     .footer-left,
     .footer-center,
-     .footer-right{
+    .footer-right{
         display: block;
         width: 100%;
-        margin-bottom: 40px;
         text-align: center;
     }
     
@@ -153,21 +143,14 @@ class Footer extends LitElement {
         
             <div class="footer-center">  
                 <h3>Contact</h3>      
-                 <p>Oudaen 26 Lelystad, Netherlands</p>
-              
-                <div>phone icon
-                <p>+31 641850977</p>
-                </div>
-        
-                <div>envelope icon
+                 <p>Oudaen 26 Lelystad, Netherlands</p>              
+                <p>+31 641850977</p>              
                  <p><a class="email" href="mailto:info@mitochondria.academy">info@mitochondria.academy</a></p>
-                </div> 
             </div>
         
             <div class="footer-right"> 
-                <h3>The organisation</h3>
-                  
-                <p class="footer-company-about">
+                <h3>The organisation</h3>                  
+                <p>
                      Metabolism.academy and mitochondria.academy are organizsations meant for all people who want to become healthier &amp; help other to become healthier.
                 </p>
         
