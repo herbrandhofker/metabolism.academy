@@ -42,32 +42,28 @@ class Footer extends LitElement {
    } 
     
     h3{
-        font-size: var(--font-size-very-big);
+        font-size: var(--font-size-big);
         margin-top: 0rem;
         margin-bottom: 1rem;
     }
     
     h3 span{
-        font-size: var(--font-size-very-big);
+        font-size: var(--font-size-big);
         color : var(--primary-color)
     }    
     
     .copy-right{
         color: var(--primary-color);
-        font-size: var(--font-size-big);
-    }  
-       
-   .footer-center p span{
-        font-size: var(--font-size-big);
-    }
-    
+        font-size: var(--font-size-default);
+    }         
+ 
    .email{
         color: var(--primary-color);
         text-decoration: none;
    } 
     
    .footer-icons{
-        margin-top: 25px;
+        margin-top: 1.2rem;
    }
     
   .footer-icons a{
@@ -85,20 +81,14 @@ class Footer extends LitElement {
     
    @media (max-width: 880px) {    
     *{
-        font-size: var(--font-size-default);
-    }
-    
+        font-size: var(--font-size-small);
+    }    
     .footer-left,
     .footer-center,
     .footer-right{
-        display: block;
-        width: 100%;
+        width: 80%;
         text-align: center;
-    }
-    
-     .footer-center i{
-        margin-left: 0;
-    }    
+    }         
    }
         
    svg {
