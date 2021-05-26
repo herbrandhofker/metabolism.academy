@@ -133,9 +133,9 @@ class Footer extends LitElement {
             </div>
         
             <div class="footer-right"> 
-                <h3>The organisation</h3>                  
+                <h3>The projects</h3>                  
                 <p>
-                     Metabolism.academy and mitochondria.academy are organizsations meant for all people who want to become healthier &amp; help other to become healthier.
+                     Metabolism.academy and mitochondria.academy are projects meant for all people who want to become healthier &amp; help other to become healthier.
                 </p>
         
                 <div class="footer-icons">
