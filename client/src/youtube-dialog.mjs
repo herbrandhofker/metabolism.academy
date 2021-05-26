@@ -121,7 +121,7 @@ export class YoutubeDialog extends LitElement {
   }   
 
   @media (max-width: 600px){           
- #volumeSpan {
+    #volumeSpan {
       display: none;
   }   
 }
