@@ -19,11 +19,19 @@ class Header extends LitElement {
             text-align: center;  
        } 
 
+       .title span{
+            color: var(--primary-color);
+       } 
+
        .subtitle{ 
             font-size: 2rem;
             margin: 0;
             padding-bottom: 1rem;          
             text-align: center;  
+        }
+
+        .warning{
+            color: red;
         }
              
        .menu-item{            
@@ -167,8 +175,9 @@ class Header extends LitElement {
 
     render() {
         return html`
-            <h1 class="title">The Metabolism Academy</h1>
+            <h1 class="title">Metabolism<span>Academy</span></h1>
             <h3 class="subtitle">nutrition advice based on science</h3>
+            <h3 class="subtitle warning">Warning:<br>Site is under construction.<br>Facts still to be checked.</h3>
             <nav class="navbar">
                 <a href="#" id="toggleButton" class="toggle-button">
                     <span class="bar"></span>
