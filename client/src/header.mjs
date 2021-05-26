@@ -177,7 +177,7 @@ class Header extends LitElement {
         return html`
             <h1 class="title">Metabolism<span>Academy</span></h1>
             <h3 class="subtitle">nutrition advice based on science</h3>
-            <h3 class="subtitle warning">Warning:<br>Site is under construction.<br>Facts still to be checked.</h3>
+            <h3 class="subtitle warning">Warning:<br>Site is under construction.<br>Facts have to be checked.</h3>
             <nav class="navbar">
                 <a href="#" id="toggleButton" class="toggle-button">
                     <span class="bar"></span>
