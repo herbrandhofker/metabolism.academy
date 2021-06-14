@@ -5,7 +5,6 @@ const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 module.exports = {
   mode: "development",
  devServer: {
-    https: true,
     port: 3020
   },
   devtool: 'inline-source-map',
@@ -14,16 +13,11 @@ module.exports = {
   entry: './src/index.mjs',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../client/dist/groupchat'),
   },
   plugins: [
     new HtmlWebpackPlugin({ template: './src/index.html' }),
-    new CopyPlugin({
-      patterns: [
-        { from: './src/data', to: './data' },
-        { from: './src/videos', to: './videos' }
-      ],
-    }),
+ 
     new FaviconsWebpackPlugin('./favicon.ico') 
   ], 
   

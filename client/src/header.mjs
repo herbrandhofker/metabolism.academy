@@ -175,7 +175,7 @@ class Header extends LitElement {
 
     render() {
         return html`
-            <h1 class="title">Metabolism<span>Academy</span></h1>
+            <h1 class="title">Metabolism<span>Academy 2</span></h1>
             <h3 class="subtitle">Nutrition advice based on science</h3>
             <h3 class="subtitle">As presented by Dr Paul Mason and others</h3>
             <h3 class="subtitle warning">Warning:<br>Site is under construction.<br>Facts have to be checked.</h3>
@@ -188,7 +188,9 @@ class Header extends LitElement {
                 <div id="navbarLinks" class="navbar-links">
                     <ul>
                         ${tabs.map(lbl => html`<li><a href="#" id=${lbl} class="menu-item" @click=${e => this.activate(lbl)}>${lbl.replaceAll("-", " ")}</a></li>`)}        
-                     </ul>
+                     <li><a href="https://mitochondria.academy/groupchat" class="menu-item">login</a></li>
+                        </ul>
+
                 </div>
             </nav>
         `;
