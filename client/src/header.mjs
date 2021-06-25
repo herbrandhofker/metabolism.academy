@@ -10,7 +10,7 @@ const tabs = ["home", "top-ten-medical-issues", "top-ten-food-issues", "details"
 
 class Header extends LitElement {
     static get styles() {
-        return [ css`
+        return [css`
            
         .title{ 
             font-size: 1.5rem;
@@ -26,8 +26,22 @@ class Header extends LitElement {
        .subtitle{ 
             font-size: 2rem;
             margin: 0;
-            padding-bottom: 1rem;          
+            padding-bottom: 0.1rem;          
             text-align: center;  
+        }
+
+        .planning{
+            display: flex;
+            justify-content: center;
+            color: red;
+            padding: 0px;     
+        }
+     
+      
+
+        .planning>div>ol>li {
+            text-align: left; 
+            list-style-position: inside;     
         }
 
         .warning{
@@ -169,16 +183,25 @@ class Header extends LitElement {
 
     constructor() {
         super();
-         this.toggleButton = null;
+        this.toggleButton = null;
         this.menuObjects = new Map();
     }
 
     render() {
         return html`
-            <h1 class="title">Metabolism<span>Academy 2</span></h1>
+            <h1 class="title">Metabolism<span>Academy</span></h1>
             <h3 class="subtitle">Nutrition advice based on science</h3>
             <h3 class="subtitle">As presented by Dr Paul Mason and others</h3>
-            <h3 class="subtitle warning">Warning:<br>Site is under construction.<br>Facts have to be checked.</h3>
+            <h3 class="subtitle warning">Under construction</h3>
+            <div class="planning">
+            <div><table><tr><th  align=left>How it is made (also presented in courses)</th></tr>
+            <tr><td>Using the most advanced software standards anno 2021</td</tr>
+            <tr><td>Scalable horizontal and vertical : practically unlimited</td</tr>
+            <tr><td>Structure can be re-used for any business branch</td</tr>
+            <tr><td>Minimum lines of code, maximum maintainability</td</tr>
+            </table></div>
+            <div><table><tr><th align=left colspan=2>Planning</th></tr><tr><td>July 2021</td><td>(Video)Group chat possibility.</td></tr><tr><td>August 2021</td><td>Consultancy possibility</td></tr><tr><td>September 2021</td><td>Payed consultancy</td></tr><tr><td>October 2021</td><td>Language/illnes groups, content ready.</td></tr></table></div>
+            </div>
             <nav class="navbar">
                 <a href="#" id="toggleButton" class="toggle-button">
                     <span class="bar"></span>
@@ -197,7 +220,7 @@ class Header extends LitElement {
     }
 
     firstUpdated() {
-        this.navbarLinks = this.shadowRoot.getElementById("navbarLinks");       
+        this.navbarLinks = this.shadowRoot.getElementById("navbarLinks");
         this.toggleButton = this.shadowRoot.getElementById("toggleButton");
         this.toggleButton.addEventListener("click", () => {
             this.navbarLinks.classList.toggle('active');
@@ -207,13 +230,13 @@ class Header extends LitElement {
     }
 
     activate(id) {
-        const clickedMenuItem= this.shadowRoot.getElementById(id); 
-        const menuItems = this.shadowRoot.querySelectorAll(".menu-item");       
-      
+        const clickedMenuItem = this.shadowRoot.getElementById(id);
+        const menuItems = this.shadowRoot.querySelectorAll(".menu-item");
+
         for (var i = 0; i < menuItems.length; i++) {
-            menuItems[i].classList.remove('active');    
+            menuItems[i].classList.remove('active');
         }
-        clickedMenuItem.classList.add('active');     
+        clickedMenuItem.classList.add('active');
 
         for (let tab of tabs) {
             const el = this.menuObjects.get(tab);
@@ -229,7 +252,7 @@ class Header extends LitElement {
                     el.style.display = "block";
                 }
         }
-    }    
+    }
 }
 
 customElements.define("my-header", Header);
