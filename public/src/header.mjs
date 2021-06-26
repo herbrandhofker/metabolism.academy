@@ -6,7 +6,7 @@ import './details.mjs'
 import './about.mjs'
 
 const mainDiv = document.getElementById("main");
-const tabs = ["home", "top-ten-medical-issues", "top-ten-food-issues", "details", "group-chat", "about"];
+const tabs = ["home", "top-ten-medical-issues", "top-ten-food-issues", "details", "about"];
 
 class Header extends LitElement {
     static get styles() {
@@ -211,7 +211,7 @@ class Header extends LitElement {
                 <div id="navbarLinks" class="navbar-links">
                     <ul>
                         ${tabs.map(lbl => html`<li><a href="#" id=${lbl} class="menu-item" @click=${e => this.activate(lbl)}>${lbl.replaceAll("-", " ")}</a></li>`)}        
-                     <li><a href="https://mitochondria.academy/groupchat" class="menu-item">login</a></li>
+                     <li><a href="" class="menu-item" id="login">login</a></li>
                         </ul>
 
                 </div>
@@ -220,6 +220,11 @@ class Header extends LitElement {
     }
 
     firstUpdated() {
+        const login = this.shadowRoot.getElementById("login");
+        login.addEventListener("click", () => {
+            alert("not yet implemented")
+        })
+
         this.navbarLinks = this.shadowRoot.getElementById("navbarLinks");
         this.toggleButton = this.shadowRoot.getElementById("toggleButton");
         this.toggleButton.addEventListener("click", () => {
