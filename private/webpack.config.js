@@ -13,7 +13,7 @@ module.exports = {
   entry: './src/index.mjs',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, '../client/dist/private'),
+    path: path.resolve(__dirname, '/home/kafka/www/private'),
   },
   plugins: [
     new HtmlWebpackPlugin({ template: './src/index.html' }),

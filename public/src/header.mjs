@@ -211,20 +211,15 @@ class Header extends LitElement {
                 <div id="navbarLinks" class="navbar-links">
                     <ul>
                         ${tabs.map(lbl => html`<li><a href="#" id=${lbl} class="menu-item" @click=${e => this.activate(lbl)}>${lbl.replaceAll("-", " ")}</a></li>`)}        
-                     <li><a href="" class="menu-item" id="login">login</a></li>
-                        </ul>
-
+                        <li><a href="https://private.mitochondria.academy" class="menu-item">login</a></li>
+                    </ul>
+                  
                 </div>
             </nav>
         `;
     }
 
-    firstUpdated() {
-        const login = this.shadowRoot.getElementById("login");
-        login.addEventListener("click", () => {
-            alert("not yet implemented")
-        })
-
+    firstUpdated() {   
         this.navbarLinks = this.shadowRoot.getElementById("navbarLinks");
         this.toggleButton = this.shadowRoot.getElementById("toggleButton");
         this.toggleButton.addEventListener("click", () => {
