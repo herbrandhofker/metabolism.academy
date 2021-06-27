@@ -1,4 +1,5 @@
 const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
@@ -8,16 +9,14 @@ module.exports = {
     port: 3020
   },
   devtool: 'inline-source-map',
-  
-  devtool: 'inline-source-map',
   entry: './src/index.mjs',
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, '/home/kafka/www/private'),
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: './src/index.html' }),
- 
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({ template: './src/index.html' }), 
     new FaviconsWebpackPlugin('./favicon.ico') 
   ], 
   
