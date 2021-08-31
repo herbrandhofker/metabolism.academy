@@ -1,0 +1,20 @@
+{
+    "h1": "Sleep and insulin levels",
+    "ol": [
+        {
+            "li": "chronical sleep disturbance leads to metabolic syndrome, insulin resistance",
+            "video": {
+                "id":0,"start": "54:27",
+                "end": "56:20"
+            }
+        },
+        {
+            "li": "tongue gets fat->sleep bad (vicious circle), sleep apnea",
+            "p": "reducing obesity helps here",
+            "video": {
+                "id":0,"start": "56:20",
+                "end": "57:20"
+            }
+        }
+    ]
+}

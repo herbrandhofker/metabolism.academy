@@ -1,0 +1,20 @@
+{
+    "food": "Diabetes 2",
+    "h1": "Diabetes",
+    "ul": [
+        {
+            "li": "glucose levels and insulin levels early indicator (..>10 years), pancreas failing, diabetes type 2 diagnose.",
+            "video": {
+                "id":0,"start": "33:35",
+                "end": "35:30"
+            }
+        },
+        {
+            "li": "reversal T2D, literally overnight",
+            "video": {
+                "id":0,"start": "35:30",
+                "end": "37:30"
+            }
+        }
+    ]
+}

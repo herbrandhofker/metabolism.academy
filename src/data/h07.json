@@ -1,0 +1,25 @@
+{
+    "food":"Omega 3/ Omega 6",
+    "h1": "Omega 3 and Omega 6 not harmful !!!",
+    "video": {
+        "id":0,"start": "21:21",
+        "end": "22:26"
+    },
+    "ol": [
+        {
+            "li": "WHEN(!) metabolism is healthy, omega 6 is not harmful"
+        },
+        {
+            "li": "Mechanics  of Omega 6 becoming harmful",
+            "p": "only when there is an inflammantory stimulus"
+        },
+        {
+            "li": "Conclusion: Get fat from fresh food ",
+            "p": "for getting omega 3 and 6 in healthy way",
+            "video": {
+                "id":0,"start": "22:26",
+                "end": "22:58"
+            }
+        }
+    ]
+}

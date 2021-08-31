@@ -1,0 +1,71 @@
+@font-face {
+	font-family: 'Gotham Rounded';
+	src: url('fonts/GothamRounded-Bold.woff2') format('woff2'),
+		url('fonts/GothamRounded-Bold.woff') format('woff');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Gotham Rounded';
+	src: url('fonts/GothamRounded-Light.woff2') format('woff2'),
+		url('fonts/GothamRounded-Light.woff') format('woff');
+	font-weight: 300;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Gotham Rounded';
+	src: url('fonts/GothamRounded-Book.woff2') format('woff2'),
+		url('fonts/GothamRounded-Book.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+* {
+  box-sizing : border-box;
+  --font-family : Gotham Rounded, sans-serif;      
+  --secundairy-color: #282A35 ;
+  --primary-color: #04AA6D;
+  font-family: var(--font-family);
+}
+
+body{
+	margin : 0 auto;
+	padding-bottom : 50px;
+  	background-color: white;
+}
+
+header{
+  	background-color: white;
+}
+
+main{
+	max-width : 1000px;
+	width : 100%;
+	margin: 1rem auto;	
+	padding: 0px;
+	border: 1px solid #73AD21;
+}
+
+my-youtube-dialog{
+	display: none;
+	position : fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0px;	
+	padding: 0px;	
+	overflow : auto;
+	background-color: rgba(0,0,0,0.5);
+	animation-name: open-dialog;
+	animation-duration: 1s;
+  }
+  
+  @keyframes open-dialog {
+	  from {opacity:0}
+	  to {opacity:1}
+  }
+  

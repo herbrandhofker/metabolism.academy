@@ -1,0 +1,24 @@
+# we follow https://labs.consol.de/development/git/2017/02/22/gitignore.html
+*.classpath
+*.editorconfig
+*.project
+.vscode/
+*.travis.yml
+*.log
+*.factorypath
+*.vscode
+*.project
+*.lock
+*.checkpoint
+*nbactions.xml
+.settings/
+*.gitattributes
+target/
+nbproject/
+node_modules/
+logs/
+videos/
+*.mp4
+dist/
+bu/
+v2/server/producer/.class_path.xml
