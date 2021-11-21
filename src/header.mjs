@@ -6,7 +6,7 @@ import './details.mjs'
 import './about.mjs'
 
 const mainDiv = document.getElementById("main");
-const tabs = ["home", "top-ten-medical-issues", "top-ten-food-issues", "details", "group-chat", "about"];
+const tabs = ["home", "top-ten-medical-issues", "top-ten-food-issues", "details", "about"];
 
 class Header extends LitElement {
     static get styles() {
@@ -200,7 +200,7 @@ class Header extends LitElement {
             <tr><td>Structure can be re-used for any business branch</td</tr>
             <tr><td>Minimum lines of code, maximum maintainability</td</tr>
             </table></div>
-            <div><table><tr><th align=left colspan=2>Planning</th></tr><tr><td>August 2021</td><td>Consultancy possibility</td></tr><tr><td>September 2021</td><td>Payed consultancy</td></tr><tr><td>October 2021</td><td>Language/illnes groups, content ready.</td></tr></table></div>
+            <div><table><tr><th align=left colspan=2>Planning</th></tr><tr><td>November 2021</td><td>Consultancy possibility</td></tr><tr><td>December 2021</td><td>Payed consultancy</td></tr></table></div>
             </div>
             <nav class="navbar">
                 <a href="#" id="toggleButton" class="toggle-button">
@@ -211,7 +211,7 @@ class Header extends LitElement {
                 <div id="navbarLinks" class="navbar-links">
                     <ul>
                         ${tabs.map(lbl => html`<li><a href="#" id=${lbl} class="menu-item" @click=${e => this.activate(lbl)}>${lbl.replaceAll("-", " ")}</a></li>`)}        
-                     <li><a href="https://meet.metabolism.academy/groupchat" class="menu-item">login</a></li>
+                     <li><a href="https://meet.metabolism.academy/groupchat" class="menu-item">groupchat</a></li>
                         </ul>
 
                 </div>
