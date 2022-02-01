@@ -1,0 +1,49 @@
+{
+    "illness": "Dementia",
+    "h1": "Dementia and metabolism",
+    "ol": [
+        {
+            "li": "Dementia can be considered a metabolic disease of the brain",
+            "video": {
+                "id": 0,
+                "start": "38:50",
+                "end": "41:20"
+            }
+        },
+        {
+            "li": "The correlation between obesity and dementia (alzheimer), 2% volume but 20% use of energy",
+            "P": "obesity shrinks your brain",
+            "video": {
+                "id": 0,
+                "start": "40:00",
+                "end": "41:20"
+            }
+        },
+        {
+            "li": "The brain, glucose and ketones, ketones improves metabolism in brain",
+            "P": "obesity shrinks your brain",
+            "video": {
+                "id": 0,
+                "start": "40:00",
+                "end": "43:00"
+            }
+        },
+        {
+            "li": "Toxic amyloid plaques creation, stimulated by oxidized stress",
+            "video": {
+                "id": 0,
+                "start": "43:00",
+                "end": "45:04"
+            }
+        },
+        {
+            "li": "Removal of plaque: cholesterol is the meschanism. HDL cholesterol, APOE 3, APOE 4",
+            "p": "lowering amount of sugar and seed oil can also help here, also even when genetics play a role",
+            "video": {
+                "id": 0,
+                "start": "45:04",
+                "end": "49:00"
+            }
+        }
+    ]
+}

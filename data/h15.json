@@ -1,0 +1,17 @@
+
+    {   "id":"Salt",
+        "h1": "Salt is no problem!!!",
+        "ol": [
+            {
+                "li": "It is insulin resistance that causes high blood pressure",
+                "p":"in reverse of the popular thought: be carefull to take enough salt!",
+                "video":  { "id":0,"start":"55:48" , "end":"61:50"}
+            },
+            {
+                "li": "With healthy metabolism salt regulation is ok"
+            },
+            {
+                "li": "We need salt, and access of salt is regulated by our body"
+            }
+        ]
+    }

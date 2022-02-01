@@ -1,0 +1,146 @@
+[
+   {
+      "problem": "Obesitas",
+      "description":"You become what you eat? Science : NO, you become how your body reacts on what you eat.",
+      "advices": [
+         {
+            "advice0": "Eat less fat to avoid becoming fat.",
+            "reason0": "What you eat you become",
+            "advice": "Eet more fat to become less fat.",
+            "reason": "Your metabolism runs on fat, the burning fat process is working",
+            "video": {
+               "id":0,"start": "0:00",
+               "end": "1:11.05"
+           }
+         }
+      ]
+   },
+   {
+      "problem": "Diabetes 2",
+      "description":"Lowering sugar is the general practice. Science : The real cause is insulin resistance. Reverse insulin resistance!",
+      "advices": [
+         {
+            "advice0": "By medicin you can keep your glucose under control",
+            "reason0": "you should try to get glucose under 6 mmol/l",
+            "advice": "By avoiding carbohydrate and seed oils, and taking in fat and protein , your glucose and insulinn levels are normal within few days/weeks",
+            "reason": "your insuline resistance is the underlying problem and should be broken down.",
+            "video": {
+               "id":0,"start": "0:00",
+               "end": "1:11.05"
+           } }
+      ]
+   },
+   {
+      "problem": "Cancer",
+      "description":"The cause of cancer is seen as cell mutations. Science: NO: the real cause is dysfunctional mytochondria",
+      "advices": [
+         {
+            "advice0": "chemo therapy etc. to kill cancer cells",
+            "reason0": "it is a fight with the mutation of cells to cancer",
+            "advice": "Restrict glucose, and cancer cells will die and not multiply",
+            "reason": "not the mutations of cells is the problem, it is the dysfunctional mytochondria that causes cancer"
+           , "video": {
+               "id":4,"start": "0:00",
+               "end": "44:20"
+           }}
+      ]
+   },
+   {
+      "problem": "Arthritis",
+      "description":"see Video (comes later)",
+      "advices": [
+         {
+            "advice0": "Surgery...nyi",
+            "reason0": "nyi",
+            "advice": "low carb diet to avoid surgery",
+            "reason": "nyi" ,
+              "video": {
+               "id":5,"start": "0:00",
+               "end": "16:56"
+           }        
+         }
+      ]
+   },
+   {
+      "problem": "Heart and blood vessel disorders",
+      "description":"(Bad) cholesterol and saturated fat is seen as the cause. Science : NO, see this video what is the real cause.",
+      "advices": [
+         {
+            "advice0": "Limit saturated fat, and take statin's.",
+            "reason0": "Saturated fat is bad for your blood vessels",
+            "advice": "Take only saturated fat.",
+            "reason": "Oxydation of unsaturated fat damages your organs.",
+            "video": {
+               "id":6,"start": "0:00",
+               "end": "28:34"
+           }
+         },
+         {
+            "advice0": "Limit intake of eggs. ",
+            "reason0": " The cholesterol is bad for your blood vessels.",
+            "advice": "Take enough eggs.",
+            "reason": "  They contain lot of essential ingedients. The socalled 'bad' cholesterol has good influence.."
+         }
+      ]
+   },
+   {
+      "problem": "High blood pressure",
+      "description":"See video (comes later)",
+      "advices": [
+         {
+            "advice0": "Limit salt intake ",
+            "reason0": "Salt leads to hign blood pressure",
+            "advice": "Take more than 10 gram salt. ",
+            "reason": " The insulin regulates the blood pressure. Excess of salt is easily disposed of."
+         }
+      ]
+   },
+   {
+      "problem": "Dementia",
+      "description":"Plaque in the brain is seen as the cause.Np real solution. Science : There is a real soloution is taking care of the mytochondria (in the brain).",
+      "advices": [
+         {
+            "advice0": "Mental illnesses (MS, Parkinson's, Alzheimer) are not curable.",
+            "reason0": "The plaque in the brain degrades it's function.",
+            "advice": "Mental illnesses can be avoided/reversed.",
+            "reason": "The mitochondia in the brain should be cared for to keep your brain functioning.The mitochondia is the metabolic engine in all cells, taking care of this engine (fat intake etc.) keeps your brain healthy"
+           , "video": {
+               "id":2,"start": "0:10",
+               "end": "40:00"
+           }       }
+      ]
+   },
+   {
+      "problem": "Thyroid disorders",
+      "description":"See video.(comes later)",
+      "advices": [
+         {
+            "advice0": "with pills you can help your body to keep functioning",
+            "reason0": "nyi",
+            "advice": "by taking care of your metabolic engine , your Thyriod repairs itself.",
+            "reason": "nyi"
+         }
+      ]
+   },
+   {
+      "problem": "Bone mass reduction",
+      "description":"See video (comes later)",
+      "advices": [
+         {
+            "advice0": "with aging your bone gradually diminishes",
+            "advice": "Bone mass can stay intact: by metabolism, protein and minrals, your bone mass can increase"
+         }
+      ]
+   },
+  
+   {
+      "problem": "Heart related problems:",
+      "description":"See video (comes later)",
+      "advices": [
+         {
+            "advice0": "some statins may prolong you life",
+            "advice": "by fighting insulin resistance, you can extend your life (see facts)"
+         }
+      ]
+   }
+]

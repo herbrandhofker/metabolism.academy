@@ -1,0 +1,32 @@
+{
+    "h1": "Insulin resistance leads to high insulin",
+    "ol": [
+        {
+            "li": "The fight of insulin trying to get glucose level down",
+            "video": {
+                "id":0,"start": "12:53",
+                "end": "13:40"
+            }
+        },
+        {
+            "li": "Fight Leads to obesity …some experiments"
+        },
+        {
+            "li": "Higher sugar levels:  Diabetes leads to many illnesses",
+            "video": {
+                "id":0,"start": "13:40",
+                "end": "15:10"
+            }
+        },
+        {
+            "li": "Diabetes leads to many illnesses"
+        },
+        {
+            "li": "seedoils and/or glucose?",
+            "video": {
+                "id":0,"start": "15:10",
+                "end": "15:30"
+            }
+        }
+    ]
+}

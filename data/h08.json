@@ -1,0 +1,38 @@
+{
+    "food": "Carbohydrates",
+    "h1": "Carbohydrates : Glucose & fructose",
+    "video": {
+        "id":0,"start": "24:46",
+        "end": "26:00"
+    },
+    "ol": [
+        {
+            "li": "The glucose problem, obesity , diabetes and fat",
+            "video": {
+                "id":0,"start": "24:46",
+                "end": "26:00"
+            }
+        },
+        {
+            "li": "Insulin blocking fat burning",
+            "video": {
+                "id":0,"start": "24:46",
+                "end": "28:49"
+            }
+        },
+        {
+            "li": "The fructose problem, worse than glucose, glucose is little protecting vs fructose",
+            "video": {
+                "id":0,"start": "28:40",
+                "end": "33:00"
+            }
+        },
+        {
+            "li": "glucose can be transformed to fructose, especially when high glucose levels",
+            "video": {
+                "id":0,"start": "33:00",
+                "end": "33:36"
+            }
+        }
+    ]
+}

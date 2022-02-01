@@ -1,0 +1,85 @@
+{
+    "food":"Fat saturated",
+    "h1": "Seed oils and their harm to the body",
+    "video": {
+        "id":0,"start": "15:12",
+        "end": "15:40"
+    },
+    "ol": [
+        {
+            "li": "Saturated fat vs unsaturated fat ( seed oil)",
+            "video": {
+                "id":0,"start": "15:12",
+                "end": "16:05"
+            },
+            "video2": {
+                "id":0,"start": "22:58",
+                "end": "24:46"
+            }
+        },
+        {
+            "li": "Some researches on seed oil",
+            "video": {
+                "id":0,"start": "16:05",
+                "end": "17:10"
+            },
+            "ol": [
+                {
+                    "li": "India epidimolog study"
+                },
+                {
+                    "li": "Sidney diet heart study",
+                    "video": {
+                        "id":0,"start": "17:10",
+                        "end": "17:35"
+                    }
+                },
+                {
+                    "li": "sydney"
+                },
+                {
+                    "li": "Usa women"
+                },
+                {
+                    "li": "Journal of American college of cardiology 17 June 2020"
+                },                
+                {
+                    "li": "Some more on these studies, by Tim Noakes",
+                    "video":  { "id":1,"start":"1:05:33" , "end":"1:34:30"}
+                },
+                {
+                    "li": "Mechanics seed oil leads to oxidized products => DAMAGE NOT OMEGA 6",
+                    "video": {
+                        "id":0,"start": "17:35",
+                        "end": "19:10"
+                    }
+                },
+                {
+                    "li": "Absorption of oils by the body",
+                    "video": {
+                        "id":0,"start": "19:25",
+                        "end": "20:22"
+                    }
+                },
+                {
+                    "li": "Storage of seed oils and oxydation",
+                    "video": {
+                        "id":0,"start": "19:10",
+                        "end": "19:25"
+                    },
+                    "video2": {
+                        "id":0,"start": "20:22",
+                        "end": "21:21"
+                    }
+                },
+                {
+                    "li": "Example : visoil and storage problem",
+                    "video": {
+                        "id":0,"start": "20:22",
+                        "end": "21:21"
+                    }
+                }
+            ]
+        }
+    ]
+}
