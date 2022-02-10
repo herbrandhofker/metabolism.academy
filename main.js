@@ -4770,6 +4770,9 @@ class Header extends lit_element__WEBPACK_IMPORTED_MODULE_0__.LitElement {
     }
 
     render() {
+      //  const url="https://herbrandhofker.github.io/metabolism.academy/groupchat";
+        const url="https://meet.metabolism.academy/groupchat"
+                   
         return lit_element__WEBPACK_IMPORTED_MODULE_0__.html`
             <h1 class="title">Metabolism<span>Academy</span></h1>
             <h3 class="subtitle">Nutrition advice based on science</h3>
@@ -4793,7 +4796,7 @@ class Header extends lit_element__WEBPACK_IMPORTED_MODULE_0__.LitElement {
                 <div id="navbarLinks" class="navbar-links">
                     <ul>
                         ${tabs.map(lbl => lit_element__WEBPACK_IMPORTED_MODULE_0__.html`<li><a href="#" id=${lbl} class="menu-item" @click=${e => this.activate(lbl)}>${lbl.replaceAll("-", " ")}</a></li>`)}        
-                     <li><a href="https://meet.metabolism.academy/groupchat" class="menu-item">groupchat</a></li>
+                     <li><a href=${url} class="menu-item">groupchat</a></li>
                         </ul>
 
                 </div>
