@@ -184,6 +184,10 @@ export class YoutubeDialog extends LitElement {
         const btnBox = document.createElement("div");
         btnBox.classList.add("button-box");
         const source = video.appendChild(document.createElement("source"));
+        
+      //  https://drive.google.com/drive/folders/1DMpyg5yTTm-bPTPDs2otJh5a0QlYZ-l4?usp=sharing
+
+      source.src= 'https://drive.google.com/file/d/1aVKtbx5J82OU-jzc_87lRaKY-bqzbaWk/view?usp=sharing'      
         source.src = "../videos/" + getMp4(videoId) + ".mp4";
         source.type = "video/mp4";
       
