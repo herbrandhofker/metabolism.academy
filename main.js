@@ -4771,8 +4771,8 @@ class Header extends lit_element__WEBPACK_IMPORTED_MODULE_0__.LitElement {
 
     render() {
       //  const url="https://herbrandhofker.github.io/metabolism.academy/groupchat";
-        const url="https://meet.metabolism.academy/groupchat"
-                   
+       // const url="https://meet.metabolism.academy/groupchat"
+        const url="https://herbrandhofker.github.io/jitsi/"       
         return lit_element__WEBPACK_IMPORTED_MODULE_0__.html`
             <h1 class="title">Metabolism<span>Academy</span></h1>
             <h3 class="subtitle">Nutrition advice based on science</h3>
